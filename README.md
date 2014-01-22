@@ -1,3 +1,9 @@
+## Phaser Project-One
+
+Following this tutorial: http://phaser.io/getting-started-js.php
+
+So far, we've only got the scaffolding installed. It has setup the HTML and a emtpy-ish demo game.
+
 
 ### Setting up a new Phaser template on OSX
 
@@ -17,3 +23,7 @@ grunt
 
 # Check out the smiley face demo "game"
 http://localhost:9000
+
+### Next steps?
+
+This tutorial looks promising. I'm sure there are others. This fascination with "TypeScript" seems dodgy.
