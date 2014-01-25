@@ -42,7 +42,7 @@ function listener(conn) {
 
     console.log(results);
     for (var i=0; i<results.length; i++) {
-      broadcast_all(results[i]);
+      broadcast(results[i]);
     }
   }
 
