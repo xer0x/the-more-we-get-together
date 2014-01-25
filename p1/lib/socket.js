@@ -28,7 +28,7 @@ function listener(conn) {
   conn.write(['GRID', grid.width, grid.height, grid.state].join(' '));
 
   world.addPlayer(conn.id, function(newPlayer) {
-    conn.write('PLAYER A 1,1');
+    conn.write('PLAYER player1 1,1');
   });
 
   var readMessage = function(message) {
@@ -41,7 +41,7 @@ function listener(conn) {
   var closeConnection = function() {
     delete connections[conn.id];
     var player = world.getPlayer(conn.id);
-    broadcast('DROP player');
+    broadcast('DROP player1 X,Y');
     world.removePlayer(conn.id);
     console.log('    [-] closed %s', conn.id);
   }
