@@ -86,6 +86,7 @@ function change(playerId, command) {
       var dest = util.format('%d,%d', positions.dest.x, positions.dest.y);
       var old = util.format('%d,%d', positions.old.x, positions.old.y);
       results.push(util.format('MOVE %s %s %s', old, dest, playerId));
+      showGrid();
       break;
     default:
   }
@@ -100,7 +101,14 @@ function fetchState() {
 }
 
 function showGrid() {
-
+  var output = '';
+  for (var y = 0; y < height; y++) {
+    for (var x = 0; x < width; x++) {
+      output += ' ' + (grid[x][y] ? 'O' : '_');
+    }
+    output += '\n';
+  }
+  console.log(output);
 }
 
 var deltas = {
@@ -127,7 +135,7 @@ function move(playerId, direction) {
     p.y = dest.y;
     grid[old.x][old.y] = 0; //null;
     grid[dest.x][dest.y] = playerId;
-    console.log('TODO: FLAG DIRTY MAP x,y?')
+    //console.log('TODO: FLAG DIRTY MAP x,y?')
   } else {
     dest = old;
   }
