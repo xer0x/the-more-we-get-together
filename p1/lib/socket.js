@@ -41,7 +41,7 @@ function listener(conn) {
   var closeConnection = function() {
     delete connections[conn.id];
     var player = world.getPlayer(conn.id);
-    broadcast('DROP player1 X,Y');
+    broadcast(util.format('DROP player1 %d,%d', player.x, player.y));
     world.removePlayer(conn.id);
     console.log('    [-] closed %s', conn.id);
   }
