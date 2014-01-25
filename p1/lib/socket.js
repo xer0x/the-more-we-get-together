@@ -28,20 +28,27 @@ function listener(conn) {
   conn.write(['GRID', grid.width, grid.height, grid.state].join(' '));
 
   world.addPlayer(conn.id, function(newPlayer) {
-    conn.write(util.format('PLAYER %d,%d', newPlayer.x, newPlayer.y));
+    conn.write(util.format('YOU %s', newPlayer.id));
+    var spawnMessage = util.format('PLAYER %d,%d %s', newPlayer.x, newPlayer.y, newPlayer.id);
+    conn.write(spawnMessage);
+    broadcast(spawnMessage);
   });
 
   var readMessage = function(message) {
     if (!message || message.length <= 0) return; // skip
     // TODO ANTI-CHEAT: ack & refuse messages
-    world.change(conn.id, message);
-    broadcast(message);
+    var results = world.change(conn.id, message);
+
+    console.log(results);
+    console.log('TODO broadcast results');
+    // for each results -> broadcast
+    //broadcast(message);
   }
 
   var closeConnection = function() {
     delete connections[conn.id];
     var player = world.getPlayer(conn.id);
-    broadcast(util.format('DROP player1 %d,%d', player.x, player.y));
+    broadcast(util.format('DROP %d,%d %s', player.x, player.y, player.id));
     world.removePlayer(conn.id);
     console.log('    [-] closed %s', conn.id);
   }
