@@ -1,10 +1,13 @@
 
 var http = require('http');
 var node_static = require('node-static');
-var socket = require('./socket');
+var socket = require('./lib/socket');
+var path = require('path');
+
+var src = '/src';
 
 // 2. Static files server
-var static_directory = new node_static.Server(__dirname);
+var static_directory = new node_static.Server(path.join(__dirname, src));
 
 // 3. Usual http stuff
 var server = http.createServer();

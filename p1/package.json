@@ -1,12 +1,18 @@
 {
-  "name": "project-one",
-  "description": "",
+  "name": "tmygt",
+  "description": "the more we get together..",
   "readme": "",
+  "license": "ISC",
   "repository": "",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "readme": "",
+  "main": "server.js",
   "repository": "",
-  "dependencies": {},
+  "dependencies": {
+    "rbytes": "~1.0.0",
+    "sockjs": "~0.3.8",
+    "node-static": "~0.7.3"
+  },
   "devDependencies": {
     "grunt": "*",
     "grunt-contrib-connect": "*",
@@ -19,5 +25,8 @@
     "grunt-contrib-watch": "*",
     "grunt-curl": "*",
     "grunt-processhtml": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no tests\" && exit 1"
   }
 }
