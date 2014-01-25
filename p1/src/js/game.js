@@ -7,7 +7,7 @@
   var cubeOffset = 11;
   var cursors;
   var player;
-  var otherPlayers;
+  var allPlayers;
   var moveSpeed = 16;
   
   var tmygt = window.tmygt || (window.tmygt = {});
@@ -40,16 +40,28 @@
 		}
 		
 	  }
-	  player = this.add.sprite(0, -cubeOffset, 'player');
-	  player.xPos = 0;
-	  player.yPos = 0;
-	  player.inWorld = true;
-	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
+	  
+	  player = this.createPlayer(0,0);
 	 
-		this.input.mouse.mouseUpCallback = this.onMouseUp;
+	  allPlayers = [];
+	  
+	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
+	  this.input.mouse.mouseUpCallback = this.onMouseUp;
+	  
     },
 
     update: function () {
+		if (player.targetX == null && player.targetY == null) {
+			if (cursors.right.isDown) {
+				player.moveRight();
+			} else if (cursors.left.isDown) {
+				player.moveLeft();
+			} else if (cursors.down.isDown) {
+				player.moveDown();
+			} else if (cursors.up.isDown) {
+				player.moveUp();
+			}
+		}
 		if (player.targetY != null) {
 			if (player.targetY > player.y) {
 				player.y += moveSpeed;
@@ -81,33 +93,77 @@
 			}
 		}
     },
-
+	
     onMouseUp: function (event) {
 		var dx = this.input.activePointer.worldX - player.x;
 		var dy = this.input.activePointer.worldY - player.y;
 		var ang =  Math.atan2(dy,dx) * (180/Math.PI);
 		if (ang < 0) ang = 360 + ang;
-		if(player.xPos < gridWidth-1 && ang < 45 || ang >= 315) {
-			player.xPos++;
-			player.targetX = player.x + cubeWidth;
-		} else if (player.yPos < gridHeight-1 && ang >= 45 && ang < 135) {
-			player.yPos++;
-			player.targetY = player.y + cubeHeight;
-		} else if (player.xPos > 0 && ang >= 135 && ang < 225) {
-			player.xPos--;
-			player.targetX = player.x - cubeWidth;
-		} else if (player.yPos > 0 && ang >= 225 && ang < 315) {
-			player.yPos--;
-			player.targetY = player.y - cubeHeight;
+		
+		if(ang < 45 || ang >= 315) {
+			player.moveRight();
+		} else if ( ang >= 45 && ang < 135) {
+			player.moveDown();
+		} else if ( ang >= 135 && ang < 225) {
+			player.moveLeft();
+		} else if (ang >= 225 && ang < 315) {
+			player.moveUp();
 		}
     },
 	
-	addNPC: function() {
-		var npc = this.add.sprite(0, 0, 'player');
+	createPlayer: function(xPosition, yPosition) {
+		var newPlayer = this.add.sprite(xPosition * cubeWidth, yPosition*cubeHeight-cubeOffset, 'player');
+		newPlayer.xPos = xPosition;
+		newPlayer.yPos = yPosition;
+		newPlayer.targetX = null;
+		newPlayer.targetY = null;
+		newPlayer.inWorld = true;
+		
+		newPlayer.moveRight = function () {
+			if (player.xPos < gridWidth-1) {
+				this.xPos++;
+				this.targetX = this.x + cubeWidth;
+				return true;
+			}
+			
+			return false;
+		}
+		
+		newPlayer.moveLeft = function () {
+			if(player.xPos > 0) {
+				this.xPos--;
+				this.targetX = this.x - cubeWidth;
+				return true;
+			}
+			
+			return false;
+		}
+		
+		newPlayer.moveDown = function () {
+			if(player.yPos < gridHeight-1) {
+				player.yPos++;
+				player.targetY = player.y + cubeHeight;
+				return true;
+			}
+			
+			return false;
+		}
+		
+		newPlayer.moveUp = function () {
+			if (player.yPos > 0) {
+				player.yPos--;
+				player.targetY = player.y - cubeHeight;
+				return true;
+			}
+			return false;
+		}
+		
+		return newPlayer;
 	}
 
   };
-
+  
+  
 }(this));
 
 
