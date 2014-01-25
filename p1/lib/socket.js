@@ -28,7 +28,7 @@ function listener(conn) {
   conn.write(['GRID', grid.width, grid.height, grid.state].join(' '));
 
   world.addPlayer(conn.id, function(newPlayer) {
-    conn.write('PLAYER player1 1,1');
+    conn.write(util.format('PLAYER player1 %d,%d', newPlayer.x, newPlayer.y));
   });
 
   var readMessage = function(message) {

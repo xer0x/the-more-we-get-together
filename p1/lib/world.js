@@ -12,21 +12,31 @@ function getGrid() {
 }
 
 // find a new spot with nobody on it
-function getRandomPosition() {
+function getNewPosition() {
   var x, y;
-  var notPlaced = true;
-  while (notPlaced) {
+  var placed = false;
+  while (!placed) {
     x = Math.floor(Math.random() * width);
     y = Math.floor(Math.random() * height);
-    notPlaced = 
+    placed = checkPosition(x, y);
   }
-  return [];
+  function checkPosition(_x, _y) {
+    for (var p in players) {
+      if (p.x === _x || p.y === _y) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return {x: x, y: y};
 }
 
 function addPlayer(playerId, callback) {
+  var position = getNewPosition();
   var player = {
     id: playerId,
-    // TODO: check if another player is on this space
+    x: position.x,
+    y: position.y,
     shape: 'L'
   };
   players[playerId] = player;
