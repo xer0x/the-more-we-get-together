@@ -75,10 +75,11 @@ function change(playerId, command) {
       var positions = move(playerId, c[1]);
       var dest = util.format('%d,%d', positions.dest.x, positions.dest.y);
       var old = util.format('%d,%d', positions.old.x, positions.old.y);
-      results.push(util.format(MOVE %s %s, old, dest));
+      results.push(util.format('MOVE %s %s', old, dest));
       break;
     default:
   }
+  return results;
 }
 
 // return representation of grid

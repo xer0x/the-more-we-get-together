@@ -30,8 +30,9 @@ function listener(conn) {
   world.addPlayer(conn.id, function(newPlayer) {
     conn.write(util.format('YOU %s', newPlayer.id));
     var spawnMessage = util.format('PLAYER %d,%d %s', newPlayer.x, newPlayer.y, newPlayer.id);
-    conn.write(spawnMessage);
-    broadcast(spawnMessage);
+    //conn.write(spawnMessage);
+    //broadcast(spawnMessage);
+    broadcast_all(spawnMessage);
   });
 
   var readMessage = function(message) {
@@ -40,9 +41,9 @@ function listener(conn) {
     var results = world.change(conn.id, message);
 
     console.log(results);
-    console.log('TODO broadcast results');
-    // for each results -> broadcast
-    //broadcast(message);
+    for (var i=0; i<results.length; i++) {
+      broadcast_all(results[i]);
+    }
   }
 
   var closeConnection = function() {
@@ -58,6 +59,11 @@ function listener(conn) {
       if (id !== conn.id) {
         connections[id].write(message);
       }
+    }
+  }
+  function broadcast_all(message) {
+    for (var id in connections) {
+      connections[id].write(message);
     }
   }
 
