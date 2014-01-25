@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-
+  
   var tmygt = window.tmygt || (window.tmygt = {});
 
   tmygt.Boot = function () {};
@@ -12,7 +12,9 @@
     },
 
     create: function () {
-      this.game.input.maxPointers = 1;
+	  
+      
+	  this.game.input.maxPointers = 1;
       // this.game.stage.disableVisibilityChange = true;
 
       if (this.game.device.desktop) {

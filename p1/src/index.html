@@ -6,12 +6,27 @@
 
   <!-- build:css main.min.css -->
   <link rel="stylesheet" href="css/main.css"> 
+  <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
   <!-- /build -->
+  
+  <script>
+  
+	var sockjs_url = '/echo';
+    var sockjs = new SockJS(sockjs_url);
+    var messages = [];
+    
+	sockjs.onopen    = function()  {};
+    sockjs.onmessage = function(e) {
+		messages.push(e.data);
+	};
+    sockjs.onclose   = function()  {};
+	
+  </script>
 </head>
 
 <body>
   
-  <div id="tmygt" class="tmygt"></div>
+  <div id="gamediv" class="gamediv"></div>
 
   <!-- build:remove 
   <script src="http://localhost:35729/livereload.js"></script>  

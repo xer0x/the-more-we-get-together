@@ -13,12 +13,14 @@
   var tmygt = window.tmygt || (window.tmygt = {});
   
   tmygt.Game = function () {
-	
+  
   };
 
   tmygt.Game.prototype = {
     
     create: function () {
+	  //sockjs.onmessage = this.processMessage;
+	  window.messages = []; // clear out socks message queue
 	  cursors = this.input.keyboard.createCursorKeys();
 	  var worldWidth = gridWidth * cubeWidth;
 	  var worldHeight = gridHeight * cubeHeight;
@@ -42,7 +44,6 @@
 	  }
 	  
 	  player = this.createPlayer(0,0);
-	 
 	  allPlayers = [];
 	  
 	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
@@ -51,6 +52,12 @@
     },
 
     update: function () {
+	
+		if (window.messages.length > 0) {
+			//console.log(window.messages.pop());
+			this.processMessage(window.messages.pop());
+		}
+		
 		if (player.targetX == null && player.targetY == null) {
 			if (cursors.right.isDown) {
 				player.moveRight();
@@ -92,6 +99,8 @@
 				}
 			}
 		}
+		
+		
     },
 	
     onMouseUp: function (event) {
@@ -111,18 +120,35 @@
 		}
     },
 	
+	processMessage: function (message) {
+		//console.log(e.data);
+		
+		var command = message.split(" ");
+		
+		switch (command[0]) {
+			case "PLAYER":
+			var coords = command[1].split(",");
+			this.createPlayer(coords[0], coords[1]);
+			break;
+		}
+	
+	},
+	
 	createPlayer: function(xPosition, yPosition) {
-		var newPlayer = this.add.sprite(xPosition * cubeWidth, yPosition*cubeHeight-cubeOffset, 'player');
+		var newPlayer = this.add.sprite(0, 0, 'player');
 		newPlayer.xPos = xPosition;
 		newPlayer.yPos = yPosition;
+		newPlayer.x = xPosition * cubeWidth;
+		newPlayer.y = yPosition * cubeHeight-cubeOffset;
 		newPlayer.targetX = null;
 		newPlayer.targetY = null;
 		newPlayer.inWorld = true;
-		
+		console.log(newPlayer);
 		newPlayer.moveRight = function () {
 			if (player.xPos < gridWidth-1) {
 				this.xPos++;
 				this.targetX = this.x + cubeWidth;
+				//sockjs.send("moving right");
 				return true;
 			}
 			
@@ -133,6 +159,7 @@
 			if(player.xPos > 0) {
 				this.xPos--;
 				this.targetX = this.x - cubeWidth;
+				//sockjs.send("moving left");
 				return true;
 			}
 			
@@ -143,6 +170,7 @@
 			if(player.yPos < gridHeight-1) {
 				player.yPos++;
 				player.targetY = player.y + cubeHeight;
+				//sockjs.send("moving down");
 				return true;
 			}
 			
@@ -153,6 +181,7 @@
 			if (player.yPos > 0) {
 				player.yPos--;
 				player.targetY = player.y - cubeHeight;
+				//sockjs.send("moving up");
 				return true;
 			}
 			return false;

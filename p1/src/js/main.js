@@ -1,11 +1,14 @@
+var phaserGame;
+
 window.onload = function () {
   'use strict';
+  
+  phaserGame = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'gamediv');
+  phaserGame.state.add('boot', tmygt.Boot);
+  phaserGame.state.add('preloader', tmygt.Preloader);
+  phaserGame.state.add('menu', tmygt.Menu);
+  phaserGame.state.add('game', tmygt.Game);
 
-  var game = new Phaser.Game(960, 640, Phaser.AUTO, 'tmygt');
-  game.state.add('boot', tmygt.Boot);
-  game.state.add('preloader', tmygt.Preloader);
-  game.state.add('menu', tmygt.Menu);
-  game.state.add('game', tmygt.Game);
-
-  game.state.start('boot');
+  phaserGame.state.start('boot');
 };
+	
