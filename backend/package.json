@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "backend of the beginning",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rbytes": "~1.0.0",
+    "node-static": "~0.7.3",
+    "sockjs": "~0.3.8"
+  }
+}
