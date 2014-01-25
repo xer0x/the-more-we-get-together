@@ -31,17 +31,20 @@ function getNewPosition() {
   while (!placed) {
     x = Math.floor(Math.random() * width);
     y = Math.floor(Math.random() * height);
-    placed = checkPosition(x, y);
-  }
-  function checkPosition(_x, _y) {
-    for (var p in players) {
-      if (p.x === _x || p.y === _y) {
-        return false;
-      }
-    }
-    return true;
+    placed = isEmptyPosition(x, y);
   }
   return {x: x, y: y};
+}
+
+function isEmptyPosition(_x, _y) {
+  if (_x < 0 || _x >= width) return false;
+  if (_y < 0 || _y >= height) return false;
+  for (var p in players) {
+    if (p.x === _x || p.y === _y) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function addPlayer(playerId, callback) {
@@ -107,6 +110,14 @@ function move(playerId, direction) {
   }
 */
   var dest = { x: p.x + delta[0], y: p.y + delta[1] };
+  if (isEmptyPosition(dest.x, dest.y)) {
+    // do movement
+    p.x = dest.x;
+    p.y = dest.y;
+    console.log('TODO: FLAG DIRTY MAP x,y?')
+  } else {
+    dest = old;
+  }
   return {old: old, dest: dest};
 }
 
