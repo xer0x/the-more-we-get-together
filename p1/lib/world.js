@@ -11,12 +11,22 @@ function getGrid() {
   };
 }
 
+// find a new spot with nobody on it
+function getRandomPosition() {
+  var x, y;
+  var notPlaced = true;
+  while (notPlaced) {
+    x = Math.floor(Math.random() * width);
+    y = Math.floor(Math.random() * height);
+    notPlaced = 
+  }
+  return [];
+}
+
 function addPlayer(playerId, callback) {
   var player = {
     id: playerId,
     // TODO: check if another player is on this space
-    x: Math.floor(Math.random() * width),
-    y: Math.floor(Math.random() * height),
     shape: 'L'
   };
   players[playerId] = player;
