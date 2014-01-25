@@ -37,14 +37,18 @@ function getNewPosition() {
 }
 
 function isEmptyPosition(_x, _y) {
+  console.log('checking %d,%d', _x, _y);
   if (_x < 0 || _x >= width) return false;
   if (_y < 0 || _y >= height) return false;
+  return !grid[_x][_y];
+  /*
   for (var p in players) {
     if (p.x === _x || p.y === _y) {
       return false;
     }
   }
   return true;
+  */
 }
 
 function addPlayer(playerId, callback) {
@@ -55,6 +59,7 @@ function addPlayer(playerId, callback) {
     y: position.y,
     shape: 'L'
   };
+  grid[player.x][player.y] = playerId;
   players[playerId] = player;
   if (callback) callback(player);
 }
@@ -64,6 +69,8 @@ function getPlayer(playerId) {
 }
 
 function removePlayer(playerId) {
+  var p = players[playerId];
+  grid[p.x][p.y] = null;
   delete players[playerId];
 }
 
@@ -78,7 +85,7 @@ function change(playerId, command) {
       var positions = move(playerId, c[1]);
       var dest = util.format('%d,%d', positions.dest.x, positions.dest.y);
       var old = util.format('%d,%d', positions.old.x, positions.old.y);
-      results.push(util.format('MOVE %s %s', old, dest));
+      results.push(util.format('MOVE %s %s %s', old, dest, playerId));
       break;
     default:
   }
@@ -114,6 +121,8 @@ function move(playerId, direction) {
     // do movement
     p.x = dest.x;
     p.y = dest.y;
+    grid[old.x][old.y] = null;
+    grid[dest.x][dest.y] = playerId;
     console.log('TODO: FLAG DIRTY MAP x,y?')
   } else {
     dest = old;
