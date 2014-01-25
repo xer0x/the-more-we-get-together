@@ -19,7 +19,7 @@ function makeGrid() {
   for (var x = 0; x < width; x++) {
     grid[x] = [];
     for (var y = 0; y < height; y++) {
-      grid[x][y] = null;
+      grid[x][y] = 0; //null;
     }
   }
 }
@@ -70,7 +70,7 @@ function getPlayer(playerId) {
 
 function removePlayer(playerId) {
   var p = players[playerId];
-  grid[p.x][p.y] = null;
+  grid[p.x][p.y] = 0; //null;
   delete players[playerId];
 }
 
@@ -125,7 +125,7 @@ function move(playerId, direction) {
     // do movement
     p.x = dest.x;
     p.y = dest.y;
-    grid[old.x][old.y] = null;
+    grid[old.x][old.y] = 0; //null;
     grid[dest.x][dest.y] = playerId;
     console.log('TODO: FLAG DIRTY MAP x,y?')
   } else {
