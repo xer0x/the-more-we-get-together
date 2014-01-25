@@ -27,6 +27,10 @@ function getPlayer(playerId) {
   return players[playerId];
 }
 
+function removePlayer(playerId) {
+  delete players[playerId];
+}
+
 function change(playerId, command) {
   // do something
 }
@@ -42,5 +46,6 @@ module.exports = {
   getGrid: getGrid,
   addPlayer: addPlayer,
   getPlayer: getPlayer,
+  removePlayer: removePlayer,
   change: change
 };
