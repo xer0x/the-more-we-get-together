@@ -93,10 +93,14 @@ function change(playerId, command) {
 }
 
 // return representation of grid
-// HAPPY SAD
-// location of players
+// Grid to JSON text
 function fetchState() {
-  return '__D_,____,HH__,_X__'
+  return JSON.stringify(grid);
+  //return '__D_,____,HH__,_X__'
+}
+
+function showGrid() {
+
 }
 
 var deltas = {
