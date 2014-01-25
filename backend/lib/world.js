@@ -4,7 +4,8 @@ var height = 11;
 function getGrid() {
   return {
     width: width,
-    height: height
+    height: height,
+    state: fetchState()
   };
 }
 
@@ -21,6 +22,13 @@ function addPlayer(playerId, callback) {
 
 function change(playerId, command) {
   // do something
+}
+
+// return representation of grid
+// HAPPY SAD
+// location of players
+function fetchState() {
+  return '__D_,____,HH__,_X__'
 }
 
 module.exports = {

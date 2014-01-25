@@ -20,7 +20,7 @@ function socket(server) {
 
 function listener(conn) {
   var grid = world.getGrid();
-  conn.write(['GRID', grid.width, grid.height].join(' '));
+  conn.write(['GRID', grid.width, grid.height, grid.state].join(' '));
   world.addPlayer(conn.id, function(newPlayer) {
     conn.write('PLAYER A 1,1');
   });
