@@ -2,12 +2,13 @@
   'use strict';
   var gridWidth = 32;
   var gridHeight = 32;
-  var cubeWidth = 32;
-  var cubeHeight = 32;
+  var cubeWidth = 64;
+  var cubeHeight = 64;
+  var cubeOffset = 11;
   var cursors;
   var player;
   var otherPlayers;
-  var moveSpeed = 8;
+  var moveSpeed = 16;
   
   var tmygt = window.tmygt || (window.tmygt = {});
   
@@ -21,17 +22,13 @@
 	  cursors = this.input.keyboard.createCursorKeys();
 	  var worldWidth = gridWidth * cubeWidth;
 	  var worldHeight = gridHeight * cubeHeight;
-	  
+	  this.stage.backgroundColor = "#FFFFFF";
 	  this.game.world.setBounds(0, 0, worldWidth, worldHeight);
-      player = this.add.sprite(0, 0, 'player');
-	  player.xPos = 0;
-	  player.yPos = 0;
-	  
-	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
-	  this.camera.bounds = null;
+      
+	   this.camera.bounds = null;
 	  
       var g  = this.add.graphics(0, 0);
-	  g.lineStyle(1,0xFFFFFF,1);
+	  g.lineStyle(2,0xd0dee9,1);
 	  
 	  for (var i=0;i<=gridHeight;i++) {
 		g.moveTo(0,i*cubeHeight);
@@ -43,13 +40,16 @@
 		}
 		
 	  }
-	  
+	  player = this.add.sprite(0, -cubeOffset, 'player');
+	  player.xPos = 0;
+	  player.yPos = 0;
+	  player.inWorld = true;
+	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
+	 
 		this.input.mouse.mouseUpCallback = this.onMouseUp;
     },
 
     update: function () {
-		//this.camera.x = player.x - this.camera.width / 2;
-		//this.camera.y = player.y - this.camera.height /2 ;
 		if (player.targetY != null) {
 			if (player.targetY > player.y) {
 				player.y += moveSpeed;
@@ -87,13 +87,17 @@
 		var dy = this.input.activePointer.worldY - player.y;
 		var ang =  Math.atan2(dy,dx) * (180/Math.PI);
 		if (ang < 0) ang = 360 + ang;
-		if(ang < 45 || ang >= 315) {
+		if(player.xPos < gridWidth-1 && ang < 45 || ang >= 315) {
+			player.xPos++;
 			player.targetX = player.x + cubeWidth;
-		} else if (ang >= 45 && ang < 135) {
+		} else if (player.yPos < gridHeight-1 && ang >= 45 && ang < 135) {
+			player.yPos++;
 			player.targetY = player.y + cubeHeight;
-		} else if (ang >= 135 && ang < 225) {
+		} else if (player.xPos > 0 && ang >= 135 && ang < 225) {
+			player.xPos--;
 			player.targetX = player.x - cubeWidth;
-		} else if (ang >= 225 && ang < 315) {
+		} else if (player.yPos > 0 && ang >= 225 && ang < 315) {
+			player.yPos--;
 			player.targetY = player.y - cubeHeight;
 		}
     },

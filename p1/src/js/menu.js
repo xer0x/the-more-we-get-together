@@ -14,7 +14,7 @@
       var x = this.game.width / 2
         , y = this.game.height / 2;
 
-
+	  this.stage.backgroundColor="#FFFFFF";
       this.titleTxt = this.add.bitmapText(x, y, 'The More You Get Together', {font: '16px minecraftia', align: 'center'});
       this.titleTxt.anchor.setTo(0.5, 0.5);
 
