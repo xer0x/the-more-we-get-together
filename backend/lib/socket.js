@@ -7,7 +7,7 @@
 
 var sockjs = require('sockjs');
 var util = require('util');
-var world = require('./lib/world');
+var world = require('./world');
 
 // 1. Echo sockjs server
 var sockjs_opts = {sockjs_url: "http://cdn.sockjs.org/sockjs-0.3.min.js"};
