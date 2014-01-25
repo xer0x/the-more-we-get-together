@@ -119,6 +119,7 @@ var deltas = {
 };
 
 function move(playerId, direction) {
+  //console.log('MOVE ', direction);
   var p = players[playerId];
   var old = { x: p.x, y: p.y };
   var delta = deltas[direction];
