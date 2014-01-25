@@ -1,44 +1,70 @@
 (function () {
   'use strict';
-
-  var example = window.example || (window.example = {});
-
-  example.Game = function () {
-    this.player = null;
+  var gridWidth = 32;
+  var gridHeight = 32;
+  var cubeWidth = 32;
+  var cubeHeight = 32;
+  var cursors;
+  var player;
+  var otherPlayers;
+  var moveSpeed = 8;
+  
+  var tmygt = window.tmygt || (window.tmygt = {});
+  
+  tmygt.Game = function () {
+	
   };
 
-  example.Game.prototype = {
+  tmygt.Game.prototype = {
     
     create: function () {
-      var x = this.game.width / 2
-        , y = this.game.height / 2;
-
-      this.player = this.add.sprite(x, y, 'player');
-      this.player.anchor.setTo(0.5, 0.5);
-      this.input.onDown.add(this.onInputDown, this);
+	  cursors = this.input.keyboard.createCursorKeys();
+	  var worldWidth = gridWidth * cubeWidth;
+	  var worldHeight = gridHeight * cubeHeight;
+	  
+	  this.game.world.setBounds(0, 0, worldWidth, worldHeight);
+      player = this.add.sprite(0, 0, 'player');
+	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
+	  this.camera.bounds = null;
+	  
+      var g  = this.add.graphics(0, 0);
+	  g.lineStyle(1,0xFFFFFF,1);
+	  
+	  for (var i=0;i<=gridHeight;i++) {
+		g.moveTo(0,i*cubeHeight);
+		g.lineTo(worldWidth,i*cubeHeight);
+		
+		for(var j=0;j<= gridWidth;j++) {
+			g.moveTo(j*cubeWidth,0);
+			g.lineTo(j*cubeWidth,worldHeight);
+		}
+		
+	  }
+	  
+		this.input.mouse.mouseUpCallback = this.onMouseUp;
     },
 
     update: function () {
-      var x, y, cx, cy, dx, dy, angle, scale;
-
-      x = this.input.position.x;
-      y = this.input.position.y;
-      cx = this.world.centerX;
-      cy = this.world.centerY;
-
-      angle = Math.atan2(y - cy, x - cx) * (180 / Math.PI);
-      this.player.angle = angle;
-
-      dx = x - cx;
-      dy = y - cy;
-      scale = Math.sqrt(dx * dx + dy * dy) / 100;
-
-      this.player.scale.x = scale * 0.6;
-      this.player.scale.y = scale * 0.6;
+		//this.camera.x = player.x - this.camera.width / 2;
+		//this.camera.y = player.y - this.camera.height /2 ;
+		
     },
 
-    onInputDown: function () {
-      this.game.state.start('menu');
+    onMouseUp: function (event) {
+		var dx = this.input.activePointer.worldX - player.x;
+		var dy = this.input.activePointer.worldY - player.y;
+		var ang =  Math.atan2(dy,dx) * (180/Math.PI);
+		if (ang < 0) ang = 360 + ang;
+		if(ang < 45 || ang >= 315) {
+			player.vx = moveSpeed;
+			
+		} else if (ang >= 45 && ang < 135) {
+			player.vy = moveSpeed
+		} else if (ang >= 135 && ang < 225) {
+			player.vx = -moveSpeed;
+		} else if (ang >= 225 && ang < 315) {
+			player.vy = -moveSpeed;
+		}
     }
 
   };

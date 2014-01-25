@@ -1,11 +1,11 @@
 window.onload = function () {
   'use strict';
 
-  var game = new Phaser.Game(640, 480, Phaser.AUTO, 'example-game');
-  game.state.add('boot', example.Boot);
-  game.state.add('preloader', example.Preloader);
-  game.state.add('menu', example.Menu);
-  game.state.add('game', example.Game);
+  var game = new Phaser.Game(960, 640, Phaser.AUTO, 'tmygt');
+  game.state.add('boot', tmygt.Boot);
+  game.state.add('preloader', tmygt.Preloader);
+  game.state.add('menu', tmygt.Menu);
+  game.state.add('game', tmygt.Game);
 
   game.state.start('boot');
 };

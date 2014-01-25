@@ -1,21 +1,21 @@
 (function () {
   'use strict';
 
-  var example = window.example || (window.example = {});
+  var tmygt = window.tmygt || (window.tmygt = {});
 
-  example.Menu = function () {
+  tmygt.Menu = function () {
     this.titleTxt = null;
     this.startTxt = null;
   };
 
-  example.Menu.prototype = {
+  tmygt.Menu.prototype = {
     
     create: function () {
       var x = this.game.width / 2
         , y = this.game.height / 2;
 
 
-      this.titleTxt = this.add.bitmapText(x, y, 'Example Game', {font: '16px minecraftia', align: 'center'});
+      this.titleTxt = this.add.bitmapText(x, y, 'The More You Get Together', {font: '16px minecraftia', align: 'center'});
       this.titleTxt.anchor.setTo(0.5, 0.5);
 
       y = y + this.titleTxt.height + 5;
