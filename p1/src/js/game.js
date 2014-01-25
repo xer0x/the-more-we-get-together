@@ -1,5 +1,6 @@
 (function () {
   'use strict';
+  var grid = [];
   var gridWidth = 32;
   var gridHeight = 32;
   var cubeWidth = 64;
@@ -20,17 +21,52 @@
     
     create: function () {
 	  //sockjs.onmessage = this.processMessage;
-	  window.messages = []; // clear out socks message queue
-	  cursors = this.input.keyboard.createCursorKeys();
-	  var worldWidth = gridWidth * cubeWidth;
-	  var worldHeight = gridHeight * cubeHeight;
-	  this.stage.backgroundColor = "#FFFFFF";
-	  this.game.world.setBounds(0, 0, worldWidth, worldHeight);
-      
-	   this.camera.bounds = null;
+	  //window.messages = []; // clear out socks message queue
+	  //process initial messages
+	  while(window.messages.length > 0) {
+		this.processMessage(window.messages.pop());
+	  }
 	  
-      var g  = this.add.graphics(0, 0);
-	  g.lineStyle(2,0xd0dee9,1);
+	  cursors = this.input.keyboard.createCursorKeys();
+	  
+      this.camera.bounds = null;
+	  //this.buildGrid(32,32);
+	  
+	  //player = this.createPlayer(0,0);
+	  allPlayers = {};
+	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
+	  this.input.mouse.mouseUpCallback = this.onMouseUp;
+    },
+	processMessage: function (message) {
+		//console.log(e.data);
+		
+		var command = message.split(" ");
+		
+		switch (command[0]) {
+			case "PLAYER":
+			var coords = command[1].split(",");
+			this.createPlayer(coords[0], coords[1]);
+			break;
+			
+			case "GRID":
+			var w = command[1];
+			var h = command[2];
+			this.buildGrid(w,h);
+			break;
+			
+		}
+	
+	},
+	
+	buildGrid:function(w,h) {
+		gridWidth = w;
+		gridHeight = h;
+		var worldWidth = gridWidth * cubeWidth;
+	    var worldHeight = gridHeight * cubeHeight;
+		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
+		
+		var g  = this.add.graphics(0, 0);
+		g.lineStyle(2,0xd0dee9,1);
 	  
 	  for (var i=0;i<=gridHeight;i++) {
 		g.moveTo(0,i*cubeHeight);
@@ -42,15 +78,8 @@
 		}
 		
 	  }
-	  
-	  player = this.createPlayer(0,0);
-	  allPlayers = [];
-	  
-	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
-	  this.input.mouse.mouseUpCallback = this.onMouseUp;
-	  
-    },
-
+	},
+	
     update: function () {
 	
 		if (window.messages.length > 0) {
@@ -104,6 +133,7 @@
     },
 	
     onMouseUp: function (event) {
+		
 		var dx = this.input.activePointer.worldX - player.x;
 		var dy = this.input.activePointer.worldY - player.y;
 		var ang =  Math.atan2(dy,dx) * (180/Math.PI);
@@ -120,19 +150,6 @@
 		}
     },
 	
-	processMessage: function (message) {
-		//console.log(e.data);
-		
-		var command = message.split(" ");
-		
-		switch (command[0]) {
-			case "PLAYER":
-			var coords = command[1].split(",");
-			this.createPlayer(coords[0], coords[1]);
-			break;
-		}
-	
-	},
 	
 	createPlayer: function(xPosition, yPosition) {
 		var newPlayer = this.add.sprite(0, 0, 'player');
@@ -148,7 +165,7 @@
 			if (player.xPos < gridWidth-1) {
 				this.xPos++;
 				this.targetX = this.x + cubeWidth;
-				//sockjs.send("moving right");
+				sockjs.send("MOVE RIGHT");
 				return true;
 			}
 			
@@ -159,7 +176,7 @@
 			if(player.xPos > 0) {
 				this.xPos--;
 				this.targetX = this.x - cubeWidth;
-				//sockjs.send("moving left");
+				sockjs.send("MOVE LEFT");
 				return true;
 			}
 			
@@ -170,7 +187,7 @@
 			if(player.yPos < gridHeight-1) {
 				player.yPos++;
 				player.targetY = player.y + cubeHeight;
-				//sockjs.send("moving down");
+				sockjs.send("MOVE UP");
 				return true;
 			}
 			
@@ -181,7 +198,7 @@
 			if (player.yPos > 0) {
 				player.yPos--;
 				player.targetY = player.y - cubeHeight;
-				//sockjs.send("moving up");
+				sockjs.send("MOVE DOWN");
 				return true;
 			}
 			return false;

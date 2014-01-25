@@ -15,7 +15,10 @@
     var sockjs = new SockJS(sockjs_url);
     var messages = [];
     
-	sockjs.onopen    = function()  {};
+	sockjs.onopen    = function(e)  {
+		console.log(e.data);
+	};
+	
     sockjs.onmessage = function(e) {
 		messages.push(e.data);
 	};
