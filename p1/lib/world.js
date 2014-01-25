@@ -1,3 +1,5 @@
+var util = require('util');
+
 var width = 10;
 var height = 11;
 
@@ -71,7 +73,9 @@ function change(playerId, command) {
     case 'MOVE':
       console.log('MOVE %s', playerId);
       var positions = move(playerId, c[1]);
-
+      var dest = util.format('%d,%d', positions.dest.x, positions.dest.y);
+      var old = util.format('%d,%d', positions.old.x, positions.old.y);
+      results.push(util.format(MOVE %s %s, old, dest));
       break;
     default:
   }
@@ -93,7 +97,7 @@ var deltas = {
 
 function move(playerId, direction) {
   var p = players[playerId];
-  var oldXY = { x: p.x, y: p.y };
+  var old = { x: p.x, y: p.y };
   var delta = deltas[direction];
 /*
   if (position available) {
@@ -101,8 +105,8 @@ function move(playerId, direction) {
     p.y = n.y;
   }
 */
-  var newXY = { x: p.x + delta[0], y: p.y + delta[1] };
-  return {old: oldXY, new: newXY};
+  var dest = { x: p.x + delta[0], y: p.y + delta[1] };
+  return {old: old, dest: dest};
 }
 
 function reset() {
