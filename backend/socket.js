@@ -35,16 +35,14 @@ function listener(conn) {
     if (!message || message.length <= 0) return; // skip
     // TODO ANTI-CHEAT: ack & refuse messages
     world.change(conn.id, message);
-    //conn.write('ACK');
-    //conn.write('TODO broadcast move to other players');
     broadcast(message);
-    //conn.write(world.changes);
   }
 
   var closeConnection = function() {
     delete connections[conn.id];
-    world.removePlayer(conn.id);
+    var player = world.getPlayer(conn.id);
     broadcast('DROP player');
+    world.removePlayer(conn.id);
     console.log('    [-] closed %s', conn.id);
   }
 
@@ -58,8 +56,6 @@ function listener(conn) {
 
   conn.on('data', readMessage);
   conn.on('close', closeConnection)
-
-  // TODO broadcast updates when world changes
 }
 
 module.exports = socket;

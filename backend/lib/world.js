@@ -1,6 +1,8 @@
 var width = 10;
 var height = 11;
 
+var players = {};
+
 function getGrid() {
   return {
     width: width,
@@ -17,7 +19,12 @@ function addPlayer(playerId, callback) {
     y: Math.floor(Math.random() * height),
     shape: 'L'
   };
+  players[playerId] = player;
   if (callback) callback(player);
+}
+
+function getPlayer(playerId) {
+  return players[playerId];
 }
 
 function change(playerId, command) {
@@ -34,5 +41,6 @@ function fetchState() {
 module.exports = {
   getGrid: getGrid,
   addPlayer: addPlayer,
+  getPlayer: getPlayer,
   change: change
 };
