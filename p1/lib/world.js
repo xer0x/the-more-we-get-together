@@ -196,7 +196,7 @@ function updateLevels() {
   var p;
   for (var id in players) {
     p = players[id];
-    console.log('before', id, p.level, p.score);
+    //console.log('before', id, p.level, p.score);
     if (p.score > 0) {
       p.level = p.level + 1;
     }
@@ -204,7 +204,7 @@ function updateLevels() {
     //  console.log('unlevel');
     //  p.level = p.level > 0 ? p.level - 1 : 0;
     //}
-    console.log('after', id, p.level, p.score);
+    //console.log('after', id, p.level, p.score);
   }
 }
 
