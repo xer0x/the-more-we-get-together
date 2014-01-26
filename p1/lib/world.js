@@ -169,6 +169,8 @@ function tick() {
     checker.checkShapes(players, grid);
     if (secondsLeft == intenseSeconds) {
       messages.push('COUNTDOWN ' + intenseSeconds);
+      messages.push(util.format('NAMES %s', getNameString()));
+      messages.push(util.format('SCORES %s', getScoreString()));
     }
   }
   secondsLeft -= 1;
