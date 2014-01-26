@@ -11,26 +11,26 @@
 
   <script>
 
-	var sockjs_url = '/echo';
-    var sockjs = new SockJS(sockjs_url);
-    var messages = [];
+  var sockjs_url = '/echo';
+  var sockjs = new SockJS(sockjs_url);
+  var messages = [];
 
-	sockjs.onopen    = function(e)  {
-		console.log(e.data);
-	};
+  sockjs.onopen = function(e) {
+    console.log(e.data);
+  };
 
-    sockjs.onmessage = function(e) {
-		messages.push(e.data);
-	};
-    sockjs.onclose   = function()  {};
+  sockjs.onmessage = function(e) {
+    messages.push(e.data);
+  };
+  sockjs.onclose = function()  {};
 
-	function clearDefault(el) {
-	  if (el.defaultValue==el.value) el.value = ""
-	}
+  function clearDefault(el) {
+    if (el.defaultValue==el.value) el.value = "";
+  }
 
-	function restoreDefault(el) {
-		if (el.value == "") el.value = el.defaultValue;
-	}
+  function restoreDefault(el) {
+    if (el.value == "") el.value = el.defaultValue;
+  }
   </script>
 </head>
 
