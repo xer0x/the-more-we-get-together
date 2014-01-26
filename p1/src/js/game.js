@@ -184,7 +184,8 @@
 	  cursors = this.input.keyboard.createCursorKeys();
 
       this.input.mouse.mouseUpCallback = this.onMouseUp;
-	  this.input.touch.onTouchLeave = this.onMouseUp;
+	  //this.input.touch.touchEndCallback = this.onMouseUp;
+	  
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
 	  myShape = document.getElementById("myShape");
@@ -204,6 +205,10 @@
 
 
     },
+	render:function() {
+		//this.game.debug.renderPointer(this.game.input.activePointer);
+		//this.game.debug.renderPointer(this.game.input.pointer1);
+	},
 	start: function() {
 		topScores = [];
 		timeRemaining = startTime;
@@ -498,7 +503,8 @@
 	  }
 	},
     update: function () {
-
+		//this.onTouch();
+		
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
 		}
@@ -508,7 +514,7 @@
 
 			if (player != null) {
 				if (player.targetX == null && player.targetY == null) {
-          if (cursors.right.isDown) {
+            if (cursors.right.isDown) {
 						player.moveRight();
 					} else if (cursors.left.isDown) {
 						player.moveLeft();
@@ -519,6 +525,7 @@
 					}
 				}
 			}
+			
 			for(var p in this.allPlayers) {
 				var thisPlayer = this.allPlayers[p];
 				if (thisPlayer.targetY != null) {
@@ -595,7 +602,26 @@
 			}
 		}
     },
+	onTouch:function() {
+		
+		if (player != null) {
 
+			var dx = this.input.activePointer.worldX - player.x;
+			var dy = this.input.activePointer.worldY - player.y;
+			var ang =  Math.atan2(dy,dx) * (180/Math.PI);
+			if (ang < 0) ang = 360 + ang;
+
+			if(player.targetX == null && ang < 45 || ang >= 315) {
+				player.moveRight();
+			} else if (player.targetY == null &&  ang >= 45 && ang < 135) {
+				player.moveDown();
+			} else if (player.targetX == null &&  ang >= 135 && ang < 225) {
+				player.moveLeft();
+			} else if (player.targetY == null && ang >= 225 && ang < 315) {
+				player.moveUp();
+			}
+		}
+	},
 	createPlayer: function(uid, xPosition, yPosition) {
 		var newPlayer = this.add.sprite(0, 0, 'player');
 		newPlayer.id = uid;
