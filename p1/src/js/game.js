@@ -362,7 +362,6 @@
           var levelData = command[i].split(",");
           var playerID = levelData[0];
           var playerLevel = levelData[1];
-          console.log("playerLevel" + playerLevel);
           this.allPlayers[playerID].frame = playerLevel;
         }
 			break;
