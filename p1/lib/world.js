@@ -167,6 +167,9 @@ function tick() {
   if (!roundFinished) {
     lastScores = getScores();
     checker.checkShapes(players, grid);
+    if (secondsLeft == intenseSeconds) {
+      messages.push('COUNTDOWN ' + intenseSeconds);
+    }
   }
   secondsLeft -= 1;
   //printScores();
@@ -311,9 +314,6 @@ function reset() {
       reset(); // re-START the next round
     }, secondsForIntermission * 1000);
   }, secondsLeft * 1000);
-  setTimeout(function() {
-    broadcast_all('COUNTDOWN ' + intenseSeconds);
-  }, (secondsLeft - intenseSeconds) * 1000 );
 }
 
 init(); // initialize
