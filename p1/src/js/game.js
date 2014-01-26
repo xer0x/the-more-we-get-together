@@ -90,7 +90,7 @@
 	processMessage: function (message) {
 
 		var command = message.split(" ");
-		//console.log(message);
+		console.log(message);
 		switch (command[0]) {
 			case "PLAYER":
 			var coords = command[1].split(",");
@@ -169,6 +169,15 @@
 			
 			break;
 			
+			case "BING":
+			console.log("got a bing");
+			break;
+			
+			case "LEVELS":
+			var levelData = command[1].split(",");
+			console.log("levelData:"+levelData);
+			//this.allPlayers[levelData[0]].frame = levelData[1];
+			break;
 		}
 
 	},
@@ -349,7 +358,8 @@
 		newPlayer.totalScore = 0;
 		newPlayer.inWorld = true;
 		newPlayer.grid = grid;
-		newPlayer.frame = Math.floor(Math.random() * 14) + 1;
+		//newPlayer.frame = Math.floor(Math.random() * 14) + 1;
+		newPlayer.frame = 1;
 		newPlayer.moveRight = function () {
 
 			if (this.xPos < gridWidth-1 && isEmpty(Number(this.xPos)+1,Number(this.yPos))) {
