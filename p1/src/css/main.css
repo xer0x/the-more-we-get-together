@@ -18,19 +18,26 @@ html, body {
 	color:#555;
 	font-size:2em;
 	text-align:left;
-
-
-	}
+}
 
 #timerText {
-	top:2em;
-	right:2em;
-	}
+	top:1em;
+	right:1em;
+  background: rgba(36,105,29,.8);
+  color: white;
+  -moz-transform: rotate(3deg);
+  -webkit-transform: rotate(3deg);
+  padding: 30px 0;
+  width: 100px;
+  text-align: center;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+}
 
 #scoreText {
 	bottom:2em;
 	right:2em;
-	}
+}
 
 #nameText {
 	top:1em;
@@ -39,6 +46,7 @@ html, body {
   color: white;
   padding: 10px;
   background: rgba(36,105,29,.8);
+  -moz-transform: rotate(-3deg);
   -webkit-transform: rotate(-3deg);
 }
 
