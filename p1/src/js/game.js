@@ -220,7 +220,7 @@
 		}
 	},
   drawShape: function(shapeName){
-    console.log("Drawing " + shapeName);
+
     myShape.innerHTML = "";
     var shape = shapes[shapeName].shape;
     var tileSize = 30;
@@ -247,7 +247,10 @@
     shapeWrapper.style.width = tileSize * shape[0].length + "px";
     //
     var shapesContainer = document.querySelector("#shapes");
-    myShape.appendChild(shapeWrapper);
+    if(shapeName != "loner") {
+      myShape.appendChild(shapeWrapper);
+    }
+
 
   },
 	processMessage: function (message) {

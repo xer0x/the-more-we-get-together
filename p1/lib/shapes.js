@@ -176,6 +176,10 @@ function assignAllPlayerShapes(players){
 
 function getShape(maxSize){
 
+  if(maxSize == 1){
+    return "loner";
+  }
+
   var key;
   var shapeCount = 0;
   var shapeNames = [];
@@ -190,8 +194,7 @@ function getShape(maxSize){
   var random = Math.floor((Math.random()*shapeNames.length));
   var shapeName = shapeNames[random];
 
-  if (shapes[shapeName].size <= maxSize) {
-    console.log(shapeName);
+  if (shapes[shapeName].size <= maxSize && shapeName != "loner") {
     return shapeName;
   }
 
