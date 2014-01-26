@@ -1,4 +1,5 @@
 var util = require('util');
+var checker = require('./checker');
 
 var width = 10;
 var height = 11;
@@ -144,7 +145,9 @@ function move(playerId, direction) {
 }
 
 function tick() {
-
+  // Does +1 to score if in their shape
+  checker.checkShapes(players, grid);
+  console.log(players);
 }
 
 function reset() {
