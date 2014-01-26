@@ -24,7 +24,8 @@
   var started;
   var ended;
   var myShape;
-
+  var coinGroup;
+  var coinIndex;
   var tmygt = window.tmygt || (window.tmygt = {});
 
   function isEmpty(xPos,yPos) {
@@ -74,7 +75,16 @@
 	  myShape = document.getElementById("myShape");
 	  startTime = 5;
 	  started = false;
-
+	  coinGroup = [];
+	  for (var i = 0; i < 50; i++)
+		{
+			var coin = this.add.sprite(0,0,'coin');
+			coin.vy = 0;
+			coin.life = 20;
+			coinGroup.push(coin);
+			coin.scaleVX = 0;
+		}
+	  coinIndex = 0;
     },
 	start: function() {
 
@@ -85,12 +95,16 @@
 	},
 	end:function () {
 		//this.game.state.start('end');
-		console.log("end game");
+		//console.log("end game");
+		for (var i=0;i<coinGroup.length;i++) {
+			var c = coinGroup[i];
+			c.kill();
+		}
 	},
 	processMessage: function (message) {
 
 		var command = message.split(" ");
-		console.log(message);
+		//console.log(message);
 		switch (command[0]) {
 			case "PLAYER":
 			var coords = command[1].split(",");
@@ -166,15 +180,18 @@
 			
 			case "SHAPE":
 			myShape.innerHTML =  "Shape: " + command[1];
-			
 			break;
 			
 			case "BING":
-			console.log("got a bing");
+			//console.log(message);
+			//console.log("got a bing");
+			var bingData = command[1].split(",");
+			this.bingPlayer(bingData[0],bingData[1]);
 			break;
 			
 			case "LEVELS":
 			var levelData = command[1].split(",");
+			
 			console.log("levelData:"+levelData);
 			//this.allPlayers[levelData[0]].frame = levelData[1];
 			break;
@@ -239,7 +256,26 @@
 			}
 		}
 	},
-
+    bingPlayer:function(id,score) {
+	  //console.log("bing" + id);
+	  if(this.allPlayers != null) {
+		var playerToBing = this.allPlayers[id];
+		this.setScore(id,score);
+		//console.log("Bing this: " + playerToBing);
+		var coin = coinGroup[coinIndex];
+		coinIndex++;
+		if(coinIndex >= coinGroup.length) coinIndex = 0;
+		
+		coin.bringToTop();
+		coin.x = player.x+60;
+		coin.y = player.y+20;
+		coin.vy = -2;
+		coin.scaleVX = -0.1;
+		coin.life = 55;
+		coin.revive();
+		
+	  }
+	},
     update: function () {
 
 		if (window.messages.length > 0) {
@@ -320,6 +356,20 @@
 				playerShadow.x = player.x+9;
 				playerShadow.y = player.y+30;
 			}
+			
+			for(var i=0;i<coinGroup.length;i++) {
+				var c = coinGroup[i];
+				
+				c.y += c.vy;
+				
+				
+				c.life--;
+				if (c.life <0) {
+					c.kill();
+				}
+				
+			}
+			
 		}
     },
 
