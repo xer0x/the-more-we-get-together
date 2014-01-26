@@ -200,7 +200,7 @@
 				var id=bingData[0];
 				var score = bingData[1];
 				if(id != null && id != '' && score != '' && score != null) 
-					this.bingPlayer(bingData[0],bingData[1]);
+					this.bingPlayer(id,score);
 			}
 			break;
 			
@@ -277,7 +277,7 @@
 	  
 	  if(this.allPlayers != null) {
 		var playerToBing = this.allPlayers[id];
-		//this.setScore(id,score);
+		this.setScore(id,score);
 		//console.log("Bing this: " + playerToBing);
 		var coin = coinGroup[coinIndex];
 		coinIndex++;
