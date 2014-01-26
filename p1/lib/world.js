@@ -178,10 +178,10 @@ function tick() {
   // if states between intermission && game:
   if (roundFinished !== lastTickState) {
     if (roundFinished) {
-      messages.push(util.format('FINISHED %s', secondsForIntermission));
-      messages.push(util.format('SCORES %s', getScoreString()));
       messages.push(util.format('NAMES %s', getNameString()));
+      messages.push(util.format('SCORES %s', getScoreString()));
       messages.push(util.format('LEVELS %s', getLevelString()));
+      messages.push(util.format('FINISHED %s', secondsForIntermission));
     } else {
       messages.push(util.format('START %s', secondsLeft));
       messages.push(util.format('SHAPES %s', getShapeString()));
