@@ -180,7 +180,7 @@
 	  topScores = [];
 	  var nameText = document.getElementById("nameText");
 	  nameText.innerHTML = "Hi, " + phaserGame.playerName + "!";
-      
+
 
 	  cursors = this.input.keyboard.createCursorKeys();
 
@@ -202,8 +202,8 @@
 			coin.scaleVX = 0;
 		}
 	  coinIndex = 0;
-	  
-	  
+
+
     },
 	start: function() {
 		topScores = [];
@@ -241,11 +241,13 @@
   drawShape: function(shapeName){
 
     myShape.innerHTML = "";
+
     var shape = shapes[shapeName].shape;
+    console.log(shape);
     var tileSize = 30;
     var shapeWrapper = document.createElement("div");
     shapeWrapper.classList.add("shapeWrapper");
-
+    myShape.innerHTML = shapeName;
     for(var i = 0; i < shape.length; i++){
       var row = shape[i];
       for(var j = 0; j < row.length; j++){
@@ -341,7 +343,7 @@
 			break;
 
 			case "SCORES":
-			
+
 			var totalScores = command.length-1;
 			for (var i=1;i<=totalScores;i++) {
 				var scoreData = command[i].split(",");
@@ -349,12 +351,12 @@
 				var score = scoreData[1];
 				this.setScore(id,score);
 			}
-			
+
 			break;
-			
-			
+
+
 			case "NAMES":
-			
+
 			var totalNames = command.length-1;
 			for(var i = 1;i<=totalNames;i++) {
 				var nameData = command[i].split(",");
@@ -363,10 +365,10 @@
 				if(id != null && id != '' && name != '' && name != null) {
 				  this.allPlayers[id].name = name;
 				}
-				
+
 			}
 			break;
-			
+
 
 			case "SHAPE":
         var shapeName = command[1];
@@ -375,16 +377,20 @@
 
 			case "SHAPES":
 			var totalShapeUpdates = command.length-1;
-			for (var i = 1;i<=totalShapeUpdates;i++) {
+
+      for (var i = 1;i<=totalShapeUpdates;i++) {
 				var shapeData = command[i].split(",");
 				var id=shapeData[0];
 				var shape = shapeData[1];
 				if(id != null && id != '' && shape != '' && shape != null)
+        if(this.playerOneId == id){
           this.drawShape(shape);
+        }
+      }
 
-			}
+
 			break;
-			
+
 			case "BING":
 			var bings = command.length-1;
       for (var i = 1;i<=bings;i++) {
@@ -689,16 +695,16 @@
 	getPlayerAt:function(xPosition, yPosition) {
 		return grid[xPosition][yPosition];
 	},
-	
+
 	getTopScores:function () {
 	  topScores = [];
-	  
+
 	  for(var p in this.allPlayers) {
 		var thisPlayer = this.allPlayers[p];
 		//thisPlayer.score = Math.floor(Math.random() * 100);
-		topScores.push(thisPlayer);	
+		topScores.push(thisPlayer);
 	  }
-	  
+
 	  var compare = function(a,b) {
 		  if (Number(a.score) < Number(b.score))
 			 return 1;
@@ -706,9 +712,9 @@
 			return -1;
 		  return 0;
 		}
-		
+
 	  topScores.sort(compare);
-		
+
 	  for (var i=0;i<topScores.length;i++) {
 	    if (i < 3) {
 			var playerName = document.getElementById("playerName"+Number(i+1));
@@ -716,7 +722,7 @@
 			var playerScore = document.getElementById("playerScore"+Number(i+1));
 			playerScore.innerHTML = " " +topScores[i].score;
 		}
-		
+
 		if (topScores[i].id == this.playerOneId) {
 			var p1place = document.getElementById("place");
 			if (i == 0) p1place.innerHTML = "1st";
@@ -727,10 +733,10 @@
 			p1points.innerHTML = topScores[i].score;
 		}
 	  }
-	  
-	  
-	  
-	 
+
+
+
+
 	}
   };
 }(this));
