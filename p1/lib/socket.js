@@ -44,7 +44,7 @@ function listener(conn) {
 
   function tick() {
     // tick for individual connection
-    var tickDelay = 10000; // 10 seconds
+    var tickDelay = 4000; // 4 seconds
     conn.write(makeGridMessage());
     setTimeout(tick, tickDelay);
   }
