@@ -110,9 +110,9 @@
 			break;
 
 			case "START":
-
 			startTime = command[1];
 			this.start();
+			if (player != null) this.setScore(this.playerOneId, 0);
 			break;
 
 			case "GRID":
@@ -339,6 +339,7 @@
 		newPlayer.targetX = null;
 		newPlayer.targetY = null;
 		newPlayer.score = 0;
+		newPlayer.totalScore = 0;
 		newPlayer.inWorld = true;
 		newPlayer.grid = grid;
 		newPlayer.frame = Math.floor(Math.random() * 14) + 1;
@@ -416,6 +417,7 @@
 	},
 	
 	setScore:function(id,score) {
+		
 		this.allPlayers[id].score = score;
 		if (id == this.playerOneId) {
 			scoreText.innerHTML = "Score: " + score;
