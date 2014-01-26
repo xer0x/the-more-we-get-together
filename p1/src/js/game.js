@@ -155,6 +155,13 @@
         ["0","X","0"]
       ]
     },
+    bigK:{
+      shape : [
+        ["X","0","X"],
+        ["X","X","0"],
+        ["X","0","X"]
+      ]
+    },
     tetrisL : {
       shape : [
         ["X","0"],
@@ -173,6 +180,13 @@
       shape : [
         ["X","X","X"],
         ["X","0","X"],
+        ["X","X","X"]
+      ]
+    },
+    bigBlock : {
+      shape : [
+        ["X","X","X"],
+        ["X","X","X"],
         ["X","X","X"]
       ]
     },
@@ -280,7 +294,7 @@
 		timeClock();
 	},
 	end:function () {
-		phaserGame.sound.play('cheer1')
+		phaserGame.sound.play('cheer' + Math.round(Math.random() * 3));
 		timeRemaining = 0;
 		this.getTopScores();
 		for (var i=0;i<coinGroup.length;i++) {

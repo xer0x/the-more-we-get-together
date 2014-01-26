@@ -120,6 +120,13 @@ var shapes = {
       ["0","X","0"]
     ]
   },
+  bigK:{
+    shape : [
+      ["X","0","X"],
+      ["X","X","0"],
+      ["X","0","X"]
+    ]
+  },
   tetrisL : {
     shape : [
       ["X","0"],
@@ -138,6 +145,13 @@ var shapes = {
     shape : [
       ["X","X","X"],
       ["X","0","X"],
+      ["X","X","X"]
+    ]
+  },
+  bigBlock : {
+    shape : [
+      ["X","X","X"],
+      ["X","X","X"],
       ["X","X","X"]
     ]
   },
@@ -178,6 +192,8 @@ function countShapeSizes(shapes){
 
 function assignAllPlayerShapes(players){
 
+  // The new way
+
   var playerCount = Object.keys(players).length;
 
   var assignedShapes = [];
@@ -186,17 +202,58 @@ function assignAllPlayerShapes(players){
     var shapeObj = shapes[name];
   }
 
+  var randomNum = Math.floor(Math.random()*2);
+  var mode;
+
+  switch(randomNum){
+    case 0:
+      mode = "battle";
+      console.log(mode);
+    break;
+    case 1:
+      mode = "coop";
+      console.log(mode);
+    break;
+  }
+
+  //Can't battle with less than 4
+  if(playerCount < 3 || playerCount > 10) {
+    mode = "coop";
+  }
+
   var playersLeft = playerCount;
 
   while(playersLeft > 0) {
-  var shapename = getShape(playersLeft);
-    if(shapename){
-      playersLeft = playersLeft - shapes[shapename].size;
-      for(var i = 0; i < shapes[shapename].size; i++){
-        assignedShapes.push(shapename);
+
+    if(mode == "battle"){
+      var shapename = getShape(playersLeft - 1);
+
+      if(shapename){
+        var randomMode = Math.floor(Math.random()*2);
+        randomMode = 0;
+        var shapeSize = shapes[shapename].size;
+        for(var i = 0; i < shapeSize + 1; i++){
+          assignedShapes.push(shapename);
+        }
+        playersLeft = playersLeft - (shapeSize + 1);
       }
     }
+
+    if(mode == "coop") {
+      var shapename = getShape(playersLeft);
+        if(shapename){
+          var randomMode = Math.floor(Math.random()*2);
+          randomMode = 0;
+          var shapeSize = shapes[shapename].size;
+          for(var i = 0; i < shapeSize; i++){
+            assignedShapes.push(shapename);
+          }
+          playersLeft = playersLeft - shapeSize;
+        }
+    }
+
   }
+
 
   var j = 0;
   for(var key in players){
@@ -206,6 +263,7 @@ function assignAllPlayerShapes(players){
   }
 
   return players;
+
 }
 
 
@@ -229,8 +287,9 @@ function getShape(maxSize){
 
   var random = Math.floor((Math.random()*shapeNames.length));
   var shapeName = shapeNames[random];
+  var shapeSize = shapes[shapeName].size;
 
-  if (shapes[shapeName].size <= maxSize && shapeName != "loner") {
+  if (shapeSize <= maxSize && shapeName != "loner" && (shapeSize + 1) != maxSize ) {
     return shapeName;
   }
 
