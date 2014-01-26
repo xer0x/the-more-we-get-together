@@ -172,7 +172,7 @@ function tick() {
       messages.push(util.format('NAME %s', getNameString()));
     } else {
       messages.push(util.format('START %s', secondsLeft));
-      message.push(util.format('NEWSHAPE'));
+      messages.push(util.format('SHAPES %s', getShapeString()));
     }
   }
   lastTickState = roundFinished;
@@ -212,6 +212,14 @@ function getNameString() {
     names.push(id + ',' + players[id].name);
   }
   return names.join(' ');
+}
+
+function getShapeString() {
+  var shapes = [];
+  for (var id in players) {
+    shapes.push(id + ',' + players[id].shape);
+  }
+  return shapes.join(' ');
 }
 
 function init() {
