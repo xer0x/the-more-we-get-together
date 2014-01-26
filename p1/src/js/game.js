@@ -26,7 +26,7 @@
 
 		for (var j=0;j<gridHeight;j++) {
 
-			for(var i=0;i< gridWidth;i++) {
+			for(var i=gridWidth-1;i>=0;i--) {
 				//grid[i][j] = 0;
 				if (grid[i][j] != 0) {
 					var thisPlayer = grid[i][j];
