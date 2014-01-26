@@ -39,7 +39,7 @@ function getNewPosition() {
 }
 
 function isEmptyPosition(_x, _y) {
-  console.log('checking %d,%d', _x, _y);
+  //console.log('checking %d,%d', _x, _y);
   if (_x < 0 || _x >= width) return false;
   if (_y < 0 || _y >= height) return false;
   return !grid[_x][_y];
@@ -123,16 +123,9 @@ var deltas = {
 };
 
 function move(playerId, direction) {
-  //console.log('MOVE ', direction);
   var p = players[playerId];
   var old = { x: p.x, y: p.y };
   var delta = deltas[direction];
-/*
-  if (position available) {
-    p.x = n.x;
-    p.y = n.y;
-  }
-*/
   var dest = { x: p.x + delta[0], y: p.y + delta[1] };
   if (isEmptyPosition(dest.x, dest.y)) {
     // do movement
@@ -149,8 +142,7 @@ function move(playerId, direction) {
 
 function tick() {
   // Does +1 to score if in their shape
-  var result = checker.checkShapes(players, grid);
-  //console.log(result);
+  checker.checkShapes(players, grid);
 
   var playerIds = Object.keys(players);
   if (playerIds.length > 0) {
