@@ -216,7 +216,7 @@
 		phaserGame.sound.play('startGame1')
 	  cursors = this.input.keyboard.createCursorKeys();
 
-      this.input.mouse.mouseUpCallback = this.onMouseUp;
+      //this.input.mouse.mouseUpCallback = this.onMouseUp;
 	  //this.input.touch.touchEndCallback = this.onMouseUp;
 	  
 	  timerText = document.getElementById("timerText");
@@ -258,6 +258,7 @@
 				timerText.innerHTML = ":" + timeRemaining;
 			}
 			if (timeRemaining <= 0) {
+				timeRemaining = 0;
 				started = false;
 				ended = true;
 			} else {
@@ -543,7 +544,7 @@
 		}
 
 
-		if(started) {
+		//if(started) {
 
 			if (player != null) {
 				if (player.targetX == null && player.targetY == null) {
@@ -612,7 +613,7 @@
 
 			}
 
-		}
+		//}
     },
 
     onMouseUp: function (event) {
