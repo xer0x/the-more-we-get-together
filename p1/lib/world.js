@@ -97,6 +97,7 @@ function change(playerId, command) {
       showGrid();
       break;
     case 'SETNAME':
+      c.shift();
       var name = setName(playerId, c.join(' '));
       if (name) {
         results.push(util.format('NAME %s %s', playerId, name));
