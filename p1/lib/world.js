@@ -179,6 +179,7 @@ function tick() {
       messages.push(util.format('START %s', secondsLeft));
       messages.push(util.format('SHAPES %s', getShapeString()));
       messages.push(util.format('LEVELS %s', getLevelString()));
+      messages.push(util.format('NAMES %s',  getNameString()));
       messages.push(util.format('TOTALS %s', getTotalString()));
     }
   }
