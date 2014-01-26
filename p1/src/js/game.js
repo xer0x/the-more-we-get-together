@@ -286,7 +286,7 @@
     myShape.innerHTML = "";
 
     var shape = shapes[shapeName].shape;
-    console.log(shape);
+    //console.log(shape);
     var tileSize = 30;
     var shapeWrapper = document.createElement("div");
     shapeWrapper.classList.add("shapeWrapper");
