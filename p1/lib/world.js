@@ -164,8 +164,8 @@ function tick() {
   var messages = [];
   // Does +1 to score if in their shape
   if (!roundFinished) {
-    checker.checkShapes(players, grid);
     lastScores = getScores();
+    checker.checkShapes(players, grid);
   }
   secondsLeft -= 1;
   printScores();
@@ -220,6 +220,7 @@ function getBingString() {
   var p;
   for (var id in players) {
     p = players[id];
+    //console.log(p.score + ' > ' + lastScores[id]);
     if (p.score > lastScores[id]) {
       bing.push( [id, p.score, (p.score - lastScores[id])].join(',') );
     }
