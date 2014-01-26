@@ -22,10 +22,11 @@
       this.load.image('playerShadow', 'assets/sprites/tile_shadow.png');
       this.load.image('splash', 'assets/splash.jpg');
       this.load.image('coin', 'assets/sprites/coin.png');
-      this.load.audio('happy1', 'assets/audio/mwgt_vo_gen_01.webm');
+      // this.load.audio('happy1', 'assets/audio/mwgt_vo_gen_01.webm');
       this.load.audio('cheer1', 'assets/audio/mwgt_vo_groupcheer_02.webm');
       this.load.audio('surprise1', 'assets/audio/mwgt_vo_gen_19.webm');
       this.load.audio('move1', 'assets/audio/move.mp3');
+      this.load.audio('happy1', 'assets/audio/mario_coin.wav');
 
 
 /*
