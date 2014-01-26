@@ -322,11 +322,30 @@
 			break;
 
 			case "SCORES":
-			var scoreData = command[1].split(",");
-			var id=scoreData[0];
-			var score = scoreData[1];
-			this.setScore(id,score);
+			var totalScores = command.length-1;
+			for (var i=1;i<=totalScores;i++) {
+				var scoreData = command[i].split(",");
+				var id = scoreData[0];
+				var score = scoreData[1];
+				this.setScore(id,score);
+			}
+			
 			break;
+			
+			
+			case "NAMES":
+			var totalNames = command.length-1;
+			for(var i = 1;i<=totalNames;i++) {
+				var nameData = command[i].split(",");
+				var id=nameData[0];
+				var name = nameData[1];
+				if(id != null && id != '' && name != '' && name != null) {
+				  this.allPlayers[id].name = name;
+				}
+				
+			}
+			break;
+			
 
 			case "SHAPE":
         var shapeName = command[1];
@@ -344,7 +363,7 @@
 
 			}
 			break;
-
+			
 			case "BING":
 			var bings = command.length-1;
       for (var i = 1;i<=bings;i++) {
