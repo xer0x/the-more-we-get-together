@@ -16,8 +16,7 @@
   var builtGrid = false;
   
   var tmygt = window.tmygt || (window.tmygt = {});
-  
-  
+ 
   function isEmpty(xPos,yPos) {
 	if (grid != null && grid[xPos][yPos] == 0) return true;
 	else return false;
@@ -67,13 +66,14 @@
 			break;
 			
 			case "GRID":
+			var serverGrid = eval('('+command[3]+')');
+			
 			if(!builtGrid) {
 				var w = command[1];
 				var h = command[2];
-				var serverGrid = eval('('+command[3]+')');
 				this.buildGrid(w,h, serverGrid);
 			} else {
-				this.checkGrid();
+				this.checkGrid(serverGrid);
 			}
 			break;
 			
@@ -95,7 +95,6 @@
 			var newCoords = command[2];
 			var id = command[3];
 			var playerToMove = this.allPlayers[id];
-			console.log("lets move " + playerToMove);
 			
 			if (playerToMove != 0) {
 				newCoords = newCoords.split(",");
@@ -139,6 +138,22 @@
 		}
 		builtGrid = true;
 	},
+	
+	checkGrid: function (serverGrid) {
+		for (var i=0;i<gridWidth;i++) {
+			//grid[i] = [];
+			for(var j=0;j< gridHeight;j++) {
+				var serverNode = serverGrid[i][j];
+				var localNode = grid[i][j];
+				if (serverNode == 0 && localNode == 0) return;
+				if (serverNode != 0 && localNode == 0) {
+					var playerId = serverNode[i][j];
+					var playerToCorrect = this.allPlayers[playerId];
+					playerToCorrect.moveTo(i,j);
+				}	
+			}	
+		}
+	}, 
 	
     update: function () {
 		
@@ -243,6 +258,7 @@
 				grid[this.xPos][this.yPos] = this;
 				this.targetX = this.x + cubeWidth;
 				sockjs.send("MOVE RIGHT");
+				//this.sortDepths();
 				return true;
 			}
 			
@@ -256,6 +272,7 @@
 				grid[this.xPos][this.yPos] = this;
 				this.targetX = this.x - cubeWidth;
 				sockjs.send("MOVE LEFT");
+				//this.sortDepths();
 				return true;
 			}
 			
@@ -269,6 +286,7 @@
 				grid[this.xPos][this.yPos] = this;
 				this.targetY = this.y + cubeHeight;
 				sockjs.send("MOVE DOWN");
+				//this.sortDepths();
 				return true;
 			}
 			
@@ -282,6 +300,7 @@
 				grid[this.xPos][this.yPos] = this;
 				this.targetY = this.y - cubeHeight;
 				sockjs.send("MOVE UP");
+				//this.sortDepths();
 				return true;
 			}
 			return false;
@@ -296,7 +315,7 @@
 			this.xPos = xPosition;
 			this.yPos = yPosition;
 			grid[this.xPos][this.yPos] = this;
-			
+			//this.sortDepths();
 		}
 		
 		this.allPlayers[newPlayer.id] = newPlayer;
@@ -306,6 +325,20 @@
 	
 	getPlayerAt:function(xPosition, yPosition) {
 		return grid[xPosition][yPosition];
+	},
+	
+	sortDepths:function() {
+		console.log("sorting depths");
+		for (var j=0;i<gridHeight;i++) {
+		
+			for(var i=0;j< gridWidth;i++) {
+				//grid[i][j] = 0;
+				if (grid[i][j] != 0) {
+					var thisPlayer = grid[i][j];
+					thisPlayer.bringToTop();
+				}
+			}	
+		}
 	}
 	
 
