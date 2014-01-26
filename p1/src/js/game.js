@@ -218,7 +218,7 @@
 
       //this.input.mouse.mouseUpCallback = this.onMouseUp;
 	  //this.input.touch.touchEndCallback = this.onMouseUp;
-	  
+
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
 	  myShape = document.getElementById("myShape");
@@ -538,7 +538,7 @@
 	},
     update: function () {
 		this.onTouch();
-		
+
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
 		}
@@ -559,7 +559,7 @@
 					}
 				}
 			}
-			
+
 			for(var p in this.allPlayers) {
 				var thisPlayer = this.allPlayers[p];
 				if (thisPlayer.targetY != null) {
@@ -637,7 +637,7 @@
 		}
     },
 	onTouch:function() {
-		
+
 		if (player != null && player.targetX == null && player.targetY == null && this.input.activePointer.isDown) {
 
 			var dx = this.input.activePointer.worldX - player.x;
@@ -746,7 +746,7 @@
 			grid[this.xPos][this.yPos] = this;
 			sortDepths();
 		}
-		
+
 		newPlayer.setPosition = function(xPosition,yPosition) {
 			this.y = yPosition*cubeHeight-cubeOffset-cubeOffsetY;
 			this.x = xPosition*cubeWidth-cubeOffsetX;
@@ -792,6 +792,8 @@
 
 	  topScores.sort(compare);
 
+
+
 	  for (var i=0;i<topScores.length;i++) {
 	    if (i < 3) {
 			var playerName = document.getElementById("playerName"+Number(i+1));
@@ -800,16 +802,43 @@
 			playerScore.innerHTML = " " +topScores[i].score;
 		}
 
+    var playerOneScore;
+
 		if (topScores[i].id == this.playerOneId) {
-			var p1place = document.querySelector("#place .text");
+      var p1place = document.querySelector("#place .text");
 			if (i == 0) p1place.innerHTML = "1st";
 			else if (i == 1) p1place.innerHTML = "2nd";
 			else if (i == 2) p1place.innerHTML = "3rd";
 			else p1place.innerHTML = Number(i-1) + "th";
 			var p1points = document.querySelector("#points .text");
 			p1points.innerHTML = topScores[i].score;
+      playerOneScore = topScores[i].score;
 		}
 	  }
+
+    var newLevel;
+
+    if(playerOneScore > 0) {
+      newLevel = parseInt(player.frame) + 1;
+    } else {
+      newLevel = parseInt(player.frame);
+    }
+
+    //Update Sprite to appropriate level
+    window.setTimeout(function(){
+      var spriteWidth = 120;
+      var bgPos = spriteWidth * newLevel * -1;
+      var sprite = document.querySelector("#playerSprite");
+      sprite.style.backgroundPosition = bgPos + "px 0px";
+      var levelIndicator = document.querySelector("#playerLevel .text");
+      levelIndicator.innerHTML = newLevel;
+    },1000);
+
+
+
+
+    // var p1level = document.querySelector("#playerLevel .text");
+
 
 	}
   };

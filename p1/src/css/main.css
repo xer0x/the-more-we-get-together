@@ -11,8 +11,6 @@ html, body {
 	margin: 0;
   background: #65a850;
   background: url(/assets/sprites/grass_tile.gif);
-
-
 }
 
 .uiText {
@@ -128,23 +126,11 @@ html, body {
   top: calc(50% - 220px);
   left: calc(50% - 240px);
   position: absolute;
-  padding: 40px;
+  padding: 20px 40px 40px 40px;
   background: rgba(36,105,29,.9);
   width: 400px;
   color: white;
   font-family: helvetica,arial;
-  display: none;
-}
-
-#scoreboard #playerSprite {
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  background: #3684b4;
-  -webkit-transform: rotate(5deg);
-  -moz-transform: rotate(5deg);
   display: none;
 }
 
@@ -158,9 +144,65 @@ html, body {
   font-size: 80px;
   position: relative;
   top: 5px;
+  margin-top: 15px;
 }
 
 #scoreboard #points {
+  font-size: 25px;
+  font-weight: normal;
+  color: rgba(255,255,255,.7);
+}
+
+
+
+#scoreboard #playerSpriteWrapper {
+  width: 120px;
+  height: 110px;
+  position: absolute;
+  top: 0px;
+  right: 55px;
+  -webkit-transform: scale(1.5);
+}
+
+#scoreboard #playerSprite {
+  width: 120px;
+  height: 110px;
+  position: absolute;
+  background-image: url(/assets/sprites/tile_sprites.png);
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  -webkit-animation: groovin 1s infinite linear;
+  -webkit-transform-origin: bottom;
+}
+
+#scoreboard #spriteShadow {
+  width: 120px;
+  height: 120px;
+  background: black;
+  position: absolute;
+  bottom: -55px;
+  left: 0px;
+  opacity: .2;
+  background: white;
+  -webkit-border-radius: 80px;
+  -webkit-transform: scaleY(.3);
+}
+
+@-webkit-keyframes groovin {
+  0% { -webkit-transform: skew(10deg,0deg) scaleX(.95); }
+  10% { -webkit-transform: scaleY(.85) skew(5deg,0deg); }
+  50% { -webkit-transform: skew(-10deg,0deg) scaleX(.95); }
+  60% { -webkit-transform: scaleY(.85) skew(-5deg,0deg); }
+  100% { -webkit-transform: skew(10deg,0deg) scaleX(.95); }
+}
+
+#scoreboard #playerLevel {
+  float: right;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 145px;
+  text-align: center;
   font-size: 25px;
   font-weight: normal;
   color: rgba(255,255,255,.7);
