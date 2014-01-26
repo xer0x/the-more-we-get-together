@@ -25,7 +25,7 @@
     },
 	
     onDown: function () {
-      this.state.start('game');
+      this.game.state.start('game');
     }
   };
 
