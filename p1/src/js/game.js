@@ -55,8 +55,9 @@
     create: function () {
 	  this.allPlayers = {};
 	  
-      
-	  //process initial messages
+	  var nameText = document.getElementById("nameText");
+	  nameText.innerHTML = "Hi, " + phaserGame.playerName + "!";
+      //process initial messages
 	  while(window.messages.length > 0) {
 		this.processMessage(window.messages.shift());
 	  }

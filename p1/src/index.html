@@ -24,6 +24,13 @@
 	};
     sockjs.onclose   = function()  {};
 	
+	function clearDefault(el) {
+	  if (el.defaultValue==el.value) el.value = ""
+	}
+
+	function restoreDefault(el) {
+		if (el.value == "") el.value = el.defaultValue;
+	}
   </script>
 </head>
 
@@ -32,6 +39,10 @@
   <div id="gamediv" class="gamediv"></div>
   <div id="timerText" class="uiText"></div>
   <div id="scoreText" class="uiText"></div>
+  <div id="nameText" class="uiText"></div>
+  <div id="enterName">
+	<input id="nameInput" type="text" value="Enter Your Name..." onfocus="clearDefault(this)" onblur="restoreDefault(this)" /><input type="submit" value="Play!" id="enterNameButton" name="submit"  />
+  </div>
   <!-- build:remove 
   <script src="http://localhost:35729/livereload.js"></script>  
   <!-- /build -->

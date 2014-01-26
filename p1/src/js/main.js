@@ -1,5 +1,6 @@
 var phaserGame;
 
+
 window.onload = function () {
   'use strict';
   
@@ -10,5 +11,6 @@ window.onload = function () {
   phaserGame.state.add('game', tmygt.Game);
   phaserGame.state.add('end', tmygt.End);
   phaserGame.state.start('boot');
+  //phaserGame.playerName = "";
 };
 	
