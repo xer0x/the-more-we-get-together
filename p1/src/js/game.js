@@ -295,13 +295,13 @@
 			var ang =  Math.atan2(dy,dx) * (180/Math.PI);
 			if (ang < 0) ang = 360 + ang;
 
-			if(ang < 45 || ang >= 315) {
+			if(player.targetX == null && ang < 45 || ang >= 315) {
 				player.moveRight();
-			} else if ( ang >= 45 && ang < 135) {
+			} else if (player.targetY == null &&  ang >= 45 && ang < 135) {
 				player.moveDown();
-			} else if ( ang >= 135 && ang < 225) {
+			} else if (player.targetX == null &&  ang >= 135 && ang < 225) {
 				player.moveLeft();
-			} else if (ang >= 225 && ang < 315) {
+			} else if (player.targetY == null && ang >= 225 && ang < 315) {
 				player.moveUp();
 			}
 		}

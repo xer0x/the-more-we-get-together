@@ -5,7 +5,6 @@
 
   tmygt.Menu = function () {
     this.titleTxt = null;
-    this.startTxt = null;
   };
 
   tmygt.Menu.prototype = {
@@ -15,13 +14,14 @@
         , y = this.game.height / 2;
 
 	  this.stage.backgroundColor="#FFFFFF";
-      this.titleTxt = this.add.bitmapText(x, y, 'The More You Get Together', {font: '16px minecraftia', align: 'center'});
-      this.titleTxt.anchor.setTo(0.5, 0.5);
-
-      y = y + this.titleTxt.height + 5;
-      this.startTxt = this.add.bitmapText(x, y, 'START', {font: '12px minecraftia', align: 'center'});
-      this.startTxt.anchor.setTo(0.5, 0.5);
-
+      var text = this.add.text(this.world.centerX, this.world.centerY, "The More We\nGet Together", {
+        font: "65px Arial",
+        fill: "#555",
+        align: "center"
+      });
+	      
+	  text.x -= text.width/2;
+	  text.y -= text.height/2;
       this.input.onDown.add(this.onDown, this);
     },
 
