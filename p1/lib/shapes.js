@@ -216,11 +216,18 @@ function assignAllPlayerShapes(players){
     break;
   }
 
+  //Can't battle with less than 4
+  if(playerCount < 3) {
+    mode = "coop";
+  }
+
   var playersLeft = playerCount;
+
   while(playersLeft > 0) {
 
     if(mode == "battle"){
       var shapename = getShape(playersLeft - 1);
+
       if(shapename){
         var randomMode = Math.floor(Math.random()*2);
         randomMode = 0;
