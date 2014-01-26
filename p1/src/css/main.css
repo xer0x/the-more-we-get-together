@@ -108,6 +108,65 @@ html, body {
   margin: 0 auto;
 }
 
+#enterName #tower {
+  background: url(/assets/sprites/splash_tower.png);
+  height: 280px;
+  width: 134px;
+  background-size: 100%;
+   -webkit-animation: groovin 1s infinite linear;
+   -webkit-transform-origin: bottom;
+}
+
+#enterName #tower-wrapper {
+  position: absolute;
+  top: 165px;
+  left: calc(50% + 80px);
+  -webkit-animation: shimmyLeft 14s infinite linear;
+
+}
+
+#enterName #el-wrapper {
+  position: absolute;
+  top: 203px;
+  left: calc(50% - 200px);
+  -webkit-animation: shimmyRight 14s infinite linear;
+}
+
+
+@-webkit-keyframes shimmyRight {
+  0% { -webkit-transform: translateX(0px); }
+  50% { -webkit-transform: translateX(250px); }
+  100% { -webkit-transform: translateX(0px); }
+}
+
+
+@-webkit-keyframes shimmyLeft {
+  0% { -webkit-transform: translateX(0px); }
+  50% { -webkit-transform: translateX(-300px); }
+  100% { -webkit-transform: translateX(0px); }
+}
+
+
+#enterName #el {
+  background: url(/assets/sprites/splash_l.png);
+  height: 220px;
+  width: 176px;
+  background-size: 100%;
+   -webkit-transform-origin: bottom;
+   -webkit-animation: groovin 1s infinite linear;
+}
+
+
+
+@-webkit-keyframes groovin {
+  0% { -webkit-transform: skew(10deg,0deg) scaleX(.95); }
+  10% { -webkit-transform: scaleY(.85) skew(5deg,0deg); }
+  50% { -webkit-transform: skew(-10deg,0deg) scaleX(.95); }
+  60% { -webkit-transform: scaleY(.85) skew(-5deg,0deg); }
+  100% { -webkit-transform: skew(10deg,0deg) scaleX(.95); }
+}
+
+
 #name-ui {
   margin: 0 auto;
   position: relative;
