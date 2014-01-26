@@ -338,6 +338,7 @@
 
 			case "START":
 			startTime = command[1];
+			window.bgMusic.resume();
 			this.start();
 			if (player != null) this.setScore(this.playerOneId, 0);
 			break;
@@ -451,8 +452,9 @@
 			break;
 
       case "COUNTDOWN":
-        phaserGame.sound.play('surprise1')
-        timeRemaining = 4;
+        window.bgMusic.pause();
+        phaserGame.sound.play('musicIntense');
+        timeRemaining = 5;
       break;
 
 		}
