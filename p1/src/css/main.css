@@ -194,16 +194,16 @@ html, body {
   float: left;
 }
 
-#scoreboard #standings #standing #playerScore {
+#scoreboard #standings #standing .playerScore {
   float: right;
 }
 
-#scoreboard #standings #standing #playerName {
+#scoreboard #standings #standing .playerName {
   color: white;
 }
 
 
-#scoreboard #standings #standing #playerPlace {
+#scoreboard #standings #standing .playerPlace {
   width: 60px;
 }
 

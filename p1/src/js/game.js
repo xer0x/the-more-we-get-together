@@ -23,6 +23,7 @@
   var scoreText;
   var scoreboard;
   var topScores;
+  var scoreIcon;
   var started;
   var ended;
   var myShape;
@@ -201,14 +202,32 @@
 			coin.scaleVX = 0;
 		}
 	  coinIndex = 0;
+	  
+	  
     },
 	start: function() {
 		topScores = [];
 		timeRemaining = startTime;
-		timeCounter = timeRemaining * this.time.fps;
 		started = true;
 		ended = false;
 		scoreboard.style.display = "none";
+
+		var timeClock = function() {
+			timeRemaining--;
+			console.log(timeRemaining + " seconds left");
+			if (timeRemaining < 10) {
+				timerText.innerHTML = ":0" + timeRemaining;
+			} else {
+				timerText.innerHTML = ":" + timeRemaining;
+			}
+			if (timeRemaining <= 0) {
+				started = false;
+				ended = true;
+			} else {
+				setTimeout(timeClock, 1000);
+			}
+		};
+		timeClock();
 	},
 	end:function () {
 		timeRemaining = 0;
@@ -322,6 +341,7 @@
 			break;
 
 			case "SCORES":
+			
 			var totalScores = command.length-1;
 			for (var i=1;i<=totalScores;i++) {
 				var scoreData = command[i].split(",");
@@ -334,6 +354,7 @@
 			
 			
 			case "NAMES":
+			
 			var totalNames = command.length-1;
 			for(var i = 1;i<=totalNames;i++) {
 				var nameData = command[i].split(",");
@@ -474,23 +495,6 @@
 
 
 		if(started) {
-
-			timeCounter++ ;
-			if (timeCounter > this.time.fps) {
-				timeCounter = 0;
-				timeRemaining--;
-				//console.log(timeRemaining + " seconds left");
-				if(timeRemaining < 10) {
-				  timerText.innerHTML = ":0" + timeRemaining;
-				} else {
-          timerText.innerHTML = ":" + timeRemaining;
-				}
-
-				if(timeRemaining <= 0) {
-					started = false;
-					ended = true;
-				}
-			}
 
 			if (player != null) {
 				if (player.targetX == null && player.targetY == null) {
@@ -690,29 +694,39 @@
 	  
 	  for(var p in this.allPlayers) {
 		var thisPlayer = this.allPlayers[p];
-		thisPlayer.score = Math.floor(Math.random() * 100);
-		
-		if(topScores.length == 0) {
-			topScores.push(thisPlayer);
-		} else {
-			var targetIndex = 0;
-			for(var i=0;i<topScores.length;i++) {
-				targetIndex = i;
-				var champion = topScores[i];
-				if (thisPlayer.score > champion.score) {
-					break;
-				}
-			}
-			topScores.splice(targetIndex,0,thisPlayer);
-		}
+		//thisPlayer.score = Math.floor(Math.random() * 100);
+		topScores.push(thisPlayer);	
 	  }
 	  
+	  var compare = function(a,b) {
+		  if (Number(a.score) < Number(b.score))
+			 return 1;
+		  if (Number(a.score) > Number(b.score))
+			return -1;
+		  return 0;
+		}
+		
+	  topScores.sort(compare);
+		
 	  for (var i=0;i<topScores.length;i++) {
 		var playerName = document.getElementById("playerName"+Number(i+1));
 		playerName.innerHTML = " " +topScores[i].name;
 		var playerScore = document.getElementById("playerScore"+Number(i+1));
-	    playerScore.innerHTML = " " +topScores[0].score;
+	    playerScore.innerHTML = " " +topScores[i].score;
+		
+		if (topScores[i].id == this.playerOneId) {
+			var p1place = document.getElementById("place");
+			if (i == 0) p1place.innerHTML = "1st";
+			else if (i == 1) p1place.innerHTML = "2nd";
+			else if (i == 2) p1place.innerHTML = "3rd";
+			else p1place.innerHTML = Number(i-1) + "th";
+			var p1points = document.getElementById("points");
+			p1points.innerHTML = topScores[i].score;
+		}
 	  }
+	  
+	  
+	  
 	 
 	}
   };
