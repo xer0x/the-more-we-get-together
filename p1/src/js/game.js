@@ -27,6 +27,124 @@
   var coinGroup;
   var coinIndex;
   var tmygt = window.tmygt || (window.tmygt = {});
+  var shapes = {
+    loner : {
+      shape : [
+        ["X"]
+      ]
+    },
+    minivBar : {
+      shape : [
+        ["X"],
+        ["X"]
+      ]
+    },
+    minihBar : {
+      shape : [
+        ["X","X"]
+      ]
+    },
+    vBar : {
+      shape : [
+        ["X"],
+        ["X"],
+        ["X"]
+      ]
+    },
+    hBlock : {
+      shape : [
+        ["X","X","X"],
+        ["X","X","X"]
+      ]
+    },
+    vBlock : {
+      shape : [
+        ["X","X"],
+        ["X","X"],
+        ["X","X"]
+      ]
+    },
+    hBar : {
+      shape : [
+        ["X","X","X"]
+      ]
+    },
+    square : {
+      shape : [
+        ["X","X"],
+        ["X","X"],
+      ]
+    },
+    leftL : {
+      shape : [
+        ["X","0"],
+        ["X","0"],
+        ["X","X"]
+      ]
+    },
+    rightL : {
+      shape : [
+        ["0","X"],
+        ["0","X"],
+        ["X","X"]
+      ]
+    },
+    x : {
+      shape : [
+        ["X","0","X"],
+        ["0","X","0"],
+        ["X","0","X"]
+      ]
+    },
+    v : {
+      shape : [
+        ["X","0","X"],
+        ["0","X","0"]
+      ]
+    },
+    t : {
+      shape : [
+        ["X","X","X"],
+        ["0","X","0"],
+        ["0","X","0"]
+      ]
+    },
+    tetris : {
+      shape : [
+        ["X","0"],
+        ["X","X"],
+        ["0","X"]
+      ]
+    },
+    circle : {
+      shape : [
+        ["X","X","X"],
+        ["X","0","X"],
+        ["X","X","X"]
+      ]
+    },
+    diamond : {
+      shape : [
+        ["0","X","0"],
+        ["X","0","X"],
+        ["0","X","0"]
+      ]
+    },
+    cross : {
+      shape : [
+        ["0","X","0"],
+        ["X","X","X"],
+        ["0","X","0"]
+      ]
+    },
+    boomerang : {
+      shape : [
+        ["X","X","X"],
+        ["0","0","X"],
+        ["0","0","X"]
+      ]
+    }
+  }
 
   function isEmpty(xPos,yPos) {
 	if (grid != null && grid[xPos][yPos] == 0) return true;
@@ -101,6 +219,37 @@
 			c.kill();
 		}
 	},
+  drawShape: function(shapeName){
+    console.log("Drawing " + shapeName);
+    myShape.innerHTML = "";
+    var shape = shapes[shapeName].shape;
+    var tileSize = 30;
+    var shapeWrapper = document.createElement("div");
+    shapeWrapper.classList.add("shapeWrapper");
+
+    for(var i = 0; i < shape.length; i++){
+      var row = shape[i];
+      for(var j = 0; j < row.length; j++){
+        var tile = row[j];
+        var tileEl = document.createElement("div");
+        tileEl.classList.add("tile");
+        tileEl.style.top = i * tileSize + "px";
+        tileEl.style.width = tileSize + "px";
+        tileEl.style.height = tileSize + "px";
+        tileEl.style.left = j * tileSize + "px";
+        if(tile == "X"){
+          shapeWrapper.appendChild(tileEl);
+        }
+      }
+    }
+
+    shapeWrapper.style.height = tileSize * shape.length + "px";
+    shapeWrapper.style.width = tileSize * shape[0].length + "px";
+    //
+    var shapesContainer = document.querySelector("#shapes");
+    myShape.appendChild(shapeWrapper);
+
+  },
 	processMessage: function (message) {
 
 		var command = message.split(" ");
@@ -178,7 +327,8 @@
 			break;
 
 			case "SHAPE":
-			myShape.innerHTML =  "Shape: " + command[1];
+        var shapeName = command[1];
+        this.drawShape(shapeName);
 			break;
 
 			case "SHAPES":
@@ -188,7 +338,7 @@
 				var id=shapeData[0];
 				var shape = shapeData[1];
 				if(id != null && id != '' && shape != '' && shape != null)
-					myShape.innerHTML =  "Shape: " + shape;
+          this.drawShape(shape);
 
 			}
 			break;

@@ -211,3 +211,14 @@ html, body {
 #scoreboard #standings #standing {
   overflow: auto;
 }
+
+
+.shapeWrapper {
+  position: relative;
+}
+
+.tile {
+  background: white;
+  position: absolute;
+
+}
