@@ -208,9 +208,11 @@ function assignAllPlayerShapes(players){
   switch(randomNum){
     case 0:
       mode = "battle";
+      console.log(mode);
     break;
     case 1:
       mode = "coop";
+      console.log(mode);
     break;
   }
 
@@ -218,7 +220,6 @@ function assignAllPlayerShapes(players){
   while(playersLeft > 0) {
 
     if(mode == "battle"){
-      console.log("BATTLE");
       var shapename = getShape(playersLeft - 1);
       if(shapename){
         var randomMode = Math.floor(Math.random()*2);
@@ -231,9 +232,7 @@ function assignAllPlayerShapes(players){
       }
     }
 
-
     if(mode == "coop") {
-      console.log("COOP");
       var shapename = getShape(playersLeft);
         if(shapename){
           var randomMode = Math.floor(Math.random()*2);
