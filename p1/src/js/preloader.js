@@ -23,7 +23,9 @@
       this.load.image('splash', 'assets/splash.jpg');
       this.load.image('coin', 'assets/sprites/coin.png');
       // this.load.audio('happy1', 'assets/audio/mwgt_vo_gen_01.webm');
-      this.load.audio('cheer1', 'assets/audio/mwgt_vo_groupcheer_02.webm');
+      this.load.audio('cheer1', 'assets/audio/mwgt_vo_groupcheer_01.webm');
+      this.load.audio('cheer2', 'assets/audio/mwgt_vo_groupcheer_02.webm');
+      this.load.audio('cheer3', 'assets/audio/mwgt_vo_groupcheer_03.webm');
       this.load.audio('welcome1', 'assets/audio/mwgt_vo_groupcheer_01.webm');
       this.load.audio('surprise1', 'assets/audio/mwgt_vo_gen_19.webm');
       this.load.audio('move1', 'assets/audio/move.mp3');
@@ -35,6 +37,7 @@
       this.load.audio('walk4', 'assets/audio/mwgt_vo_gen_02.webm');
       this.load.audio('walk5', 'assets/audio/mwgt_vo_gen_12.webm');
       this.load.audio('walk6', 'assets/audio/mwgt_vo_gen_13.webm');
+      this.load.audio('walk7', 'assets/audio/mwgt_vo_gen_10.webm');
 
       this.load.audio('musicLoop_long', 'assets/audio/music/The More We Get Together_Long_Loop_001_[M].webm');
       //this.load.audio('musicLoop_short', 'assets/audio/music/The More We Get Together_Short_Loop_001_[M].webm');
@@ -54,9 +57,6 @@
       this.load.audio('happy13', 'assets/audio/mwgt_vo_gen_13.webm');
       this.load.audio('happy14', 'assets/audio/mwgt_vo_gen_14.webm');
       this.load.audio('happy15', 'assets/audio/mwgt_vo_gen_15.webm');
-      this.load.audio('cheer1', 'assets/audio/mwgt_vo_groupcheer_01.webm');
-      this.load.audio('cheer2', 'assets/audio/mwgt_vo_groupcheer_02.webm');
-      this.load.audio('cheer3', 'assets/audio/mwgt_vo_groupcheer_03.webm');
 */
     },
 
