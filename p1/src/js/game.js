@@ -647,7 +647,7 @@
 		newPlayer.frame = 0;
 		newPlayer.moveRight = function () {
 			if (this.xPos < gridWidth-1 && isEmpty(Number(this.xPos)+1,Number(this.yPos))) {
-				phaserGame.sound.play('walk' + Math.floor(Math.random() * 19));
+				phaserGame.sound.play('walk' + Math.floor(Math.random() * 24));
 
 				grid[this.xPos][this.yPos] = 0;
 				this.xPos++;
@@ -664,7 +664,7 @@
 
 		newPlayer.moveLeft = function () {
       phaserGame.sound.play('move1');
-			phaserGame.sound.play('walk' + Math.floor(Math.random() * 19));
+			phaserGame.sound.play('walk' + Math.floor(Math.random() * 24));
 			if(this.xPos > 0 && isEmpty(Number(this.xPos)-1,Number(this.yPos))) {
 				grid[this.xPos][this.yPos] = 0;
 				this.xPos--;
@@ -680,7 +680,7 @@
 
 		newPlayer.moveDown = function () {
       phaserGame.sound.play('move1');
-			phaserGame.sound.play('walk' + Math.floor(Math.random() * 19));
+			phaserGame.sound.play('walk' + Math.floor(Math.random() * 24));
       if(this.yPos < gridHeight-1  && isEmpty(Number(this.xPos),Number(this.yPos)+1)) {
 				grid[this.xPos][this.yPos] = 0;
 				this.yPos++;
@@ -696,7 +696,7 @@
 
 		newPlayer.moveUp = function () {
       phaserGame.sound.play('move1');
-			phaserGame.sound.play('walk' + Math.floor(Math.random() * 19));
+			phaserGame.sound.play('walk' + Math.floor(Math.random() * 24));
       if (this.yPos > 0 && isEmpty(Number(this.xPos),Number(this.yPos)-1)) {
 				grid[this.xPos][this.yPos] = 0;
 				this.yPos--;
