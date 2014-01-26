@@ -25,7 +25,7 @@ function checkShapes(players, gameBoard) {
       if (shapeY == player.y && shapeX == player.x){
         //If they were, POINTS!
         // console.log(player.name + ' POINTS!!!!')
-        player.score = parseInt(player.score) + 1;
+        player.score = Number(player.score) + 1;
       }
     }
   }
