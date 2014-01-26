@@ -172,6 +172,7 @@ function tick() {
       messages.push(util.format('NAME %s', getNameString()));
     } else {
       messages.push(util.format('START %s', secondsLeft));
+      message.push(util.format('NEWSHAPE'));
     }
   }
   lastTickState = roundFinished;
