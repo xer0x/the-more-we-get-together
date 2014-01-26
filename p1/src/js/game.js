@@ -231,7 +231,12 @@
 				timeRemaining--;
 
 				//console.log(timeRemaining + " seconds left");
-				timerText.innerHTML = ":" + timeRemaining;
+				if(timeRemaining < 10) {
+				  timerText.innerHTML = ":0" + timeRemaining;
+				} else {
+          timerText.innerHTML = ":" + timeRemaining;
+				}
+
 				if(timeRemaining <= 0) {
 					started = false;
 					ended = true;
