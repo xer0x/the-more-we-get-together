@@ -60,7 +60,7 @@ function addPlayer(playerId, callback) {
     y: position.y,
     name: 'Winner',
     score: 0,
-    shape: 'L'
+    shape: 'square'
   };
   grid[player.x][player.y] = playerId;
   players[playerId] = player;
