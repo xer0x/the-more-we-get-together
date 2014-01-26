@@ -214,9 +214,11 @@ function printScores() {
 // Score Changes update
 function getBingString() {
   var bing = [];
+  var p;
   for (var id in players) {
-    if (players[id].score > lastScores[id]) {
-      bing.push(id + ',' + (players[id].score - lastScores[id]));
+    p = players[id;]
+    if (p.score > lastScores[id]) {
+      bing.push( [id, p.score, (p.score - lastScores[id])].join(',') );
     }
   }
   return bing.join(' ');
