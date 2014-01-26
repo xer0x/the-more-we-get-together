@@ -9,7 +9,7 @@ html, body {
   overflow: hidden;
 	padding: 0;
 	margin: 0;
-  background: #DDD;
+  background: #4c9236;
 }
 
 .uiText {
@@ -25,20 +25,65 @@ html, body {
 	top:2em;
 	right:2em;
 	}
-	
+
 #scoreText {
 	bottom:2em;
 	right:2em;
 	}
-	
+
 #nameText {
 	top:2em;
 	left:2em;
 	}
-	
+
 #enterName {
-	position:absolute;
-	top:35em;
-	left:50%;
-	width:10em;
-	}
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom:0;
+  right: 0;
+  background: url(/assets/splash.jpg);
+  background-size: 1550px;
+  background-repeat: no-repeat;
+  background-position:top;
+  margin: 0 auto;
+}
+
+#name-ui {
+  margin: 0 auto;
+  position: relative;
+  top: 490px;
+  text-align: center;
+}
+
+#name-ui input {
+  font-size: 30px;
+  padding: 10px 12px;
+  color: #777;
+}
+
+#name-ui #enterNameButton {
+  font-size: 30px;
+  padding: 11px 12px;
+  color: white;
+  font-family: Helvetica;
+  text-decoration: none;
+  background: #24691d;
+}
+
+#credits {
+  padding-top: 30px;
+  color: white;
+  text-align: center;
+  font-family: Helvetica, Arial;
+  color: rgba(255,255,255,.6);
+  font-size: 18px;
+}
+
+#credits a {
+  color: white;
+  text-decoration: none;
+}
+
+

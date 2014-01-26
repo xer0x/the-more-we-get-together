@@ -5,25 +5,25 @@
   <title>The More You Get Together</title>
 
   <!-- build:css main.min.css -->
-  <link rel="stylesheet" href="css/main.css"> 
+  <link rel="stylesheet" href="css/main.css">
   <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
   <!-- /build -->
-  
+
   <script>
-  
+
 	var sockjs_url = '/echo';
     var sockjs = new SockJS(sockjs_url);
     var messages = [];
-    
+
 	sockjs.onopen    = function(e)  {
 		console.log(e.data);
 	};
-	
+
     sockjs.onmessage = function(e) {
 		messages.push(e.data);
 	};
     sockjs.onclose   = function()  {};
-	
+
 	function clearDefault(el) {
 	  if (el.defaultValue==el.value) el.value = ""
 	}
@@ -35,17 +35,27 @@
 </head>
 
 <body>
-  
+
   <div id="gamediv" class="gamediv"></div>
   <div id="timerText" class="uiText"></div>
   <div id="scoreText" class="uiText"></div>
   <div id="nameText" class="uiText"></div>
-  
+
   <div id="enterName">
-	<input id="nameInput" type="text" value="Enter Your Name..." onfocus="clearDefault(this)" onblur="restoreDefault(this)" /><input type="submit" value="Play!" id="enterNameButton" name="submit"  />
+    <div id="name-ui">
+      <input id="nameInput" type="text" value="Enter Your Name..." onfocus="clearDefault(this)" onblur="restoreDefault(this)" />
+      <a href="#" id="enterNameButton" name="submit">Play!</a>
+      <div id="credits">
+        A Global GameJam Joint by <br/>
+        <a href="http://twitter.com/arawkins">@arawkins</a> -
+        <a href="http://twitter.com/xer0x">@xer0x</a> -
+        <a href="http://twitter.com/flukeout">@flukeout</a>
+      </div>
+    </div>
+
   </div>
-  <!-- build:remove 
-  <script src="http://localhost:35729/livereload.js"></script>  
+  <!-- build:remove
+  <script src="http://localhost:35729/livereload.js"></script>
   <!-- /build -->
 
   <!-- buid:js main.min.js -->
