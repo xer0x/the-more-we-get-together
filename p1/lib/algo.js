@@ -1,56 +1,58 @@
+var shapes = require('./shapes')
+
+/*
 var players = {
   1 : {
     name: "jim",
-    xPos : 1,
-    yPos : 1,
+    x : 1,
+    y : 1,
     shape : "vBar",
     score : 0
   },
   2 : {
     name : "bob",
-    xPos : 1,
-    yPos : 2,
+    x : 1,
+    y : 2,
     shape : "vBar",
     score: 0
   },
   3 : {
     name : "steve",
-    xPos : 1,
-    yPos : 3,
+    x : 1,
+    y : 3,
     shape : "square",
     score: 0
   }
 }
+*/
 
-$(document).ready(function(){
+//buildBoard(32);   //Generates the fake board and adds the players to it as Xs
+//drawBoard();      //Draws it on the page for fun
 
-  buildBoard(32);   //Generates the fake board and adds the players to it as Xs
-  drawBoard();      //Draws it on the page for fun
-
+function checkShapes(players, grid) {
   //For every player
   for (var key in players) {
     var player = players[key];
 
     // Checks the board for this players shape
-    var shapeWinners = checkShape(gameBoard,shapes[player.shape]) || [];
+    var shapeWinners = checkShape(gameBoard, shapes[player.shape]) || [];
 
     // Checks if this player was among the people that made the shape
     for(var i = 0; i < shapeWinners.length; i++){
       var shapeY = shapeWinners[i][0];
       var shapeX = shapeWinners[i][1];
-      if(shapeY == player.yPos && shapeX == player.xPos){
+      if(shapeY == player.y && shapeX == player.x){
         //If they were, POINTS!
         player.score = parseInt(player.score) + 1;
       }
     }
   }
-
   console.log(players)
+}
 
-});
 
 //Pass it the gameboard and shapes;
-function checkShape(gameBoard,shape){
+function checkShape(gameBoard, shape){
 
   var rowCount = gameBoard.length;
   var rowLength = gameBoard[0].length;
@@ -152,19 +154,24 @@ function buildBoard(gridSize){
   }
   for (var key in players) {
     var player = players[key];
-    gameBoard[player.yPos][player.xPos] = "<span class='playa'>X</span>";
+    gameBoard[player.y][player.x] = "X";
   }
 }
 
 function drawBoard(){
-  var display = $("#board");
-  display.html("");
+  var output = '';
   for (var i = 0; i < gameBoard.length; i++) {
     var row = gameBoard[i];
     for (var j = 0; j < gameBoard[0].length; j++) {
-      var space = row[j] || "0";
-      display.html(display.html() + space); //draw the row
+      var space = row[j] || "_";
+      output += ' ' + space;
     }
-    display.html(display.html() + "<br>"); // add a space
+    output += '\n';
   }
+  console.log(output)
 }
+
+//buildBoard(16);
+//drawBoard();
+
+module.exports = checkShapes;

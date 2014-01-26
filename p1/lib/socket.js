@@ -24,8 +24,18 @@ function listener(conn) {
   console.log('    [+] open %s', conn.id);
   connections[conn.id] = conn;
 
-  var grid = world.getGrid();
-  conn.write(['GRID', grid.width, grid.height, grid.state].join(' '));
+  function makeGridMessage() {
+    var grid = world.getGrid();
+    return ['GRID', grid.width, grid.height, grid.state].join(' ');
+  }
+
+  function tickGridMessage() {
+    var tickDelay = 3000;
+    conn.write(makeGridMessage());
+    setTimeout(tickGridMessage, tickDelay);
+  }
+
+  tickGridMessage();
 
   world.addPlayer(conn.id, function(newPlayer) {
     conn.write(util.format('YOU %s', newPlayer.id));

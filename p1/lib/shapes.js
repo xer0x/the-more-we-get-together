@@ -21,3 +21,5 @@ var shapes = {
     ["X","0","X"]
   ]
 }
+
+module.exports = shapes;
