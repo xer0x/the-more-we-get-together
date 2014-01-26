@@ -216,6 +216,7 @@ function updateLevels() {
 
 function clearScores() {
   for (var id in players) {
+    players[id].totalScore = players[id].score + (players[id].totalScore || 0);
     players[id].score = 0;
   }
 }
