@@ -184,6 +184,9 @@ function tick() {
   }
   if (!roundFinished) {
     messages.push(util.format('BING %s', getBingString()));
+    if (messages[messages.length] == 'BING ') {
+      messages.pop();
+    }
   }
   lastTickState = roundFinished;
   return messages;
