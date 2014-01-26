@@ -12,6 +12,7 @@ function checkShapes(players, gameBoard) {
   //For every player
   for (var key in players) {
     var player = players[key];
+    if (player.shape == 'loner') continue; // loners don't score
 
     // Checks the board for this players shape
     var shapeWinners = checkShape(simpleBoard, shapes[player.shape]) || [];
