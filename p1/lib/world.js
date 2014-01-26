@@ -64,7 +64,7 @@ function addPlayer(playerId, callback) {
     y: position.y,
     name: 'Winner' + ('' + Math.random()).substring(2,6),
     score: 0,
-    level: 1,
+    level: 0,
     shape: shapes.getPlayerShape(Object.keys(players).length)
   };
   grid[player.x][player.y] = playerId;
@@ -194,7 +194,7 @@ function updateLevels() {
   for (var id in players) {
     p = players[id];
     if (p.score > 7) {
-      p.level = (p.level + 1) || 1;
+      p.level = p.level + 1;
     } else if (p.score == 0) {
       p.level = p.level > 0 ? p.level - 1 : 0;
     }
