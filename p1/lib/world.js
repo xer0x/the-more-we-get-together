@@ -194,7 +194,7 @@ function printScores() {
 function getScoreString() {
   var scores = [];
   for (var id in players) {
-    scores.push(id + ',' players[id].score);
+    scores.push(id + ',' + players[id].score);
   }
   return scores.join(' ');
 }
@@ -208,7 +208,7 @@ function clearScores() {
 function getNameString() {
   var names = [];
   for (var id in players) {
-    names.push(id + ',' players[id].name);
+    names.push(id + ',' + players[id].name);
   }
   return names.join(' ');
 }
