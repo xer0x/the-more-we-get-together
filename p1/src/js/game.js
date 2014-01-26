@@ -207,7 +207,7 @@
 			case "LEVELS":
 			var levelData = command[1].split(",");
 			
-			console.log("levelData:"+levelData);
+			//console.log("levelData:"+levelData);
 			//this.allPlayers[levelData[0]].frame = levelData[1];
 			break;
 			
