@@ -1,5 +1,6 @@
 * {
   -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
 
@@ -29,6 +30,36 @@ html, body {
   padding: 10px;
   -moz-transform: rotate(3deg);
   -webkit-transform: rotate(3deg);
+
+}
+
+#shapeHelper {
+  position: absolute;
+  right: -155px;
+  bottom: calc(50% - 15px);
+  font-size: 22px;
+  background: rgba(255,255,255,.7);
+  padding: 10px 8px;
+  color: #537112;
+  text-align: center;
+  -webkit-transform: rotate(-6deg);
+  -moz-transform: rotate(-6deg);
+  transform: rotate(-6deg);
+  border: solid 2px rgba(36,105,29,.6);
+  -webkit-animation: strobe 1s linear infinite;
+  -moz-animation: strobe 1s linear infinite;
+  -webkit-transform-origin: left;
+}
+
+@-moz-keyframes strobe {
+  0% {opacity: 1; -moz-transform: scale(1) rotate(-6deg) transalateX(5px);}
+  50% {opacity: .5; -moz-transform: scale(.95) rotate(-6deg);}
+  100% {opacity: 1;  -moz-transform: scale(1) rotate(-6deg) transalateX(5px);}
+}
+@-webkit-keyframes strobe {
+  0% {opacity: 1;  -webkit-transform: scale(1) rotate(-6deg) transalateX(5px);}
+  50% {opacity: .5; -webkit-transform: scale(.95) rotate(-6deg);}
+  100% {opacity: 1; -webkit-transform: scale(1) rotate(-6deg) transalateX(5px);}
 }
 
 #timerText {
@@ -162,6 +193,7 @@ html, body {
   top: 0px;
   right: 55px;
   -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
 }
 
 #scoreboard #playerSprite {
@@ -173,6 +205,9 @@ html, body {
   background-repeat: no-repeat;
   -webkit-animation: groovin 1s infinite linear;
   -webkit-transform-origin: bottom;
+  -moz-animation: groovin 1s infinite linear;
+  -moz-transform-origin: bottom;
+
 }
 
 #scoreboard #spriteShadow {
@@ -195,6 +230,14 @@ html, body {
   60% { -webkit-transform: scaleY(.85) skew(-5deg,0deg); }
   100% { -webkit-transform: skew(10deg,0deg) scaleX(.95); }
 }
+@-moz-keyframes groovin {
+  0% { -webkit-transform: skew(10deg,0deg) scaleX(.95); }
+  10% { -webkit-transform: scaleY(.85) skew(5deg,0deg); }
+  50% { -webkit-transform: skew(-10deg,0deg) scaleX(.95); }
+  60% { -webkit-transform: scaleY(.85) skew(-5deg,0deg); }
+  100% { -webkit-transform: skew(10deg,0deg) scaleX(.95); }
+}
+
 
 #scoreboard #playerLevel {
   float: right;
@@ -260,5 +303,5 @@ html, body {
 .tile {
   background: white;
   position: absolute;
-
+  border: solid 1px #537112;
 }

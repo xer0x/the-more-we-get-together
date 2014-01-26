@@ -221,7 +221,7 @@
 
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
-	  myShape = document.getElementById("myShape");
+	  myShape = document.querySelector("#myShape #shapeHolder");
 	  scoreboard = document.getElementById("scoreboard");
 	  startTime = 5;
 	  started = false;
@@ -454,9 +454,7 @@
         phaserGame.sound.play('surprise1')
         timeRemaining = 4;
       break;
-
 		}
-
 	},
 
 	buildGrid:function(w,h,serverGrid) {
