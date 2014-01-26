@@ -184,7 +184,7 @@
 	  cursors = this.input.keyboard.createCursorKeys();
 
       this.input.mouse.mouseUpCallback = this.onMouseUp;
-
+	  this.input.touch.onTouchLeave = this.onMouseUp;
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
 	  myShape = document.getElementById("myShape");
