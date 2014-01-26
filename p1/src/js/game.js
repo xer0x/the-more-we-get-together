@@ -9,7 +9,7 @@
   var cursors;
   var player;
   var allPlayers;
-  var moveSpeed = 16;
+  var moveSpeed = 8;
   var playerOneId = "";
   
   var tmygt = window.tmygt || (window.tmygt = {});
@@ -57,7 +57,9 @@
 			case "GRID":
 			var w = command[1];
 			var h = command[2];
-			this.buildGrid(w,h);
+			var serverGrid = eval('('+command[3]+')');
+			
+			this.buildGrid(w,h, serverGrid);
 			break;
 			
 			case "DROP":
@@ -69,17 +71,45 @@
 			break;
 			
 			case "MOVE":
+			
 			var prevCoords = command[1];
 			var newCoords = command[2];
-			if (prevCoords != newCoords) {
+			var id = command[3];
+			
+			if (id != this.playerOneId && prevCoords != newCoords) {
+				prevCoords = prevCoords.split(",");
+				newCoords = newCoords.split(",");
+				var oldX = prevCoords[0];
+				var oldY = prevCoords[1];
 				
+				var newX = newCoords[0];
+				var newY = newCoords[1];
+				
+				var playerToMove = this.getPlayerAt(oldX,oldY);
+				
+				if (newX != oldX) {
+					// horizontal move
+					if (oldX < newX) {
+						playerToMove.moveRight();
+					} else {
+						playerToMove.moveLeft();
+					}
+				} else {
+					// vertical move
+					if(oldY < newY) {
+						playerToMove.moveDown();
+					} else {
+						playerToMove.moveUp();
+					}
+				}
 			}
+			break;
 			
 		}
 	
 	},
 	
-	buildGrid:function(w,h) {
+	buildGrid:function(w,h,serverGrid) {
 		grid  = [];
 		gridWidth = w;
 		gridHeight = h;
@@ -96,7 +126,7 @@
 			g.lineTo(i*cubeWidth,worldHeight);
 			
 			for(var j=0;j<= gridHeight;j++) {
-				grid[i][j] = null;
+				grid[i][j] = 0;
 				
 				g.moveTo(0,j*cubeHeight);
 				g.lineTo(worldWidth,j*cubeHeight);
@@ -225,7 +255,7 @@
 				player.yPos++;
 				grid[player.xPos][player.yPos] = player;
 				player.targetY = player.y + cubeHeight;
-				sockjs.send("MOVE UP");
+				sockjs.send("MOVE DOWN");
 				return true;
 			}
 			
@@ -236,7 +266,7 @@
 			if (player.yPos > 0) {
 				player.yPos--;
 				player.targetY = player.y - cubeHeight;
-				sockjs.send("MOVE DOWN");
+				sockjs.send("MOVE UP");
 				return true;
 			}
 			return false;
@@ -250,6 +280,8 @@
 	getPlayerAt:function(xPosition, yPosition) {
 		return grid[xPosition][yPosition];
 	}
+	
+	
 
   };
   
