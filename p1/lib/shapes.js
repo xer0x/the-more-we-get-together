@@ -217,7 +217,7 @@ function assignAllPlayerShapes(players){
   }
 
   //Can't battle with less than 4
-  if(playerCount < 3) {
+  if(playerCount < 3 || playerCount > 10) {
     mode = "coop";
   }
 
