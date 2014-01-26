@@ -438,13 +438,13 @@
 			coinIndex++;
 			if (coinIndex >= coinGroup.length) coinIndex = 0;
 
-			coin.bringToTop();
-			coin.x = playerToBing.x+60;
-			coin.y = playerToBing.y+20;
-			coin.vy = -2;
-			coin.scaleVX = -0.1;
-			coin.life = 55;
-			coin.revive();
+  		coin.bringToTop();
+  		coin.x = player.x+70;
+  		coin.y = player.y+25;
+  		coin.vy = -2;
+  		coin.scaleVX = 0;
+  		coin.life = 25;
+  		coin.revive();
 
 	  }
 	},
