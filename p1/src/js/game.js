@@ -466,8 +466,10 @@
 				if (serverNode != 0 && localNode == 0) {
 					var playerId = serverNode[i][j];
 					var playerToCorrect = this.allPlayers[playerId];
-					playerToCorrect.moveTo(i,j);
-					console.log("correcting player " + playerToCorrect.name);
+					if(playerToCorrect != null) {
+						playerToCorrect.moveTo(i,j);
+						console.log("correcting player " + playerToCorrect.name);
+					}
 				}
 			}
 		}
