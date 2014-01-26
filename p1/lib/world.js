@@ -174,6 +174,7 @@ function tick() {
     } else {
       messages.push(util.format('START %s', secondsLeft));
       messages.push(util.format('SHAPES %s', getShapeString()));
+      messages.push(util.format('LEVELS %s', getLevelString()));
     }
   }
   lastTickState = roundFinished;
@@ -201,6 +202,18 @@ function getScoreString() {
   return scores.join(' ');
 }
 
+function updateLevels() {
+  var p;
+  for (var id in players) {
+    p = players[id];
+    if (p.score > 7) {
+      p.level = (p.level + 1) || 1;
+    } else if (p.score == 0) {
+      p.level = p.level > 0 ? p.level - 1 : 0;
+    }
+  }
+}
+
 function clearScores() {
   for (var id in players) {
     players[id].score = 0;
@@ -223,6 +236,14 @@ function getShapeString() {
   return shapes.join(' ');
 }
 
+function getLevelString() {
+  var levels = [];
+  for (var id in players) {
+    levels.push(id + ',' + players[id].level);
+  }
+  return levels.join(' ');
+}
+
 function init() {
   makeGrid();
   reset();
@@ -232,6 +253,7 @@ function reset() {
   shapes.assignAllPlayerShapes(players);
   secondsLeft = defaultRoundLength;
   roundFinished = false;
+  updateLevels();
   clearScores();
   setTimeout(function() {
     roundFinished = true; // Next tick() will show intermission screen
