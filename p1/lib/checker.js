@@ -174,6 +174,6 @@ function test() {
   console.log(results);
 }
 
-test();
+//test();
 
 module.exports = {checkShapes: checkShapes};

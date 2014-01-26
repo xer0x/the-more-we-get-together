@@ -58,6 +58,8 @@ function addPlayer(playerId, callback) {
     id: playerId,
     x: position.x,
     y: position.y,
+    name: 'Winner',
+    score: 0,
     shape: 'L'
   };
   grid[player.x][player.y] = playerId;
@@ -147,7 +149,16 @@ function move(playerId, direction) {
 function tick() {
   // Does +1 to score if in their shape
   checker.checkShapes(players, grid);
-  console.log(players);
+
+  var playerIds = Object.keys(players);
+  if (playerIds.length > 0) {
+    console.log('Player scores');
+    var p;
+    for (var i=0; i < playerIds.length; i++) {
+      p = players[playerIds[i]];
+      console.log(util.format('%s  \t%d  \t%s', p.name, p.score, p.shape));
+    }
+  }
 }
 
 function reset() {
