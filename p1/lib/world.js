@@ -143,6 +143,10 @@ function move(playerId, direction) {
   return {old: old, dest: dest};
 }
 
+function tick() {
+
+}
+
 function reset() {
   makeGrid();
   console.log('TODO: put players back on grid positions?');
@@ -156,5 +160,6 @@ module.exports = {
   getPlayer: getPlayer,
   removePlayer: removePlayer,
   change: change,
+  tick: tick
   reset: reset
 };

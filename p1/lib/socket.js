@@ -18,6 +18,12 @@ function socket(server) {
   var sockjs_socket = sockjs.createServer(sockjs_opts);
   sockjs_socket.on('connection', listener);
   sockjs_socket.installHandlers(server, {prefix:'/echo'});
+  function tick() {
+    var tickDelay = 1230;
+    world.tick();
+    setTimeout(tick, tickDelay);
+  }
+  tick();
 }
 
 function listener(conn) {
@@ -29,19 +35,18 @@ function listener(conn) {
     return ['GRID', grid.width, grid.height, grid.state].join(' ');
   }
 
-  function tickGridMessage() {
-    var tickDelay = 3000;
+  function tick() {
+    // tick for individual connection
+    var tickDelay = 2000;
     conn.write(makeGridMessage());
-    setTimeout(tickGridMessage, tickDelay);
+    setTimeout(tick, tickDelay);
   }
 
-  tickGridMessage();
+  tick();
 
   world.addPlayer(conn.id, function(newPlayer) {
     conn.write(util.format('YOU %s', newPlayer.id));
     var spawnMessage = util.format('PLAYER %d,%d %s', newPlayer.x, newPlayer.y, newPlayer.id);
-    //conn.write(spawnMessage);
-    //broadcast(spawnMessage);
     broadcast_all(spawnMessage);
   });
 
@@ -79,6 +84,10 @@ function listener(conn) {
 
   conn.on('data', readMessage);
   conn.on('close', closeConnection)
+}
+
+function checkShapes() {
+
 }
 
 module.exports = socket;
