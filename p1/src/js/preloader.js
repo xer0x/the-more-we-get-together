@@ -36,7 +36,9 @@
       this.load.audio('walk5', 'assets/audio/mwgt_vo_gen_12.webm');
       this.load.audio('walk6', 'assets/audio/mwgt_vo_gen_13.webm');
 
-      this.load.audio('intro', 'assets/audio/The More We Get Together 001.webm');
+      this.load.audio('musicLoop_long', 'assets/audio/music/The More We Get Together_Long_Loop_001_[M].webm');
+      //this.load.audio('musicLoop_short', 'assets/audio/music/The More We Get Together_Short_Loop_001_[M].webm');
+      this.load.audio('musicIntense', 'assets/audio/music/The More We Get Together_Ending_001_[M].webm');
 
 /*
       this.load.audio('happy2', 'assets/audio/mwgt_vo_gen_02.webm');

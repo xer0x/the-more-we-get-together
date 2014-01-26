@@ -27,7 +27,8 @@
         }
       });
 
-      window.bgMusic = phaserGame.sound.play('intro');
+      window.volume = 1.1;
+      window.bgMusic = phaserGame.sound.play('musicLoop_long', window.volume, true);
 
       this.stage.backgroundColor="#FFFFFF";
       startBtn = document.getElementById("enterNameButton");

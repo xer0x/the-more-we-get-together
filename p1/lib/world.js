@@ -6,7 +6,7 @@ var width = 10;
 var height = 11;
 var defaultRoundLength = 21
 var secondsForIntermission = 5
-var intenseSeconds = 4;
+var intenseSeconds = 6;
 var secondsLeft;
 var roundFinished = true;
 var lastTickState = null;
