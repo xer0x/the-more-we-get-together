@@ -407,6 +407,7 @@
 
       case "COUNTDOWN":
         phaserGame.sound.play('surprise1')
+        timeRemaining = 4;
       break;
 
 		}
