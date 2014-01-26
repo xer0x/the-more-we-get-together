@@ -462,11 +462,12 @@
 			for(var j=0;j< gridHeight;j++) {
 				var serverNode = serverGrid[i][j];
 				var localNode = grid[i][j];
-				if (serverNode == 0 && localNode == 0) return;
+				if (serverNode == 0 && localNode == 0) continue;
 				if (serverNode != 0 && localNode == 0) {
 					var playerId = serverNode[i][j];
 					var playerToCorrect = this.allPlayers[playerId];
 					playerToCorrect.moveTo(i,j);
+					console.log("correcting player " + playerToCorrect.name);
 				}
 			}
 		}
