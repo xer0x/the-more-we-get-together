@@ -1,35 +1,6 @@
 var shapes = require('./shapes')
 
-/*
-var players = {
-  1 : {
-    name: "jim",
-    x : 1,
-    y : 1,
-    shape : "vBar",
-    score : 0
-  },
-  2 : {
-    name : "bob",
-    x : 1,
-    y : 2,
-    shape : "vBar",
-    score: 0
-  },
-  3 : {
-    name : "steve",
-    x : 1,
-    y : 3,
-    shape : "square",
-    score: 0
-  }
-}
-*/
-
-//buildBoard(32);   //Generates the fake board and adds the players to it as Xs
-//drawBoard();      //Draws it on the page for fun
-
-function checkShapes(players, grid) {
+function checkShapes(players, gameBoard) {
   //For every player
   for (var key in players) {
     var player = players[key];
@@ -38,18 +9,17 @@ function checkShapes(players, grid) {
     var shapeWinners = checkShape(gameBoard, shapes[player.shape]) || [];
 
     // Checks if this player was among the people that made the shape
-    for(var i = 0; i < shapeWinners.length; i++){
+    for (var i = 0; i < shapeWinners.length; i++){
       var shapeY = shapeWinners[i][0];
       var shapeX = shapeWinners[i][1];
-      if(shapeY == player.y && shapeX == player.x){
+      if (shapeY == player.y && shapeX == player.x){
         //If they were, POINTS!
         player.score = parseInt(player.score) + 1;
       }
     }
   }
-  console.log(players)
+  return players;
 }
-
 
 //Pass it the gameboard and shapes;
 function checkShape(gameBoard, shape){
@@ -64,22 +34,22 @@ function checkShape(gameBoard, shape){
     var row = gameBoard[i];
     for (var j = 0; j < rowLength; j++) {
       var space = row[j];
-      if(space == "X"){
-        var blam = checkTile(shape,i,j);
-        if(blam){
+      if (space == "X"){
+        var blam = checkTile(shape, i, j, gameBoard);
+        if (blam){
           winners.push(blam);
         }
       }
     }
   }
 
-  for(var i = 0; i < winners.length; i++) {
-    for(var j = 0; j < winners[i].length; j++) {
+  for (var i = 0; i < winners.length; i++) {
+    for (var j = 0; j < winners[i].length; j++) {
       shapeWinners.push(winners[i][j]);
     }
   }
 
-  if(shapeWinners.length > 0) {
+  if (shapeWinners.length > 0) {
     return shapeWinners;
   }
 
@@ -87,7 +57,7 @@ function checkShape(gameBoard, shape){
 
 
 //Checks if this tile was in this shape
-function checkTile(shape,y,x) {
+function checkTile(shape, y, x, gameBoard) {
 
   var rowCount = gameBoard.length;
   var rowLength = gameBoard[0].length;
@@ -105,9 +75,9 @@ function checkTile(shape,y,x) {
 
     for (var j = 0; j < shapeRowLength; j++){
       var tile = shapeRow[j];
-      if(tile == "X"){
+      if (tile == "X"){
         tileCount++;
-        if(i < yOffset ){
+        if (i < yOffset ){
           yOffset = i;
           xOffset = j;
         }
@@ -126,13 +96,13 @@ function checkTile(shape,y,x) {
 
       var tile = shapeRow[j];
 
-      if(tile == "X"){
+      if (tile == "X"){
         var checkX = j + xStart;
         var checkY = i + yStart;
 
-        if(checkY < rowCount && checkX < rowLength) {
-          if(gameBoard[checkY][checkX] == "X"){
-            winners.push([checkY,checkX]);
+        if (checkY < rowCount && checkX < rowLength) {
+          if (gameBoard[checkY][checkX] == "X") {
+            winners.push([checkY, checkX]);
             matchCount++;
           }
         }
@@ -140,15 +110,15 @@ function checkTile(shape,y,x) {
     }
   }
 
-  if(tileCount == matchCount) {
+  if (tileCount == matchCount) {
     // The tile made a shape!
     return winners;
   }
 
 }
 
-function buildBoard(gridSize){
-  gameBoard = new Array(gridSize);
+function buildBoard(gridSize, players){
+  var gameBoard = new Array(gridSize);
   for (var i = 0; i < gridSize; i++){
     gameBoard[i] = new Array(gridSize);
   }
@@ -156,9 +126,10 @@ function buildBoard(gridSize){
     var player = players[key];
     gameBoard[player.y][player.x] = "X";
   }
+  return gameBoard;
 }
 
-function drawBoard(){
+function drawBoard(gameBoard){
   var output = '';
   for (var i = 0; i < gameBoard.length; i++) {
     var row = gameBoard[i];
@@ -171,7 +142,38 @@ function drawBoard(){
   console.log(output)
 }
 
-//buildBoard(16);
-//drawBoard();
+function test() {
+
+  var players = {
+    1 : {
+      name: "jim",
+      x : 1,
+      y : 1,
+      shape : "vBar",
+      score : 0
+    },
+    2 : {
+      name : "bob",
+      x : 1,
+      y : 2,
+      shape : "vBar",
+      score: 0
+    },
+    3 : {
+      name : "steve",
+      x : 1,
+      y : 3,
+      shape : "square",
+      score: 0
+    }
+  }
+
+  var grid = buildBoard(16, players);
+  drawBoard(grid);
+  var results = checkShapes(players, grid);
+  console.log(results);
+}
+
+test();
 
 module.exports = checkShapes;
