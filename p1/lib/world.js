@@ -31,6 +31,11 @@ function makeGrid() {
   }
 }
 
+function getStateTimer() {
+  var state = roundFinished ? 'FINISHED' : 'START';
+  return [state, secondsLeft];
+}
+
 // find a new spot with nobody on it
 function getNewPosition() {
   var x, y;
@@ -158,11 +163,13 @@ function tick() {
   if (!roundFinished) {
     checker.checkShapes(players, grid);
   }
+  secondsLeft -= 1;
   printScores();
   if (roundFinished !== lastTickState) {
     if (roundFinished) {
       messages.push(util.format('FINISHED %s', secondsForIntermission));
-      messages.push('SCORES 1,2,3,4');
+      messages.push(util.format('SCORES %s', getScoreString()));
+      messages.push(util.format('NAME %s', getNameString()));
     } else {
       messages.push(util.format('START %s', secondsLeft));
     }
@@ -184,10 +191,26 @@ function printScores() {
   }
 }
 
+function getScoreString() {
+  var scores = [];
+  for (var id in players) {
+    scores.push(id + ',' players[id].score);
+  }
+  return scores.join(' ');
+}
+
 function clearScores() {
   for (var id in players) {
     players[id].score = 0;
   }
+}
+
+function getNameString() {
+  var names = [];
+  for (var id in players) {
+    names.push(id + ',' players[id].name);
+  }
+  return names.join(' ');
 }
 
 function init() {
@@ -200,12 +223,10 @@ function reset() {
   secondsLeft = defaultRoundLength;
   roundFinished = false;
   clearScores();
-  console.log('!!! reset')
   setTimeout(function() {
-    console.log('!!! roundFinished = true')
     roundFinished = true; // Next tick() will show intermission screen
+    secondsLeft = secondsForIntermission;
     setTimeout(function() {
-      console.log('!!! intermission over')
       reset(); // re-START the next round
     }, secondsForIntermission * 1000);
   }, secondsLeft * 1000);
@@ -218,6 +239,7 @@ module.exports = {
   addPlayer: addPlayer,
   getPlayer: getPlayer,
   removePlayer: removePlayer,
+  getStateTimer: getStateTimer,
   change: change,
   tick: tick,
   reset: reset,
