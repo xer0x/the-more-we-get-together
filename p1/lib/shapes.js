@@ -1,6 +1,3 @@
-
-
-
 var shapes = {
   loner : {
     shape : [
