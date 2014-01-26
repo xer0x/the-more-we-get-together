@@ -181,6 +181,18 @@ function tick() {
   return messages;
 }
 
+function updateLevels() {
+  var p;
+  for (var id in players) {
+    p = players[id];
+    if (p.score > 7) {
+      p.level = (p.level + 1) || 1;
+    } else if (p.score == 0) {
+      p.level = p.level > 0 ? p.level - 1 : 0;
+    }
+  }
+}
+
 // print scores to server console
 function printScores() {
   var playerIds = Object.keys(players);
@@ -194,31 +206,19 @@ function printScores() {
   }
 }
 
+function clearScores() {
+  for (var id in players) {
+    players[id].total = players[id].score + (players[id].total || 0);
+    players[id].score = 0;
+  }
+}
+
 function getScoreString() {
   var scores = [];
   for (var id in players) {
     scores.push(id + ',' + players[id].score);
   }
   return scores.join(' ');
-}
-
-function updateLevels() {
-  var p;
-  for (var id in players) {
-    p = players[id];
-    if (p.score > 7) {
-      p.level = (p.level + 1) || 1;
-    } else if (p.score == 0) {
-      p.level = p.level > 0 ? p.level - 1 : 0;
-    }
-  }
-}
-
-function clearScores() {
-  for (var id in players) {
-    players[id].totalScore = players[id].score + (players[id].totalScore || 0);
-    players[id].score = 0;
-  }
 }
 
 function getNameString() {
@@ -243,6 +243,14 @@ function getLevelString() {
     levels.push(id + ',' + players[id].level);
   }
   return levels.join(' ');
+}
+
+function getTotalString() {
+  var totals = [];
+  for (var id in players) {
+    totals.push(id + ',' + players[id].total);
+  }
+  return totals.join(' ');
 }
 
 function init() {
