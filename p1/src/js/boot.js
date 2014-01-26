@@ -8,7 +8,9 @@
   tmygt.Boot.prototype = {
     
     preload: function () {
-      this.load.image('preloader', 'assets/preloader.gif');
+      //this.load.image('preloader', 'assets/preloader.gif');
+	  this.load.image('loaderFull', 'assets/preload_full.png');
+	  this.load.image('loaderEmpty', 'assets/preload_empty.png');
     },
 
     create: function () {

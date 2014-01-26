@@ -33,6 +33,14 @@
       this.stage.backgroundColor="#FFFFFF";
       startBtn = document.getElementById("enterNameButton");
       startBtn.onclick = this.processName;
+	  
+	  var entryForm = document.getElementById("enterName");
+	  entryForm.style.display = "block";
+	  
+	  
+	  
+	   var nameui = document.getElementById("name-ui");
+	  nameui.style.display = "block";
     },
 
     update: function () {

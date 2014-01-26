@@ -212,6 +212,7 @@
   tmygt.Game.prototype = {
 
     create: function () {
+	
 	  this.allPlayers = {};
 	  topScores = [];
 	  var nameText = document.getElementById("nameText");
@@ -226,6 +227,13 @@
 
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
+	  timerText.style.display = "block";
+	  scoreText.style.display = "block";
+	  var nameText = document.getElementById("nameText");
+	  nameText.style.display = "block";
+	  myShape = document.getElementById("myShape");
+	  myShape.style.display = "block";
+	  
 	  myShape = document.querySelector("#myShape #shapeHolder");
 	  scoreboard = document.getElementById("scoreboard");
 	  startTime = 5;

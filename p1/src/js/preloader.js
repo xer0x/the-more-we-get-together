@@ -4,20 +4,31 @@
   var tmygt = window.tmygt || (window.tmygt = {});
 
   tmygt.Preloader = function () {
-    this.asset = null;
+    this.loaderEmpty = null;
+	this.loaderFull = null;
     this.ready = false;
   };
 
   tmygt.Preloader.prototype = {
 
     preload: function () {
-      this.asset = this.add.sprite(320, 240, 'preloader');
-      this.asset.anchor.setTo(0.5, 0.5);
+	  //this.load.image('preload_empty', 'assets/preload_empty.png');
+	  this.loaderEmpty = this.add.sprite(this.game.width/2, this.game.height/2, 'loaderEmpty');
+	  this.loaderEmpty.cropEnabled = true;
+	  this.loaderEmpty.crop = new Phaser.Rectangle(0, 0, this.loaderEmpty.width, this.loaderEmpty.height);
+	  this.loaderEmpty.anchor.setTo(0.5, 0.5);
+	  this.loaderFull = this.add.sprite(this.game.width/2, this.game.height/2, 'loaderFull');
+	  this.loaderFull.cropEnabled = true;
+	  this.loaderFull.crop = new Phaser.Rectangle(0, 0, 0, this.loaderFull.height);
+	  this.loaderFull.anchor.setTo(0.5, 0.5);
+	  this.load.onFileComplete.add(this.fileLoaded, this);
+	  
+      //this.asset = this.add.sprite(320, 240, 'preloader');
+      //this.asset.anchor.setTo(0.5, 0.5);
 
-      this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
-      this.load.setPreloadSprite(this.asset);
+      //this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
+      //this.load.setPreloadSprite(this.asset);
       //this.load.image('player', 'assets/sprites/blue_happy_64.png');
-      this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
       this.load.spritesheet('player', 'assets/sprites/tile_sprites.png', 120, 110, 14);
       this.load.image('playerShadow', 'assets/sprites/tile_shadow.png');
       this.load.image('splash', 'assets/splash.jpg');
@@ -61,7 +72,8 @@
     },
 
     create: function () {
-      this.asset.cropEnabled = false;
+      //this.asset.cropEnabled = false;
+	  this.game.state.start('menu');
     },
 
     update: function () {
@@ -70,9 +82,12 @@
       }
     },
 
-    onLoadComplete: function () {
-      this.ready = true;
-    }
+	
+	fileLoaded: function(progress) {
+		//this.loaderEmpty.crop.left = (585 / 100) * progress;
+		this.loaderFull.crop.width = (585 / 100) * progress;
+		//if(progress == 100) this.ready = true;
+	}
   };
 
 }(this));
