@@ -168,7 +168,7 @@
 			}
 
 			break;
-			
+
 			case "SCORES":
 			console.log(message);
 			var scoreData = command[1].split(",");
@@ -176,42 +176,42 @@
 			var score = scoreData[1];
 			this.setScore(id,score);
 			break;
-			
+
 			case "SHAPE":
 			myShape.innerHTML =  "Shape: " + command[1];
 			break;
-			
+
 			case "SHAPES":
 			var totalShapeUpdates = command.length-1;
 			for (var i = 1;i<=totalShapeUpdates;i++) {
 				var shapeData = command[i].split(",");
 				var id=shapeData[0];
 				var shape = shapeData[1];
-				if(id != null && id != '' && shape != '' && shape != null) 
+				if(id != null && id != '' && shape != '' && shape != null)
 					myShape.innerHTML =  "Shape: " + shape;
-					
+
 			}
 			break;
-			
+
 			case "BING":
 			var bings = command.length-1;
 			for (var i = 1;i<=bings;i++) {
 				var bingData = command[i].split(",");
 				var id=bingData[0];
 				var score = bingData[1];
-				if(id != null && id != '' && score != '' && score != null) 
+				if(id != null && id != '' && score != '' && score != null)
 					this.bingPlayer(id,score);
 			}
 			break;
-			
+
 			case "LEVELS":
 			var levelData = command[1].split(",");
-			
+
 			//console.log("levelData:"+levelData);
 			//this.allPlayers[levelData[0]].frame = levelData[1];
 			break;
-			
-			
+
+
 		}
 
 	},
@@ -274,7 +274,7 @@
 		}
 	},
     bingPlayer:function(id,score) {
-	  
+
 	  if(this.allPlayers != null) {
 		var playerToBing = this.allPlayers[id];
 		this.setScore(id,score);
@@ -282,7 +282,7 @@
 		var coin = coinGroup[coinIndex];
 		coinIndex++;
 		if(coinIndex >= coinGroup.length) coinIndex = 0;
-		
+
 		coin.bringToTop();
 		coin.x = playerToBing.x+60;
 		coin.y = playerToBing.y+20;
@@ -290,7 +290,7 @@
 		coin.scaleVX = -0.1;
 		coin.life = 55;
 		coin.revive();
-		
+
 	  }
 	},
     update: function () {
@@ -373,20 +373,20 @@
 				playerShadow.x = player.x+9;
 				playerShadow.y = player.y+30;
 			}
-			
+
 			for(var i=0;i<coinGroup.length;i++) {
 				var c = coinGroup[i];
-				
+
 				c.y += c.vy;
-				
-				
+
+
 				c.life--;
 				if (c.life <0) {
 					c.kill();
 				}
-				
+
 			}
-			
+
 		}
     },
 
@@ -499,9 +499,9 @@
 		grid[newPlayer.xPos][newPlayer.yPos] = newPlayer;
 		return newPlayer;
 	},
-	
+
 	setScore:function(id,score) {
-		
+
 		this.allPlayers[id].score = score;
 		if (id == this.playerOneId) {
 			scoreText.innerHTML = "Score: " + score;
