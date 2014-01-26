@@ -45,11 +45,10 @@ function listener(conn) {
 
   tick();
 
-  sendStateTimerMessage();
-
   world.addPlayer(conn.id, function(newPlayer) {
     conn.write(util.format('YOU %s', newPlayer.id));
     var spawnMessage = util.format('PLAYER %d,%d %s', newPlayer.x, newPlayer.y, newPlayer.id);
+    sendStateTimerMessage();
     broadcast_all(spawnMessage);
   });
 
