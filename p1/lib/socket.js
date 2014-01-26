@@ -38,7 +38,7 @@ function listener(conn) {
 
   function tick() {
     // tick for individual connection
-    var tickDelay = 2000;
+    var tickDelay = 10000; // 10 seconds
     conn.write(makeGridMessage());
     setTimeout(tick, tickDelay);
   }
@@ -78,21 +78,22 @@ function listener(conn) {
     }
   }
 
-  function broadcast_all(message) {
-    var messages = message;
-    if (typeof message !== 'Array') {
-      messages = [message];
-    }
-    for (var i = 0; i < messages.length; i++) {
-      for (var id in connections) {
-        connections[id].write(message);
-      }
-    }
-  }
-
   conn.on('data', readMessage);
   conn.on('close', closeConnection)
 }
+
+function broadcast_all(message) {
+  var messages = message;
+  if (!Array.isArray(message)) {
+    messages = [message];
+  }
+  for (var i = 0; i < messages.length; i++) {
+    for (var id in connections) {
+      connections[id].write(messages[i]);
+    }
+  }
+}
+
 
 function checkShapes() {
 
