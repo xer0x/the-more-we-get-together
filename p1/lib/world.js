@@ -43,14 +43,6 @@ function isEmptyPosition(_x, _y) {
   if (_x < 0 || _x >= width) return false;
   if (_y < 0 || _y >= height) return false;
   return !grid[_x][_y];
-  /*
-  for (var p in players) {
-    if (p.x === _x || p.y === _y) {
-      return false;
-    }
-  }
-  return true;
-  */
 }
 
 function addPlayer(playerId, callback) {
