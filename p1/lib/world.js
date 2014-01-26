@@ -165,10 +165,11 @@ function tick() {
   // Does +1 to score if in their shape
   if (!roundFinished) {
     checker.checkShapes(players, grid);
+    lastScores = getScores();
   }
   secondsLeft -= 1;
   printScores();
-  lastScores = getScores();
+  // if states between intermission && game:
   if (roundFinished !== lastTickState) {
     if (roundFinished) {
       messages.push(util.format('FINISHED %s', secondsForIntermission));
@@ -179,8 +180,10 @@ function tick() {
       messages.push(util.format('SHAPES %s', getShapeString()));
       messages.push(util.format('LEVELS %s', getLevelString()));
       messages.push(util.format('TOTALS %s', getTotalString()));
-      messages.push(util.format('BING %s', getBingString()));
     }
+  }
+  if (!roundFinished) {
+    messages.push(util.format('BING %s', getBingString()));
   }
   lastTickState = roundFinished;
   return messages;
