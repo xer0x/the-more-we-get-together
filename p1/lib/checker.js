@@ -1,4 +1,5 @@
 var shapes = require('./shapes')
+var occupied = true;
 
 function checkShapes(players, gameBoard) {
   //For every player
@@ -34,7 +35,7 @@ function checkShape(gameBoard, shape){
     var row = gameBoard[i];
     for (var j = 0; j < rowLength; j++) {
       var space = row[j];
-      if (space == "X"){
+      if (space == occupied){
         var blam = checkTile(shape, i, j, gameBoard);
         if (blam){
           winners.push(blam);
@@ -75,7 +76,7 @@ function checkTile(shape, y, x, gameBoard) {
 
     for (var j = 0; j < shapeRowLength; j++){
       var tile = shapeRow[j];
-      if (tile == "X"){
+      if (tile == occupied){
         tileCount++;
         if (i < yOffset ){
           yOffset = i;
@@ -96,12 +97,12 @@ function checkTile(shape, y, x, gameBoard) {
 
       var tile = shapeRow[j];
 
-      if (tile == "X"){
+      if (tile == occupied){
         var checkX = j + xStart;
         var checkY = i + yStart;
 
         if (checkY < rowCount && checkX < rowLength) {
-          if (gameBoard[checkY][checkX] == "X") {
+          if (gameBoard[checkY][checkX] == occupied) {
             winners.push([checkY, checkX]);
             matchCount++;
           }
@@ -124,7 +125,7 @@ function buildBoard(gridSize, players){
   }
   for (var key in players) {
     var player = players[key];
-    gameBoard[player.y][player.x] = "X";
+    gameBoard[player.y][player.x] = occupied;
   }
   return gameBoard;
 }
