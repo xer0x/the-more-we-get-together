@@ -172,7 +172,6 @@
 			case "SCORES":
 			console.log(message);
 			var scoreData = command[1].split(",");
-			 
 			var id=scoreData[0];
 			var score = scoreData[1];
 			this.setScore(id,score);
@@ -182,11 +181,20 @@
 			myShape.innerHTML =  "Shape: " + command[1];
 			break;
 			
-			case "BING":
+			case "SHAPES":
 			//console.log(message);
-			//console.log("got a bing");
-			var bingData = command[1].split(",");
-			this.bingPlayer(bingData[0],bingData[1]);
+			var totalShapeUpdates = command.length;
+			break;
+			
+			case "BING":
+			var bings = command.length-1;
+			for (var i = 1;i<=bings;i++) {
+				var bingData = command[i].split(",");
+				var id=bingData[0];
+				var score = bingData[1];
+				if(id != null && id != '' && score != '' && score != null) 
+					this.bingPlayer(bingData[0],bingData[1]);
+			}
 			break;
 			
 			case "LEVELS":
@@ -195,6 +203,8 @@
 			console.log("levelData:"+levelData);
 			//this.allPlayers[levelData[0]].frame = levelData[1];
 			break;
+			
+			
 		}
 
 	},
@@ -257,18 +267,19 @@
 		}
 	},
     bingPlayer:function(id,score) {
-	  //console.log("bing" + id);
+	  console.log("bing" + id);
+	  
 	  if(this.allPlayers != null) {
 		var playerToBing = this.allPlayers[id];
-		this.setScore(id,score);
+		//this.setScore(id,score);
 		//console.log("Bing this: " + playerToBing);
 		var coin = coinGroup[coinIndex];
 		coinIndex++;
 		if(coinIndex >= coinGroup.length) coinIndex = 0;
 		
 		coin.bringToTop();
-		coin.x = player.x+60;
-		coin.y = player.y+20;
+		coin.x = playerToBing.x+60;
+		coin.y = playerToBing.y+20;
 		coin.vy = -2;
 		coin.scaleVX = -0.1;
 		coin.life = 55;
