@@ -89,7 +89,7 @@
 	processMessage: function (message) {
 
 		var command = message.split(" ");
-		console.log(message);
+		//console.log(message);
 		switch (command[0]) {
 			case "PLAYER":
 			var coords = command[1].split(",");
