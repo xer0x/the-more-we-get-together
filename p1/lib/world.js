@@ -174,10 +174,24 @@ function tick() {
     } else {
       messages.push(util.format('START %s', secondsLeft));
       messages.push(util.format('SHAPES %s', getShapeString()));
+      messages.push(util.format('LEVELS %s', getLevelString()));
+      messages.push(util.format('TOTALS %s', getTotalString()));
     }
   }
   lastTickState = roundFinished;
   return messages;
+}
+
+function updateLevels() {
+  var p;
+  for (var id in players) {
+    p = players[id];
+    if (p.score > 7) {
+      p.level = (p.level + 1) || 1;
+    } else if (p.score == 0) {
+      p.level = p.level > 0 ? p.level - 1 : 0;
+    }
+  }
 }
 
 // print scores to server console
@@ -193,18 +207,19 @@ function printScores() {
   }
 }
 
+function clearScores() {
+  for (var id in players) {
+    players[id].total = players[id].score + (players[id].total || 0);
+    players[id].score = 0;
+  }
+}
+
 function getScoreString() {
   var scores = [];
   for (var id in players) {
     scores.push(id + ',' + players[id].score);
   }
   return scores.join(' ');
-}
-
-function clearScores() {
-  for (var id in players) {
-    players[id].score = 0;
-  }
 }
 
 function getNameString() {
@@ -223,6 +238,22 @@ function getShapeString() {
   return shapes.join(' ');
 }
 
+function getLevelString() {
+  var levels = [];
+  for (var id in players) {
+    levels.push(id + ',' + players[id].level);
+  }
+  return levels.join(' ');
+}
+
+function getTotalString() {
+  var totals = [];
+  for (var id in players) {
+    totals.push(id + ',' + players[id].total);
+  }
+  return totals.join(' ');
+}
+
 function init() {
   makeGrid();
   reset();
@@ -232,6 +263,7 @@ function reset() {
   shapes.assignAllPlayerShapes(players);
   secondsLeft = defaultRoundLength;
   roundFinished = false;
+  updateLevels();
   clearScores();
   setTimeout(function() {
     roundFinished = true; // Next tick() will show intermission screen
