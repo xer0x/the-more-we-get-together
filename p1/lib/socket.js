@@ -19,8 +19,9 @@ function socket(server) {
   sockjs_socket.on('connection', listener);
   sockjs_socket.installHandlers(server, {prefix:'/echo'});
   function tick() {
-    var tickDelay = 1230;
-    world.tick();
+    var tickDelay = 1000;
+    var messages = world.tick();
+    broadcast_all(messages);
     setTimeout(tick, tickDelay);
   }
   tick();
@@ -55,7 +56,7 @@ function listener(conn) {
     // TODO ANTI-CHEAT: ack & refuse messages
     var results = world.change(conn.id, message);
 
-    console.log(results);
+    //console.log(results);
     for (var i=0; i<results.length; i++) {
       broadcast(results[i]);
     }
@@ -76,9 +77,16 @@ function listener(conn) {
       }
     }
   }
+
   function broadcast_all(message) {
-    for (var id in connections) {
-      connections[id].write(message);
+    var messages = message;
+    if (typeof message !== 'Array') {
+      messages = [message];
+    }
+    for (var i = 0; i < messages.length; i++) {
+      for (var id in connections) {
+        connections[id].write(message);
+      }
     }
   }
 

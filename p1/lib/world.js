@@ -153,6 +153,7 @@ function tick() {
       console.log(util.format('%s  \t%d  \t%s', p.name, p.score, p.shape));
     }
   }
+  return messages;
 }
 
 function reset() {
