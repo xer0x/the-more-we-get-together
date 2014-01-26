@@ -14,49 +14,49 @@
   var moveSpeed = 8;
   var playerOneId = "";
   var builtGrid = false;
-  
+
   var tmygt = window.tmygt || (window.tmygt = {});
- 
+
   function isEmpty(xPos,yPos) {
 	if (grid != null && grid[xPos][yPos] == 0) return true;
 	else return false;
   }
-  
+
   function sortDepths() {
-		
+
 		for (var j=0;j<gridHeight;j++) {
-		
+
 			for(var i=0;i< gridWidth;i++) {
 				//grid[i][j] = 0;
 				if (grid[i][j] != 0) {
 					var thisPlayer = grid[i][j];
 					thisPlayer.bringToTop();
 				}
-			}	
+			}
 		}
 	}
-  
+
   tmygt.Game = function () {
-  
+
   };
 
-  
+
   tmygt.Game.prototype = {
-    
+
     create: function () {
 	  this.allPlayers = {};
-	  	  
+
 	  //process initial messages
 	  while(window.messages.length > 0) {
 		this.processMessage(window.messages.shift());
 	  }
-	  
+
 	  cursors = this.input.keyboard.createCursorKeys();
-	  
+
       this.camera.bounds = null;
 	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
 	  //this.input.mouse.mouseUpCallback = this.onMouseUp;
-	  
+
 	  //var sprite = this.add.sprite(0, 0, 'playerLevels');
 
 		//sprite.animations.add('walk');
@@ -65,9 +65,9 @@
 
     },
 	processMessage: function (message) {
-		
+
 		var command = message.split(" ");
-		
+
 		switch (command[0]) {
 			case "PLAYER":
 			var coords = command[1].split(",");
@@ -76,12 +76,12 @@
 			if (newPlayer.id == this.playerOneId) {
 				player = newPlayer;
 			}
-			
+
 			break;
-			
+
 			case "GRID":
 			var serverGrid = eval('('+command[3]+')');
-			
+
 			if(!builtGrid) {
 				var w = command[1];
 				var h = command[2];
@@ -90,37 +90,37 @@
 				this.checkGrid(serverGrid);
 			}
 			break;
-			
+
 			case "DROP":
 			var coords = command[1].split(",");
 			var playerToKill = this.getPlayerAt(coords[0], coords[1]);
 			grid[playerToKill.xPos][playerToKill.yPos] = 0;
 			playerToKill.kill();
-			
+
 			break;
-			
+
 			case "YOU":
 			this.playerOneId = command[1];
 			console.log("player one id is " + this.playerOneId);
 			break;
-			
+
 			case "MOVE":
 			var prevCoords = command[1];
 			var newCoords = command[2];
 			var id = command[3];
 			var playerToMove = this.allPlayers[id];
-			
+
 			if (playerToMove != 0) {
 				newCoords = newCoords.split(",");
 				playerToMove.moveTo(newCoords[0],newCoords[1]);
 			}
-			
+
 			break;
-			
+
 		}
-	
+
 	},
-	
+
 	buildGrid:function(w,h,serverGrid) {
 		grid  = [];
 		gridWidth = w;
@@ -130,7 +130,7 @@
 		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 		var g  = this.add.graphics(0, 0);
 		g.lineStyle(2,0xd0dee9,1);
-	  
+
 		// draw grid
 		for (var i=0;i<=gridWidth;i++) {
 			g.moveTo(i*cubeWidth,0);
@@ -148,11 +148,11 @@
 				if (serverGrid[i][j] != 0) {
 					this.createPlayer(serverGrid[i][j], i,j);
 				}
-			}	
+			}
 		}
 		builtGrid = true;
 	},
-	
+
 	checkGrid: function (serverGrid) {
 		for (var i=0;i<gridWidth;i++) {
 			//grid[i] = [];
@@ -164,19 +164,19 @@
 					var playerId = serverNode[i][j];
 					var playerToCorrect = this.allPlayers[playerId];
 					playerToCorrect.moveTo(i,j);
-				}	
-			}	
+				}
+			}
 		}
-	}, 
-	
+	},
+
     update: function () {
-		
+
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
 		}
-		
+
 		if (player != null) {
-			
+
 			if (player.targetX == null && player.targetY == null) {
 				if (cursors.right.isDown) {
 					player.moveRight();
@@ -189,7 +189,7 @@
 				}
 			}
 		}
-		
+
 		for(var p in this.allPlayers) {
 			var thisPlayer = this.allPlayers[p];
 			if (thisPlayer.targetY != null) {
@@ -198,7 +198,7 @@
 					if (thisPlayer.y >= thisPlayer.targetY) {
 						thisPlayer.y = thisPlayer.targetY;
 						thisPlayer.targetY = null;
-					} 
+					}
 				} else if (thisPlayer.targetY < thisPlayer.y) {
 					thisPlayer.y -= moveSpeed;
 					if (thisPlayer.y <= thisPlayer.targetY) {
@@ -206,7 +206,7 @@
 						thisPlayer.targetY = null;
 					}
 				}
-				
+
 			}
 
 			if (thisPlayer.targetX != null) {
@@ -215,7 +215,7 @@
 					if (thisPlayer.x >= thisPlayer.targetX) {
 						thisPlayer.x = thisPlayer.targetX;
 						thisPlayer.targetX = null;
-					} 
+					}
 				} else if (thisPlayer.targetX < thisPlayer.x) {
 					thisPlayer.x -= moveSpeed;
 					if (thisPlayer.x <= thisPlayer.targetX) {
@@ -225,18 +225,18 @@
 				}
 			}
 		}
-		
+
     },
-	
+
     onMouseUp: function (event) {
-		
+
 		if (player != null) {
-			
+
 			var dx = this.input.activePointer.worldX - player.x;
 			var dy = this.input.activePointer.worldY - player.y;
 			var ang =  Math.atan2(dy,dx) * (180/Math.PI);
 			if (ang < 0) ang = 360 + ang;
-			
+
 			if(ang < 45 || ang >= 315) {
 				player.moveRight();
 			} else if ( ang >= 45 && ang < 135) {
@@ -248,13 +248,13 @@
 			}
 		}
     },
-	
+
 	createPlayer: function(uid, xPosition, yPosition) {
 		var newPlayer = this.add.sprite(0, 0, 'player');
 		newPlayer.id = uid;
 		newPlayer.xPos = xPosition;
 		newPlayer.yPos = yPosition;
-		
+
 		newPlayer.x = xPosition * cubeWidth-cubeOffsetX;
 		newPlayer.y = yPosition * cubeHeight-cubeOffset-cubeOffsetY;
 		newPlayer.targetX = null;
@@ -264,9 +264,9 @@
 		newPlayer.grid = grid;
 		newPlayer.frame = Math.floor(Math.random() * 14) + 1;
 		newPlayer.moveRight = function () {
-			
+
 			if (this.xPos < gridWidth-1 && isEmpty(Number(this.xPos)+1,Number(this.yPos))) {
-				
+
 				grid[this.xPos][this.yPos] = 0;
 				this.xPos++;
 				grid[this.xPos][this.yPos] = this;
@@ -275,10 +275,10 @@
 				sortDepths();
 				return true;
 			}
-			
+
 			return false;
 		}
-		
+
 		newPlayer.moveLeft = function () {
 			if(this.xPos > 0 && isEmpty(Number(this.xPos)-1,Number(this.yPos))) {
 				grid[this.xPos][this.yPos] = 0;
@@ -289,10 +289,10 @@
 				sortDepths();
 				return true;
 			}
-			
+
 			return false;
 		}
-		
+
 		newPlayer.moveDown = function () {
 			if(this.yPos < gridHeight-1  && isEmpty(Number(this.xPos),Number(this.yPos)+1)) {
 				grid[this.xPos][this.yPos] = 0;
@@ -303,10 +303,10 @@
 				sortDepths();
 				return true;
 			}
-			
+
 			return false;
 		}
-		
+
 		newPlayer.moveUp = function () {
 			if (this.yPos > 0 && isEmpty(Number(this.xPos),Number(this.yPos)-1)) {
 				grid[this.xPos][this.yPos] = 0;
@@ -319,34 +319,34 @@
 			}
 			return false;
 		}
-		
+
 		newPlayer.moveTo = function(xPosition, yPosition) {
-			
+
 			this.targetY = yPosition*cubeHeight-cubeOffset-cubeOffsetY;
 			this.targetX = xPosition*cubeWidth-cubeOffsetX;
-			
+
 			grid[this.xPos][this.yPos] = 0;
 			this.xPos = xPosition;
 			this.yPos = yPosition;
 			grid[this.xPos][this.yPos] = this;
 			sortDepths();
 		}
-		
+
 		this.allPlayers[newPlayer.id] = newPlayer;
 		grid[newPlayer.xPos][newPlayer.yPos] = newPlayer;
 		return newPlayer;
 	},
-	
+
 	getPlayerAt:function(xPosition, yPosition) {
 		return grid[xPosition][yPosition];
 	}
-	
-	
-	
+
+
+
 
   };
-  
-  
+
+
 }(this));
 
 
