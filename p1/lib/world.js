@@ -184,7 +184,7 @@ function tick() {
   }
   if (!roundFinished) {
     messages.push(util.format('BING %s', getBingString()));
-    if (messages[messages.length] == 'BING ') {
+    if (messages[messages.length - 1] == 'BING ') {
       messages.pop();
     }
   }
