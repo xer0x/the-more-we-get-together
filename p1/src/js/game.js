@@ -182,7 +182,7 @@
 		}
 		builtGrid = true;
 		playerShadow = this.add.sprite(-1000,0,'playerShadow');
-		this.add.tween(playerShadow).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+		this.add.tween(playerShadow).to( { alpha: .4 }, 200, Phaser.Easing.Linear.None, true, 0, 1000, true);
 	},
 
 	checkGrid: function (serverGrid) {
