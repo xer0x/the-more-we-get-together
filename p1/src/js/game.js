@@ -79,6 +79,11 @@
 		timeRemaining = startTime;
 		timeCounter = timeRemaining * this.time.fps;
 		started = true;
+		ended = false;
+	},
+	end:function () {
+		//this.game.state.start('end');
+		console.log("end game");
 	},
 	processMessage: function (message) {
 
@@ -95,6 +100,11 @@
 			}
 			break;
 
+			
+			case "FINISHED":
+			this.end();
+			break;
+			
 			case "START":
 			startTime = command[1];
 			this.start();
@@ -203,6 +213,11 @@
 
     update: function () {
 
+		if (window.messages.length > 0) {
+			this.processMessage(window.messages.shift());
+		}
+		
+
 		if(started) {
 
 			timeCounter++ ;
@@ -215,74 +230,63 @@
 				if(timeRemaining <= 0) {
 					started = false;
 					ended = true;
-					builtGrid = false;
-					this.game.state.start('end');
 				}
 			}
 
-		}
+			if (player != null) {
 
-		if (window.messages.length > 0) {
-			this.processMessage(window.messages.shift());
-		}
-
-		if (player != null) {
-
-			if (player.targetX == null && player.targetY == null) {
-				if (cursors.right.isDown) {
-					player.moveRight();
-				} else if (cursors.left.isDown) {
-					player.moveLeft();
-				} else if (cursors.down.isDown) {
-					player.moveDown();
-				} else if (cursors.up.isDown) {
-					player.moveUp();
-				}
-			}
-
-
-		}
-
-		for(var p in this.allPlayers) {
-			var thisPlayer = this.allPlayers[p];
-			if (thisPlayer.targetY != null) {
-				if (thisPlayer.targetY > thisPlayer.y) {
-					thisPlayer.y += moveSpeed;
-					if (thisPlayer.y >= thisPlayer.targetY) {
-						thisPlayer.y = thisPlayer.targetY;
-						thisPlayer.targetY = null;
-					}
-				} else if (thisPlayer.targetY < thisPlayer.y) {
-					thisPlayer.y -= moveSpeed;
-					if (thisPlayer.y <= thisPlayer.targetY) {
-						thisPlayer.y = thisPlayer.targetY;
-						thisPlayer.targetY = null;
-					}
-				}
-
-			}
-
-			if (thisPlayer.targetX != null) {
-				if (thisPlayer.targetX > thisPlayer.x) {
-					thisPlayer.x += moveSpeed;
-					if (thisPlayer.x >= thisPlayer.targetX) {
-						thisPlayer.x = thisPlayer.targetX;
-						thisPlayer.targetX = null;
-					}
-				} else if (thisPlayer.targetX < thisPlayer.x) {
-					thisPlayer.x -= moveSpeed;
-					if (thisPlayer.x <= thisPlayer.targetX) {
-						thisPlayer.x = thisPlayer.targetX;
-						thisPlayer.targetX = null;
+				if (player.targetX == null && player.targetY == null) {
+					if (cursors.right.isDown) {
+						player.moveRight();
+					} else if (cursors.left.isDown) {
+						player.moveLeft();
+					} else if (cursors.down.isDown) {
+						player.moveDown();
+					} else if (cursors.up.isDown) {
+						player.moveUp();
 					}
 				}
 			}
-		}
-		if (player != null) {
-			playerShadow.x = player.x+9;
-			playerShadow.y = player.y+30;
-		}
+			for(var p in this.allPlayers) {
+				var thisPlayer = this.allPlayers[p];
+				if (thisPlayer.targetY != null) {
+					if (thisPlayer.targetY > thisPlayer.y) {
+						thisPlayer.y += moveSpeed;
+						if (thisPlayer.y >= thisPlayer.targetY) {
+							thisPlayer.y = thisPlayer.targetY;
+							thisPlayer.targetY = null;
+						}
+					} else if (thisPlayer.targetY < thisPlayer.y) {
+						thisPlayer.y -= moveSpeed;
+						if (thisPlayer.y <= thisPlayer.targetY) {
+							thisPlayer.y = thisPlayer.targetY;
+							thisPlayer.targetY = null;
+						}
+					}
 
+				}
+
+				if (thisPlayer.targetX != null) {
+					if (thisPlayer.targetX > thisPlayer.x) {
+						thisPlayer.x += moveSpeed;
+						if (thisPlayer.x >= thisPlayer.targetX) {
+							thisPlayer.x = thisPlayer.targetX;
+							thisPlayer.targetX = null;
+						}
+					} else if (thisPlayer.targetX < thisPlayer.x) {
+						thisPlayer.x -= moveSpeed;
+						if (thisPlayer.x <= thisPlayer.targetX) {
+							thisPlayer.x = thisPlayer.targetX;
+							thisPlayer.targetX = null;
+						}
+					}
+				}
+			}
+			if (player != null) {
+				playerShadow.x = player.x+9;
+				playerShadow.y = player.y+30;
+			}
+		}
     },
 
     onMouseUp: function (event) {
