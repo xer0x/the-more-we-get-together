@@ -681,7 +681,7 @@
 				this.targetX = this.x + cubeWidth;
 				sockjs.send("MOVE RIGHT");
 				sortDepths();
-				phaserGame.sound.play('move1');
+				phaserGame.sound.play('move1', 0, 0.6);
 				return true;
 			}
 
@@ -689,7 +689,7 @@
 		}
 
 		newPlayer.moveLeft = function () {
-      phaserGame.sound.play('move1');
+			phaserGame.sound.play('move1', 0, 0.6);
 			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
 			if(this.xPos > 0 && isEmpty(Number(this.xPos)-1,Number(this.yPos))) {
 				grid[this.xPos][this.yPos] = 0;
@@ -705,7 +705,7 @@
 		}
 
 		newPlayer.moveDown = function () {
-      phaserGame.sound.play('move1');
+			phaserGame.sound.play('move1', 0, 0.6);
 			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
       if(this.yPos < gridHeight-1  && isEmpty(Number(this.xPos),Number(this.yPos)+1)) {
 				grid[this.xPos][this.yPos] = 0;
@@ -721,7 +721,7 @@
 		}
 
 		newPlayer.moveUp = function () {
-      phaserGame.sound.play('move1');
+			phaserGame.sound.play('move1', 0, 0.6);
 			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
       if (this.yPos > 0 && isEmpty(Number(this.xPos),Number(this.yPos)-1)) {
 				grid[this.xPos][this.yPos] = 0;
