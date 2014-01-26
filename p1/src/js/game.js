@@ -100,7 +100,7 @@
 				player = newPlayer;
 				this.camera.bounds = null;
 				this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
-
+				this.setScore(newPlayer.id,0);
 			}
 			break;
 
@@ -153,7 +153,15 @@
 			}
 
 			break;
-
+			
+			case "SCORES":
+			console.log(message);
+			var scoreData = command[1].split(",");
+			 
+			var id=scoreData[0];
+			var score = scoreData[1];
+			this.setScore(id,score);
+			break;
 		}
 
 	},
@@ -330,7 +338,7 @@
 		newPlayer.y = yPosition * cubeHeight-cubeOffset-cubeOffsetY;
 		newPlayer.targetX = null;
 		newPlayer.targetY = null;
-		newPlayer.score;
+		newPlayer.score = 0;
 		newPlayer.inWorld = true;
 		newPlayer.grid = grid;
 		newPlayer.frame = Math.floor(Math.random() * 14) + 1;
@@ -406,7 +414,13 @@
 		grid[newPlayer.xPos][newPlayer.yPos] = newPlayer;
 		return newPlayer;
 	},
-
+	
+	setScore:function(id,score) {
+		this.allPlayers[id].score = score;
+		if (id == this.playerOneId) {
+			scoreText.innerHTML = "Score: " + score;
+		}
+	},
 	getPlayerAt:function(xPosition, yPosition) {
 		return grid[xPosition][yPosition];
 	}
