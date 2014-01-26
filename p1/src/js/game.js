@@ -71,9 +71,9 @@
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
 	  
-	  startTime = 30;
+	  startTime = 5;
 	  started = false;
-	  this.start();
+	  
     },
 	start: function() {
 		timeRemaining = startTime;
@@ -218,6 +218,7 @@
 				if(timeRemaining <= 0) {
 					started = false;
 					ended = true;
+					builtGrid = false;
 					this.game.state.start('end');
 				}
 			}
@@ -383,7 +384,6 @@
 
 			this.targetY = yPosition*cubeHeight-cubeOffset-cubeOffsetY;
 			this.targetX = xPosition*cubeWidth-cubeOffsetX;
-
 			grid[this.xPos][this.yPos] = 0;
 			this.xPos = xPosition;
 			this.yPos = yPosition;
@@ -399,13 +399,7 @@
 	getPlayerAt:function(xPosition, yPosition) {
 		return grid[xPosition][yPosition];
 	}
-
-
-
-
   };
-
-
 }(this));
 
 

@@ -3,7 +3,6 @@
   var startBtn;
   var ready;
   var tmygt = window.tmygt || (window.tmygt = {});
-
   tmygt.Menu = function () {
     this.titleTxt = null;
 	
@@ -27,8 +26,8 @@
 	  text.y -= text.height/2;
       startBtn = document.getElementById("enterNameButton");
 	  startBtn.addEventListener("click", this.processName);
-            
-
+      var splash = this.add.sprite(0,0,'splash'); 
+	  splash.centerOn(window.innerWidth/2, window.innerHeight/2);
     },
 
     update: function () {
