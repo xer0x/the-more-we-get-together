@@ -66,9 +66,7 @@
 	  
 	  cursors = this.input.keyboard.createCursorKeys();
 
-      this.camera.bounds = null;
-	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
-	  this.input.mouse.mouseUpCallback = this.onMouseUp;
+      this.input.mouse.mouseUpCallback = this.onMouseUp;
 
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
@@ -91,7 +89,7 @@
 	processMessage: function (message) {
 
 		var command = message.split(" ");
-
+		console.log(message);
 		switch (command[0]) {
 			case "PLAYER":
 			var coords = command[1].split(",");
@@ -100,6 +98,9 @@
 			var newPlayer = this.createPlayer(id, coords[0], coords[1]);
 			if (newPlayer.id == this.playerOneId) {
 				player = newPlayer;
+				this.camera.bounds = null;
+				this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
+	  
 			}
 			break;
 
