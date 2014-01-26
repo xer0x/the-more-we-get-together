@@ -216,7 +216,7 @@
 		phaserGame.sound.play('startGame1')
 	  cursors = this.input.keyboard.createCursorKeys();
 
-      //this.input.mouse.mouseUpCallback = this.onMouseUp;
+    //this.input.mouse.mouseUpCallback = this.onMouseUp;
 	  //this.input.touch.touchEndCallback = this.onMouseUp;
 
 	  timerText = document.getElementById("timerText");
@@ -309,6 +309,9 @@
     var shapesContainer = document.querySelector("#shapes");
     if(shapeName != "loner") {
       myShape.appendChild(shapeWrapper);
+      document.querySelector("#shapeHelper").style.display = "block";
+    } else {
+      document.querySelector("#shapeHelper").style.display = "none";
     }
 
 
@@ -338,7 +341,6 @@
 
 			case "START":
 			startTime = command[1];
-			window.bgMusic.resume();
 			this.start();
 			if (player != null) this.setScore(this.playerOneId, 0);
 			break;
@@ -452,9 +454,8 @@
 			break;
 
       case "COUNTDOWN":
-        window.bgMusic.pause();
-        phaserGame.sound.play('musicIntense');
-        timeRemaining = 5;
+        phaserGame.sound.play('surprise1')
+        timeRemaining = 4;
       break;
 		}
 	},
