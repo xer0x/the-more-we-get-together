@@ -11,25 +11,27 @@
   tmygt.Menu.prototype = {
 
     create: function () {
-	  ready = false;
+      ready = false;
       var x = this.game.width / 2
         , y = this.game.height / 2;
 
 
-        var nameInput = document.getElementById("nameInput");
-        nameInput.focus();
+      var nameInput = document.getElementById("nameInput");
+      nameInput.focus();
 
-        var self = this;
+      var self = this;
 
-        nameInput.addEventListener("keydown",function(e){
-          if(e.keyCode == 13){
-            self.processName();
-          }
-        });
+      nameInput.addEventListener("keydown",function(e){
+        if(e.keyCode == 13){
+          self.processName();
+        }
+      });
 
-	  this.stage.backgroundColor="#FFFFFF";
+      window.bgMusic = phaserGame.sound.play('intro');
+
+      this.stage.backgroundColor="#FFFFFF";
       startBtn = document.getElementById("enterNameButton");
-	    startBtn.addEventListener("click", this.processName);
+      startBtn.addEventListener("click", this.processName);
     },
 
     update: function () {

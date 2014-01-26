@@ -36,7 +36,7 @@
       this.load.audio('walk5', 'assets/audio/mwgt_vo_gen_12.webm');
       this.load.audio('walk6', 'assets/audio/mwgt_vo_gen_13.webm');
 
-      this.load.audio('intro', 'p1/src/assets/audio/The More We Get Together 001.webm');
+      this.load.audio('intro', 'assets/audio/The More We Get Together 001.webm');
 
 /*
       this.load.audio('happy2', 'assets/audio/mwgt_vo_gen_02.webm');
