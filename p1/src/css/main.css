@@ -9,7 +9,7 @@ html, body {
   overflow: hidden;
 	padding: 0;
 	margin: 0;
-  background: #4c9236;
+  background: #65a850;
 }
 
 .uiText {
@@ -18,7 +18,8 @@ html, body {
 	color:#555;
 	font-size:2em;
 	text-align:left;
-	width:6.5em;
+
+
 	}
 
 #timerText {
@@ -32,9 +33,14 @@ html, body {
 	}
 
 #nameText {
-	top:2em;
-	left:2em;
-	}
+	top:1em;
+	left:1em;
+  background: black;
+  color: white;
+  padding: 10px;
+  background: rgba(36,105,29,.8);
+  -webkit-transform: rotate(-3deg);
+}
 
 #enterName {
   width: 100%;
