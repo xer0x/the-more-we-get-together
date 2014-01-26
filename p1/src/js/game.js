@@ -58,10 +58,12 @@
 	  var nameText = document.getElementById("nameText");
 	  nameText.innerHTML = "Hi, " + phaserGame.playerName + "!";
       //process initial messages
+	  /*
 	  while(window.messages.length > 0) {
 		this.processMessage(window.messages.shift());
 	  }
-
+	  */
+	  
 	  cursors = this.input.keyboard.createCursorKeys();
 
       this.camera.bounds = null;
@@ -76,6 +78,7 @@
 
     },
 	start: function() {
+		
 		timeRemaining = startTime;
 		timeCounter = timeRemaining * this.time.fps;
 		started = true;
@@ -106,6 +109,7 @@
 			break;
 			
 			case "START":
+			
 			startTime = command[1];
 			this.start();
 			break;
@@ -217,9 +221,9 @@
 			this.processMessage(window.messages.shift());
 		}
 		
-
+		
 		if(started) {
-
+			
 			timeCounter++ ;
 			if (timeCounter > this.time.fps) {
 				timeCounter = 0;
