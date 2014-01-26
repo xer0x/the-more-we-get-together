@@ -755,23 +755,20 @@
 	    if (i < 3) {
 			var playerName = document.getElementById("playerName"+Number(i+1));
 			playerName.innerHTML = " " +topScores[i].name;
-			var playerScore = document.getElementById("playerScore"+Number(i+1));
+			var playerScore = document.querySelector("#playerScore"+ Number(i+1) + " .text");
 			playerScore.innerHTML = " " +topScores[i].score;
 		}
 
 		if (topScores[i].id == this.playerOneId) {
-			var p1place = document.getElementById("place");
+			var p1place = document.querySelector("#place .text");
 			if (i == 0) p1place.innerHTML = "1st";
 			else if (i == 1) p1place.innerHTML = "2nd";
 			else if (i == 2) p1place.innerHTML = "3rd";
 			else p1place.innerHTML = Number(i-1) + "th";
-			var p1points = document.getElementById("points");
+			var p1points = document.querySelector("#points .text");
 			p1points.innerHTML = topScores[i].score;
 		}
 	  }
-
-
-
 
 	}
   };
