@@ -426,7 +426,7 @@
 		newPlayer.inWorld = true;
 		newPlayer.grid = grid;
 		//newPlayer.frame = Math.floor(Math.random() * 14) + 1;
-		newPlayer.frame = 1;
+		newPlayer.frame = 0;
 		newPlayer.moveRight = function () {
 
 			if (this.xPos < gridWidth-1 && isEmpty(Number(this.xPos)+1,Number(this.yPos))) {
