@@ -1,4 +1,7 @@
 var shapes = {
+  simple : [
+    ["X", "X"]
+  ],
   vBar : [
     ["X"],
     ["X"],
@@ -22,4 +25,11 @@ var shapes = {
   ]
 }
 
-module.exports = shapes;
+function getPlayerShape(playerCount) {
+  return Object.keys(shapes)[0];
+}
+
+module.exports = {
+  shapes: shapes,
+  getPlayerShape: getPlayerShape
+};

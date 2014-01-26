@@ -1,5 +1,6 @@
 var util = require('util');
 var checker = require('./checker');
+var shapes = require('./shapes');
 
 var width = 10;
 var height = 11;
@@ -58,9 +59,9 @@ function addPlayer(playerId, callback) {
     id: playerId,
     x: position.x,
     y: position.y,
-    name: 'Winner',
+    name: 'Winner' + ('' + Math.random()).substring(2,6),
     score: 0,
-    shape: 'square'
+    shape: shapes.getPlayerShape()
   };
   grid[player.x][player.y] = playerId;
   players[playerId] = player;
@@ -148,7 +149,8 @@ function move(playerId, direction) {
 
 function tick() {
   // Does +1 to score if in their shape
-  checker.checkShapes(players, grid);
+  var result = checker.checkShapes(players, grid);
+  //console.log(result);
 
   var playerIds = Object.keys(players);
   if (playerIds.length > 0) {
