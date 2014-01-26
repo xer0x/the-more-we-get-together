@@ -4,11 +4,11 @@ var shapes = require('./shapes');
 
 var width = 10;
 var height = 11;
-var defaultRoundLength = 4; // 33
-var secondsForIntermission = 3; // 7
+var defaultRoundLength = 33
+var secondsForIntermission = 7
 var secondsLeft;
 var roundFinished = true;
-var lastTickState = roundFinished;
+var lastTickState = null;
 
 var players = {};
 var grid = [];
@@ -153,19 +153,21 @@ function move(playerId, direction) {
 }
 
 function tick() {
+  var messages = [];
   // Does +1 to score if in their shape
-  checker.checkShapes(players, grid);
+  if (!roundFinished) {
+    checker.checkShapes(players, grid);
+  }
   printScores();
   if (roundFinished !== lastTickState) {
     if (roundFinished) {
-      messages.push('FINISHED %s', def);
+      messages.push(util.format('FINISHED %s', secondsForIntermission));
       messages.push('SCORES 1,2,3,4');
     } else {
-      messages.push('START %s', secondsLeft);
+      messages.push(util.format('START %s', secondsLeft));
     }
   }
   lastTickState = roundFinished;
-  var messages = [];
   return messages;
 }
 
@@ -182,6 +184,12 @@ function printScores() {
   }
 }
 
+function clearScores() {
+  for (var id in players) {
+    players[id].score = 0;
+  }
+}
+
 function init() {
   makeGrid();
   reset();
@@ -191,15 +199,19 @@ function reset() {
   shapes.assignAllPlayerShapes(players);
   secondsLeft = defaultRoundLength;
   roundFinished = false;
+  clearScores();
+  console.log('!!! reset')
   setTimeout(function() {
+    console.log('!!! roundFinished = true')
     roundFinished = true; // Next tick() will show intermission screen
     setTimeout(function() {
+      console.log('!!! intermission over')
       reset(); // re-START the next round
-    }, secondsForIntermission);
+    }, secondsForIntermission * 1000);
   }, secondsLeft * 1000);
 }
 
-reset(); // initialize
+init(); // initialize
 
 module.exports = {
   getGrid: getGrid,
