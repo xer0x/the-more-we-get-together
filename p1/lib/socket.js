@@ -8,6 +8,7 @@
 var sockjs = require('sockjs');
 var util = require('util');
 var world = require('./world');
+var shapes = require('./shapes');
 
 // 1. Echo sockjs server
 var sockjs_opts = {sockjs_url: "http://cdn.sockjs.org/sockjs-0.3.min.js"};
@@ -36,6 +37,11 @@ function listener(conn) {
     return ['GRID', grid.width, grid.height, grid.state].join(' ');
   }
 
+  function sendAllShapes() {
+    var shapesJSON = JSON.stringify(shapes.shapes);
+    conn.write('SHAPE_JSON ' + shapesJSON);
+  }
+
   function tick() {
     // tick for individual connection
     var tickDelay = 10000; // 10 seconds
@@ -44,6 +50,7 @@ function listener(conn) {
   }
 
   tick();
+  sendAllShapes();
 
   world.addPlayer(conn.id, function(newPlayer) {
     conn.write(util.format('YOU %s', newPlayer.id));
