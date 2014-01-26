@@ -125,17 +125,14 @@ html, body {
 }
 
 #scoreboard {
-  top: 100px;
-  left: calc(50% - 200px);
+  top: calc(50% - 220px);
+  left: calc(50% - 240px);
   position: absolute;
-
-  padding: 20px;
+  padding: 40px;
   background: rgba(36,105,29,.9);
   width: 400px;
   color: white;
   font-family: helvetica,arial;
-  -webkit-transform: rotate(-2deg);
-  -moz-transform: rotate(-2deg);
   display: none;
 }
 
@@ -148,6 +145,7 @@ html, body {
   background: #3684b4;
   -webkit-transform: rotate(5deg);
   -moz-transform: rotate(5deg);
+  display: none;
 }
 
 #scoreboard h1 {
@@ -172,10 +170,9 @@ html, body {
   font-size: 25px;
   font-weight: normal;
   color: rgba(255,255,255,.7);
-  border-top: solid 5px #1d6216;
-  margin-top: 30px;
-  padding-top: 15px;
-
+  border-top: solid 5px rgba(255,255,255,.6);
+  margin-top: 15px;
+  padding-top: 25px;
 }
 
 

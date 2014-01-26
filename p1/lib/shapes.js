@@ -4,15 +4,41 @@ var shapes = {
       ["X"]
     ]
   },
+  minihBar : {
+    shape : [
+      ["X","X"]
+    ]
+  },
   minivBar : {
     shape : [
       ["X"],
       ["X"]
     ]
   },
-  minihBar : {
+  miniBk : {
     shape : [
-      ["X","X"]
+      ["X","0"],
+      ["0","X"]
+    ]
+  },
+  miniFw : {
+    shape : [
+      ["0","X"],
+      ["X","0"]
+    ]
+  },
+  fwSlash:{
+    shape : [
+      ["0","0","X"],
+      ["0","X","0"],
+      ["X","0","0"]
+    ]
+  },
+  bkSlash:{
+    shape : [
+      ["X","0","0"],
+      ["0","X","0"],
+      ["0","0","X"]
     ]
   },
   vBar : {
@@ -35,7 +61,6 @@ var shapes = {
       ["X","X"]
     ]
   },
-
   hBar : {
     shape : [
       ["X","X","X"]
@@ -47,14 +72,28 @@ var shapes = {
       ["X","X"],
     ]
   },
-  leftL : {
+  leftHook : {
+    shape : [
+      ["X","0"],
+      ["0","X"],
+      ["0","X"]
+    ]
+  },
+  rightHook : {
+    shape : [
+      ["0","X"],
+      ["X","0"],
+      ["X","0"]
+    ]
+  },
+    rightL : {
     shape : [
       ["X","0"],
       ["X","0"],
       ["X","X"]
     ]
   },
-  rightL : {
+  leftL : {
     shape : [
       ["0","X"],
       ["0","X"],
@@ -81,18 +120,18 @@ var shapes = {
       ["0","X","0"]
     ]
   },
-  tetris : {
+  tetrisL : {
     shape : [
       ["X","0"],
       ["X","X"],
       ["0","X"]
     ]
   },
-  tetris : {
+  tetrisR : {
     shape : [
-      ["X","0"],
+      ["0","X"],
       ["X","X"],
-      ["0","X"]
+      ["X","0"]
     ]
   },
   circle : {

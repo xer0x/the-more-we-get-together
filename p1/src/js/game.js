@@ -36,15 +36,41 @@
         ["X"]
       ]
     },
+    minihBar : {
+      shape : [
+        ["X","X"]
+      ]
+    },
     minivBar : {
       shape : [
         ["X"],
         ["X"]
       ]
     },
-    minihBar : {
+    miniBk : {
       shape : [
-        ["X","X"]
+        ["X","0"],
+        ["0","X"]
+      ]
+    },
+    miniFw : {
+      shape : [
+        ["0","X"],
+        ["X","0"]
+      ]
+    },
+    fwSlash:{
+      shape : [
+        ["0","0","X"],
+        ["0","X","0"],
+        ["X","0","0"]
+      ]
+    },
+    bkSlash:{
+      shape : [
+        ["X","0","0"],
+        ["0","X","0"],
+        ["0","0","X"]
       ]
     },
     vBar : {
@@ -78,14 +104,28 @@
         ["X","X"],
       ]
     },
-    leftL : {
+    leftHook : {
+      shape : [
+        ["X","0"],
+        ["0","X"],
+        ["0","X"]
+      ]
+    },
+    rightHook : {
+      shape : [
+        ["0","X"],
+        ["X","0"],
+        ["X","0"]
+      ]
+    },
+      rightL : {
       shape : [
         ["X","0"],
         ["X","0"],
         ["X","X"]
       ]
     },
-    rightL : {
+    leftL : {
       shape : [
         ["0","X"],
         ["0","X"],
@@ -112,11 +152,18 @@
         ["0","X","0"]
       ]
     },
-    tetris : {
+    tetrisL : {
       shape : [
         ["X","0"],
         ["X","X"],
         ["0","X"]
+      ]
+    },
+    tetrisR : {
+      shape : [
+        ["0","X"],
+        ["X","X"],
+        ["X","0"]
       ]
     },
     circle : {
@@ -131,20 +178,6 @@
         ["0","X","0"],
         ["X","0","X"],
         ["0","X","0"]
-      ]
-    },
-    cross : {
-      shape : [
-        ["0","X","0"],
-        ["X","X","X"],
-        ["0","X","0"]
-      ]
-    },
-    boomerang : {
-      shape : [
-        ["X","X","X"],
-        ["0","0","X"],
-        ["0","0","X"]
       ]
     }
   }
@@ -639,8 +672,8 @@
 		//newPlayer.frame = Math.floor(Math.random() * 14) + 1;
 		newPlayer.frame = 0;
 		newPlayer.moveRight = function () {
-      phaserGame.sound.play('move1');
 			if (this.xPos < gridWidth-1 && isEmpty(Number(this.xPos)+1,Number(this.yPos))) {
+				phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
 
 				grid[this.xPos][this.yPos] = 0;
 				this.xPos++;
@@ -648,6 +681,7 @@
 				this.targetX = this.x + cubeWidth;
 				sockjs.send("MOVE RIGHT");
 				sortDepths();
+				phaserGame.sound.play('move1');
 				return true;
 			}
 
@@ -656,6 +690,7 @@
 
 		newPlayer.moveLeft = function () {
       phaserGame.sound.play('move1');
+			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
 			if(this.xPos > 0 && isEmpty(Number(this.xPos)-1,Number(this.yPos))) {
 				grid[this.xPos][this.yPos] = 0;
 				this.xPos--;
@@ -671,6 +706,7 @@
 
 		newPlayer.moveDown = function () {
       phaserGame.sound.play('move1');
+			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
       if(this.yPos < gridHeight-1  && isEmpty(Number(this.xPos),Number(this.yPos)+1)) {
 				grid[this.xPos][this.yPos] = 0;
 				this.yPos++;
@@ -686,6 +722,7 @@
 
 		newPlayer.moveUp = function () {
       phaserGame.sound.play('move1');
+			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
       if (this.yPos > 0 && isEmpty(Number(this.xPos),Number(this.yPos)-1)) {
 				grid[this.xPos][this.yPos] = 0;
 				this.yPos--;
@@ -748,23 +785,20 @@
 	    if (i < 3) {
 			var playerName = document.getElementById("playerName"+Number(i+1));
 			playerName.innerHTML = " " +topScores[i].name;
-			var playerScore = document.getElementById("playerScore"+Number(i+1));
+			var playerScore = document.querySelector("#playerScore"+ Number(i+1) + " .text");
 			playerScore.innerHTML = " " +topScores[i].score;
 		}
 
 		if (topScores[i].id == this.playerOneId) {
-			var p1place = document.getElementById("place");
+			var p1place = document.querySelector("#place .text");
 			if (i == 0) p1place.innerHTML = "1st";
 			else if (i == 1) p1place.innerHTML = "2nd";
 			else if (i == 2) p1place.innerHTML = "3rd";
 			else p1place.innerHTML = Number(i-1) + "th";
-			var p1points = document.getElementById("points");
+			var p1points = document.querySelector("#points .text");
 			p1points.innerHTML = topScores[i].score;
 		}
 	  }
-
-
-
 
 	}
   };
