@@ -61,7 +61,7 @@ function addPlayer(playerId, callback) {
     y: position.y,
     name: 'Winner' + ('' + Math.random()).substring(2,6),
     score: 0,
-    shape: shapes.getPlayerShape()
+    shape: shapes.getPlayerShape(Object.keys(players).length)
   };
   grid[player.x][player.y] = playerId;
   players[playerId] = player;
