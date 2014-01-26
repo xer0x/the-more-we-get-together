@@ -352,7 +352,7 @@
 
 			case "BING":
 			var bings = command.length-1;
-			for (var i = 1;i<=bings;i++) {
+      for (var i = 1;i<=bings;i++) {
 				var bingData = command[i].split(",");
 				var id=bingData[0];
 				var score = bingData[1];
@@ -432,7 +432,6 @@
 		}
 	},
 	bingPlayer:function(id,score) {
-
 		if(this.allPlayers != null) {
 			phaserGame.sound.play('happy1')
 			var playerToBing = this.allPlayers[id];
@@ -441,15 +440,12 @@
 			var coin = coinGroup[coinIndex];
 			coinIndex++;
 			if (coinIndex >= coinGroup.length) coinIndex = 0;
-
-  		coin.bringToTop();
-  		coin.x = player.x+70;
-  		coin.y = player.y+25;
-  		coin.vy = -2;
-  		coin.scaleVX = 0;
-  		coin.life = 25;
-  		coin.revive();
-
+        coin.bringToTop();
+        coin.x = playerToBing.x+70;
+        coin.y = playerToBing.y+25;
+        coin.vy = -2;
+        coin.life = 25;
+        coin.revive();
 	  }
 	},
     update: function () {
