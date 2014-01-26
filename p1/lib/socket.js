@@ -48,8 +48,9 @@ function listener(conn) {
   world.addPlayer(conn.id, function(newPlayer) {
     conn.write(util.format('YOU %s', newPlayer.id));
     var spawnMessage = util.format('PLAYER %d,%d %s', newPlayer.x, newPlayer.y, newPlayer.id);
-    sendStateTimerMessage();
     broadcast_all(spawnMessage);
+    sendStateTimerMessage();
+    sendSecretShapeMessage();
   });
 
   var readMessage = function(message) {
@@ -81,6 +82,10 @@ function listener(conn) {
 
   function sendStateTimerMessage() {
     conn.write(world.getStateTimer().join(' '));
+  }
+
+  function sendSecretShapeMessage() {
+    conn.write(util.format('SHAPE %s', world.getPlayer(conn.id).shape));
   }
 
   conn.on('data', readMessage);
