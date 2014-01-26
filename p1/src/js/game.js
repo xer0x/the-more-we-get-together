@@ -470,7 +470,7 @@
 
 		var g  = this.add.graphics(0, 0);
 
-		g.beginFill("1.187525");
+		g.beginFill("0x425c09");
 		g.drawRect( -15, worldHeight + 30, worldHeight - 30 , 10);
 		g.beginFill("0xFFFFFF");
 		g.drawRect(-30, -30, worldHeight, worldHeight + 60);
