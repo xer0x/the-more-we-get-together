@@ -176,4 +176,4 @@ function test() {
 
 test();
 
-module.exports = checkShapes;
+module.exports = {checkShapes: checkShapes};
