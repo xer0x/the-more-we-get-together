@@ -44,7 +44,8 @@
 	processName: function (e) {
 		var nameInput = document.getElementById("nameInput");
 		var nameValue = nameInput.value;
-		if (nameValue == "Enter Your Name..." || nameValue == "") nameValue = "Guest"; 
+		if (nameValue == "Enter Your Name..." || nameValue == "") nameValue = "Winner"; 
+		sockjs.send("SETNAME " + nameValue);
 		window.phaserGame.playerName = nameValue;
 		ready = true;
 	}
