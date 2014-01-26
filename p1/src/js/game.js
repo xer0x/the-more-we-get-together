@@ -710,10 +710,12 @@
 	  topScores.sort(compare);
 		
 	  for (var i=0;i<topScores.length;i++) {
-		var playerName = document.getElementById("playerName"+Number(i+1));
-		playerName.innerHTML = " " +topScores[i].name;
-		var playerScore = document.getElementById("playerScore"+Number(i+1));
-	    playerScore.innerHTML = " " +topScores[i].score;
+	    if (i < 3) {
+			var playerName = document.getElementById("playerName"+Number(i+1));
+			playerName.innerHTML = " " +topScores[i].name;
+			var playerScore = document.getElementById("playerScore"+Number(i+1));
+			playerScore.innerHTML = " " +topScores[i].score;
+		}
 		
 		if (topScores[i].id == this.playerOneId) {
 			var p1place = document.getElementById("place");
