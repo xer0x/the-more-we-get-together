@@ -479,9 +479,8 @@
 			}
 
 			if (player != null) {
-
 				if (player.targetX == null && player.targetY == null) {
-					if (cursors.right.isDown) {
+          if (cursors.right.isDown) {
 						player.moveRight();
 					} else if (cursors.left.isDown) {
 						player.moveLeft();
@@ -586,7 +585,7 @@
 		//newPlayer.frame = Math.floor(Math.random() * 14) + 1;
 		newPlayer.frame = 0;
 		newPlayer.moveRight = function () {
-
+      phaserGame.sound.play('move1');
 			if (this.xPos < gridWidth-1 && isEmpty(Number(this.xPos)+1,Number(this.yPos))) {
 
 				grid[this.xPos][this.yPos] = 0;
@@ -602,6 +601,7 @@
 		}
 
 		newPlayer.moveLeft = function () {
+      phaserGame.sound.play('move1');
 			if(this.xPos > 0 && isEmpty(Number(this.xPos)-1,Number(this.yPos))) {
 				grid[this.xPos][this.yPos] = 0;
 				this.xPos--;
@@ -616,7 +616,8 @@
 		}
 
 		newPlayer.moveDown = function () {
-			if(this.yPos < gridHeight-1  && isEmpty(Number(this.xPos),Number(this.yPos)+1)) {
+      phaserGame.sound.play('move1');
+      if(this.yPos < gridHeight-1  && isEmpty(Number(this.xPos),Number(this.yPos)+1)) {
 				grid[this.xPos][this.yPos] = 0;
 				this.yPos++;
 				grid[this.xPos][this.yPos] = this;
@@ -630,7 +631,8 @@
 		}
 
 		newPlayer.moveUp = function () {
-			if (this.yPos > 0 && isEmpty(Number(this.xPos),Number(this.yPos)-1)) {
+      phaserGame.sound.play('move1');
+      if (this.yPos > 0 && isEmpty(Number(this.xPos),Number(this.yPos)-1)) {
 				grid[this.xPos][this.yPos] = 0;
 				this.yPos--;
 				grid[this.xPos][this.yPos] = this;
