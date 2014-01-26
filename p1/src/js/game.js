@@ -23,6 +23,7 @@
   var scoreText;
   var started;
   var ended;
+  var myShape;
 
   var tmygt = window.tmygt || (window.tmygt = {});
 
@@ -70,7 +71,7 @@
 
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
-
+	  myShape = document.getElementById("myShape");
 	  startTime = 5;
 	  started = false;
 
@@ -162,6 +163,12 @@
 			var score = scoreData[1];
 			this.setScore(id,score);
 			break;
+			
+			case "SHAPE":
+			myShape.innerHTML =  "Shape: " + command[1];
+			
+			break;
+			
 		}
 
 	},

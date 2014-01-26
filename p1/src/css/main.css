@@ -22,6 +22,11 @@ html, body {
   color: white;
 }
 
+#myShape {
+	top:5em;
+	left:.3em;
+}
+
 #timerText {
 	top:.3em;
 	right:.3em;

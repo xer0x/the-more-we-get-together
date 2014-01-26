@@ -12,6 +12,7 @@ var lastTickState = null;
 
 var players = {};
 var grid = [];
+var lastScores = {};
 
 function getGrid() {
   return {
@@ -96,7 +97,8 @@ function change(playerId, command) {
       showGrid();
       break;
     case 'SETNAME':
-      var name = setName(playerId, command);
+      c.shift();
+      var name = setName(playerId, c.join(' '));
       if (name) {
         results.push(util.format('NAME %s %s', playerId, name));
       }
@@ -166,6 +168,7 @@ function tick() {
   }
   secondsLeft -= 1;
   printScores();
+  lastScores = getScores();
   if (roundFinished !== lastTickState) {
     if (roundFinished) {
       messages.push(util.format('FINISHED %s', secondsForIntermission));
@@ -176,6 +179,7 @@ function tick() {
       messages.push(util.format('SHAPES %s', getShapeString()));
       messages.push(util.format('LEVELS %s', getLevelString()));
       messages.push(util.format('TOTALS %s', getTotalString()));
+      messages.push(util.format('BING %s', getBingString()));
     }
   }
   lastTickState = roundFinished;
@@ -205,6 +209,27 @@ function printScores() {
       console.log(util.format('%s  \t%d  \t%s', p.name, p.score, p.shape));
     }
   }
+}
+
+// Score Changes update
+function getBingString() {
+  var bing = [];
+  var p;
+  for (var id in players) {
+    p = players[id];
+    if (p.score > lastScores[id]) {
+      bing.push( [id, p.score, (p.score - lastScores[id])].join(',') );
+    }
+  }
+  return bing.join(' ');
+}
+
+function getScores() {
+  var scores = {};
+  for (var id in players) {
+    scores[id] = players[id].score;
+  }
+  return scores;
 }
 
 function clearScores() {
