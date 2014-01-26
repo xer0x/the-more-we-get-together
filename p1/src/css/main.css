@@ -10,6 +10,9 @@ html, body {
 	padding: 0;
 	margin: 0;
   background: #65a850;
+  background: url(/assets/sprites/grass_tile.gif);
+
+
 }
 
 .uiText {
@@ -28,7 +31,6 @@ html, body {
   padding: 10px;
   -moz-transform: rotate(3deg);
   -webkit-transform: rotate(3deg);
-
 }
 
 #timerText {
