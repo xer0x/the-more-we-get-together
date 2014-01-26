@@ -507,12 +507,12 @@
 			for(var j=0;j< gridHeight;j++) {
 				var serverNode = serverGrid[i][j];
 				var localNode = grid[i][j];
-				if (serverNode == 0 && localNode == 0) continue;
+				//if (serverNode == 0 && localNode == 0) continue;
 				if (serverNode != 0 && localNode == 0) {
 					var playerId = serverNode[i][j];
 					var playerToCorrect = this.allPlayers[playerId];
 					if(playerToCorrect != null) {
-						playerToCorrect.moveTo(i,j);
+						playerToCorrect.setPosition(i,j);
 						console.log("correcting player " + playerToCorrect.name);
 					}
 				}
@@ -740,6 +740,16 @@
 
 			this.targetY = yPosition*cubeHeight-cubeOffset-cubeOffsetY;
 			this.targetX = xPosition*cubeWidth-cubeOffsetX;
+			grid[this.xPos][this.yPos] = 0;
+			this.xPos = xPosition;
+			this.yPos = yPosition;
+			grid[this.xPos][this.yPos] = this;
+			sortDepths();
+		}
+		
+		newPlayer.setPosition = function(xPosition,yPosition) {
+			this.y = yPosition*cubeHeight-cubeOffset-cubeOffsetY;
+			this.x = xPosition*cubeWidth-cubeOffsetX;
 			grid[this.xPos][this.yPos] = 0;
 			this.xPos = xPosition;
 			this.yPos = yPosition;
