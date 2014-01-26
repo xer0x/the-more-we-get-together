@@ -214,7 +214,7 @@
 
 		var timeClock = function() {
 			timeRemaining--;
-			console.log(timeRemaining + " seconds left");
+			//console.log(timeRemaining + " seconds left");
 			if (timeRemaining < 10 && timeRemaining >= 0) {
 				timerText.innerHTML = ":0" + timeRemaining;
 			} else {
