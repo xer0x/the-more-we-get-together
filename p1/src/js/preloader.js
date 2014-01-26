@@ -19,7 +19,7 @@
       //this.load.image('player', 'assets/sprites/blue_happy_64.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
 	  this.load.spritesheet('player', 'assets/sprites/tile_sprites.png', 120, 110, 14);
-
+      this.load.image('playerShadow', 'assets/sprites/tile_shadow.png');
     },
 
     create: function () {

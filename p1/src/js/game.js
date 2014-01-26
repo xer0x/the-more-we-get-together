@@ -10,10 +10,13 @@
   var cubeOffsetX = 28;
   var cursors;
   var player;
+  var playerShadow;
+  var playerShadowChange;
   var allPlayers;
   var moveSpeed = 8;
   var playerOneId = "";
   var builtGrid = false;
+  
 
   var tmygt = window.tmygt || (window.tmygt = {});
 
@@ -45,23 +48,18 @@
 
     create: function () {
 	  this.allPlayers = {};
-
+      
 	  //process initial messages
 	  while(window.messages.length > 0) {
 		this.processMessage(window.messages.shift());
 	  }
 
 	  cursors = this.input.keyboard.createCursorKeys();
-
+   
       this.camera.bounds = null;
 	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
-	  //this.input.mouse.mouseUpCallback = this.onMouseUp;
+	  this.input.mouse.mouseUpCallback = this.onMouseUp;
 
-	  //var sprite = this.add.sprite(0, 0, 'playerLevels');
-
-		//sprite.animations.add('walk');
-		//sprite.frame = 3;
-		//sprite.animations.play('walk', 50, true);
 
     },
 	processMessage: function (message) {
@@ -72,9 +70,12 @@
 			case "PLAYER":
 			var coords = command[1].split(",");
 			var id = command[2];
+			
 			var newPlayer = this.createPlayer(id, coords[0], coords[1]);
 			if (newPlayer.id == this.playerOneId) {
 				player = newPlayer;
+				
+	  
 			}
 
 			break;
@@ -86,6 +87,7 @@
 				var w = command[1];
 				var h = command[2];
 				this.buildGrid(w,h, serverGrid);
+				
 			} else {
 				this.checkGrid(serverGrid);
 			}
@@ -159,6 +161,8 @@
 			}
 		}
 		builtGrid = true;
+		playerShadow = this.add.sprite(-1000,0,'playerShadow');
+		this.add.tween(playerShadow).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 	},
 
 	checkGrid: function (serverGrid) {
@@ -184,7 +188,7 @@
 		}
 
 		if (player != null) {
-
+			
 			if (player.targetX == null && player.targetY == null) {
 				if (cursors.right.isDown) {
 					player.moveRight();
@@ -196,6 +200,8 @@
 					player.moveUp();
 				}
 			}
+			
+			
 		}
 
 		for(var p in this.allPlayers) {
@@ -232,6 +238,10 @@
 					}
 				}
 			}
+		}
+		if (player != null) {
+			playerShadow.x = player.x+9;
+			playerShadow.y = player.y+30;
 		}
 
     },
