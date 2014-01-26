@@ -163,6 +163,6 @@ module.exports = {
   getPlayer: getPlayer,
   removePlayer: removePlayer,
   change: change,
-  tick: tick
+  tick: tick,
   reset: reset
 };
