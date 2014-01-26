@@ -27,7 +27,6 @@
       this.load.audio('surprise1', 'assets/audio/mwgt_vo_gen_19.webm');
       this.load.audio('move1', 'assets/audio/move.mp3');
 
-
 /*
       this.load.audio('happy2', 'assets/audio/mwgt_vo_gen_02.webm');
       this.load.audio('happy3', 'assets/audio/mwgt_vo_gen_03.webm');
