@@ -63,7 +63,7 @@
 		this.processMessage(window.messages.shift());
 	  }
 	  */
-	  
+
 	  cursors = this.input.keyboard.createCursorKeys();
 
       this.input.mouse.mouseUpCallback = this.onMouseUp;
@@ -76,7 +76,7 @@
 
     },
 	start: function() {
-		
+
 		timeRemaining = startTime;
 		timeCounter = timeRemaining * this.time.fps;
 		started = true;
@@ -100,17 +100,17 @@
 				player = newPlayer;
 				this.camera.bounds = null;
 				this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
-	  
+
 			}
 			break;
 
-			
+
 			case "FINISHED":
 			this.end();
 			break;
-			
+
 			case "START":
-			
+
 			startTime = command[1];
 			this.start();
 			break;
@@ -221,10 +221,10 @@
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
 		}
-		
-		
+
+
 		if(started) {
-			
+
 			timeCounter++ ;
 			if (timeCounter > this.time.fps) {
 				timeCounter = 0;
