@@ -129,6 +129,14 @@
 	    var worldHeight = gridHeight * cubeHeight;
 		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
 		var g  = this.add.graphics(0, 0);
+
+		g.beginFill("0xDDDDDD");
+		g.drawRect(-1000, -1000, worldHeight + 2000, worldHeight + 2000);
+		g.beginFill("0xCCCCCC");
+		g.drawRect( -15, worldHeight + 30, worldHeight - 30 , 10);
+		g.beginFill("0xFFFFFF");
+		g.drawRect(-30, -30, worldHeight, worldHeight + 60);
+
 		g.lineStyle(2,0xd0dee9,1);
 
 		// draw grid
