@@ -4,7 +4,7 @@ var shapes = require('./shapes');
 
 var width = 10;
 var height = 11;
-var defaultRoundLength = 33
+var defaultRoundLength = 25
 var secondsForIntermission = 7
 var secondsLeft;
 var roundFinished = true;
