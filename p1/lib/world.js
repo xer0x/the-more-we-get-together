@@ -92,9 +92,24 @@ function change(playerId, command) {
       results.push(util.format('MOVE %s %s %s', old, dest, playerId));
       showGrid();
       break;
+    case 'SETNAME':
+      var name = setName(playerId, command);
+      if (name) {
+        results.push(util.format('NAME %s %s', playerId, name));
+      }
+      break;
     default:
   }
   return results;
+}
+
+function setName(playerId, name) {
+  var p = players[playerId];
+  if (p && name) {
+    p.name = name;
+    return name;
+  }
+  return false;
 }
 
 // return representation of grid
@@ -143,7 +158,13 @@ function move(playerId, direction) {
 function tick() {
   // Does +1 to score if in their shape
   checker.checkShapes(players, grid);
+  printScores();
+  var messages = [];
+  return messages;
+}
 
+// print scores to server console
+function printScores() {
   var playerIds = Object.keys(players);
   if (playerIds.length > 0) {
     console.log('Player scores');
@@ -153,7 +174,6 @@ function tick() {
       console.log(util.format('%s  \t%d  \t%s', p.name, p.score, p.shape));
     }
   }
-  return messages;
 }
 
 function reset() {
