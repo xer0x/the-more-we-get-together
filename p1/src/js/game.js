@@ -180,8 +180,7 @@
 	  topScores = [];
 	  var nameText = document.getElementById("nameText");
 	  nameText.innerHTML = "Hi, " + phaserGame.playerName + "!";
-
-
+		phaserGame.sound.play('startGame1')
 	  cursors = this.input.keyboard.createCursorKeys();
 
       this.input.mouse.mouseUpCallback = this.onMouseUp;
@@ -214,7 +213,7 @@
 
 		var timeClock = function() {
 			timeRemaining--;
-			console.log(timeRemaining + " seconds left");
+			//console.log(timeRemaining + " seconds left");
 			if (timeRemaining < 10 && timeRemaining >= 0) {
 				timerText.innerHTML = ":0" + timeRemaining;
 			} else {
@@ -230,6 +229,7 @@
 		timeClock();
 	},
 	end:function () {
+		phaserGame.sound.play('cheer1')
 		timeRemaining = 0;
 		this.getTopScores();
 		for (var i=0;i<coinGroup.length;i++) {
@@ -468,11 +468,12 @@
 			for(var j=0;j< gridHeight;j++) {
 				var serverNode = serverGrid[i][j];
 				var localNode = grid[i][j];
-				if (serverNode == 0 && localNode == 0) return;
+				if (serverNode == 0 && localNode == 0) continue;
 				if (serverNode != 0 && localNode == 0) {
 					var playerId = serverNode[i][j];
 					var playerToCorrect = this.allPlayers[playerId];
 					playerToCorrect.moveTo(i,j);
+					console.log("correcting player " + playerToCorrect.name);
 				}
 			}
 		}
