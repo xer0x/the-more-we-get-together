@@ -6,6 +6,7 @@ var width = 10;
 var height = 11;
 var defaultRoundLength = 25
 var secondsForIntermission = 7
+var intenseSeconds = 4;
 var secondsLeft;
 var roundFinished = true;
 var lastTickState = null;
@@ -310,6 +311,9 @@ function reset() {
       reset(); // re-START the next round
     }, secondsForIntermission * 1000);
   }, secondsLeft * 1000);
+  setTimeout(function() {
+    broadcast_all('COUNTDOWN ' + intenseSeconds);
+  }, (secondsLeft - intenseSeconds) * 1000 );
 }
 
 init(); // initialize
