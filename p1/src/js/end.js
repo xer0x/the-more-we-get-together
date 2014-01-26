@@ -19,20 +19,21 @@
       });
 
       endText.anchor.setTo(0.5, 0.5);
-	  this.input.mouse.onMouseUp = this.restartGame;
+	  //this.input.mouse.onMouseUp = this.restartGame;
 	  //this.input.onDown = this.onDown;
     },
 
     update: function () {
-		if(readyToRestart) {
-			readyToRestart = false;
-			endText.destroy();
-			this.game.state.start('game');
+		if (window.messages.length > 0) {
+			this.processMessage(window.messages.shift());
 		}
     },
-	restartGame:function(e) {
-		readyToRestart = true;
-		
+	processMessage:function(message) {
+		var command = message.split(" ");
+		switch (command[0]) {
+			
+			
+		}
 	}
   };
 
