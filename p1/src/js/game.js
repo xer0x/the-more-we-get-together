@@ -29,6 +29,9 @@
   var myShape;
   var coinGroup;
   var coinIndex;
+  var syncing;
+  var outOfSync;
+  
   var tmygt = window.tmygt || (window.tmygt = {});
   var shapes = {
     loner : {
@@ -215,6 +218,8 @@
 	  nameText.innerHTML = "Hi, " + phaserGame.playerName + "!";
 		phaserGame.sound.play('startGame1')
 	  cursors = this.input.keyboard.createCursorKeys();
+	  syncing = false;
+	  outOfSync = false;
 
     //this.input.mouse.mouseUpCallback = this.onMouseUp;
 	  //this.input.touch.touchEndCallback = this.onMouseUp;
@@ -251,7 +256,6 @@
 
 		var timeClock = function() {
 			timeRemaining--;
-			//console.log(timeRemaining + " seconds left");
 			if (timeRemaining < 10 && timeRemaining >= 0) {
 				timerText.innerHTML = ":0" + timeRemaining;
 			} else {
@@ -510,12 +514,15 @@
 				var localNode = grid[i][j];
 				//if (serverNode == 0 && localNode == 0) continue;
 				if (serverNode != 0 && localNode == 0) {
-					var playerId = serverNode[i][j];
+					
+					var playerId = serverNode;
 					var playerToCorrect = this.allPlayers[playerId];
+					console.log("correcting player " + playerToCorrect.name);
 					if(playerToCorrect != null) {
 						playerToCorrect.setPosition(i,j);
-						console.log("correcting player " + playerToCorrect.name);
+						
 					}
+					
 				}
 			}
 		}
@@ -539,12 +546,15 @@
 	},
     update: function () {
 		this.onTouch();
-
+		
+		
+		
+		
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
 		}
 
-
+		
 		//if(started) {
 
 			if (player != null) {
@@ -751,6 +761,8 @@
 		newPlayer.setPosition = function(xPosition,yPosition) {
 			this.y = yPosition*cubeHeight-cubeOffset-cubeOffsetY;
 			this.x = xPosition*cubeWidth-cubeOffsetX;
+			this.targetX = null;
+			this.targetY = null;
 			grid[this.xPos][this.yPos] = 0;
 			this.xPos = xPosition;
 			this.yPos = yPosition;
