@@ -180,7 +180,7 @@
 	  topScores = [];
 	  var nameText = document.getElementById("nameText");
 	  nameText.innerHTML = "Hi, " + phaserGame.playerName + "!";
-      
+		phaserGame.sound.play('startGame1')
 
 	  cursors = this.input.keyboard.createCursorKeys();
 
