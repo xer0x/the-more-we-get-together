@@ -18,13 +18,13 @@ html, body {
 	color:#555;
 	font-size:2em;
 	text-align:left;
+  background: rgba(36,105,29,.8);
+  color: white;
 }
 
 #timerText {
 	top:.3em;
 	right:.3em;
-  background: rgba(36,105,29,.8);
-  color: white;
   -moz-transform: rotate(3deg);
   -webkit-transform: rotate(3deg);
   padding: 30px 0;
@@ -36,8 +36,12 @@ html, body {
 }
 
 #scoreText {
-	bottom:2em;
-	right:2em;
+	bottom:1em;
+	right:1em;
+
+  padding: 10px;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
 }
 
 #nameText {
