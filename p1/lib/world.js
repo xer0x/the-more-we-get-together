@@ -216,7 +216,7 @@ function getBingString() {
   var bing = [];
   var p;
   for (var id in players) {
-    p = players[id;]
+    p = players[id];
     if (p.score > lastScores[id]) {
       bing.push( [id, p.score, (p.score - lastScores[id])].join(',') );
     }
