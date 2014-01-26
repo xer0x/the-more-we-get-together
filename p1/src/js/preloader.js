@@ -84,7 +84,7 @@
 
 	
 	fileLoaded: function(progress) {
-		//this.loaderEmpty.crop.left = (585 / 100) * progress;
+		this.loaderEmpty.crop.left = (585 / 100) * progress;
 		this.loaderFull.crop.width = (585 / 100) * progress;
 		//if(progress == 100) this.ready = true;
 	}
