@@ -45,6 +45,8 @@ function listener(conn) {
 
   tick();
 
+  sendStateTimerMessage();
+
   world.addPlayer(conn.id, function(newPlayer) {
     conn.write(util.format('YOU %s', newPlayer.id));
     var spawnMessage = util.format('PLAYER %d,%d %s', newPlayer.x, newPlayer.y, newPlayer.id);
@@ -78,6 +80,10 @@ function listener(conn) {
     }
   }
 
+  function sendStateTimerMessage() {
+    conn.write(world.getStateTimer().join(' '));
+  }
+
   conn.on('data', readMessage);
   conn.on('close', closeConnection)
 }
@@ -92,11 +98,6 @@ function broadcast_all(message) {
       connections[id].write(messages[i]);
     }
   }
-}
-
-
-function checkShapes() {
-
 }
 
 module.exports = socket;
