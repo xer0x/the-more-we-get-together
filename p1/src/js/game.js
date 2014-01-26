@@ -216,7 +216,7 @@
 		phaserGame.sound.play('startGame1')
 	  cursors = this.input.keyboard.createCursorKeys();
 
-      this.input.mouse.mouseUpCallback = this.onMouseUp;
+      //this.input.mouse.mouseUpCallback = this.onMouseUp;
 	  //this.input.touch.touchEndCallback = this.onMouseUp;
 	  
 	  timerText = document.getElementById("timerText");
@@ -258,6 +258,7 @@
 				timerText.innerHTML = ":" + timeRemaining;
 			}
 			if (timeRemaining <= 0) {
+				timeRemaining = 0;
 				started = false;
 				ended = true;
 			} else {
@@ -469,7 +470,7 @@
 
 		var g  = this.add.graphics(0, 0);
 
-		g.beginFill("0x387525");
+		g.beginFill("1.187525");
 		g.drawRect( -15, worldHeight + 30, worldHeight - 30 , 10);
 		g.beginFill("0xFFFFFF");
 		g.drawRect(-30, -30, worldHeight, worldHeight + 60);
@@ -536,14 +537,14 @@
 	  }
 	},
     update: function () {
-		//this.onTouch();
+		this.onTouch();
 		
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
 		}
 
 
-		if(started) {
+		//if(started) {
 
 			if (player != null) {
 				if (player.targetX == null && player.targetY == null) {
@@ -612,7 +613,7 @@
 
 			}
 
-		}
+		//}
     },
 
     onMouseUp: function (event) {
@@ -637,7 +638,7 @@
     },
 	onTouch:function() {
 		
-		if (player != null) {
+		if (player != null && player.targetX == null && player.targetY == null && this.input.activePointer.isDown) {
 
 			var dx = this.input.activePointer.worldX - player.x;
 			var dy = this.input.activePointer.worldY - player.y;
@@ -681,7 +682,7 @@
 				this.targetX = this.x + cubeWidth;
 				sockjs.send("MOVE RIGHT");
 				sortDepths();
-				phaserGame.sound.play('move1', 0, 0.6);
+				phaserGame.sound.play('move1', 0.5);
 				return true;
 			}
 
@@ -689,7 +690,7 @@
 		}
 
 		newPlayer.moveLeft = function () {
-			phaserGame.sound.play('move1', 0, 0.6);
+			phaserGame.sound.play('move1', 0.5);
 			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
 			if(this.xPos > 0 && isEmpty(Number(this.xPos)-1,Number(this.yPos))) {
 				grid[this.xPos][this.yPos] = 0;
@@ -705,7 +706,7 @@
 		}
 
 		newPlayer.moveDown = function () {
-			phaserGame.sound.play('move1', 0, 0.6);
+			phaserGame.sound.play('move1', 0.5);
 			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
       if(this.yPos < gridHeight-1  && isEmpty(Number(this.xPos),Number(this.yPos)+1)) {
 				grid[this.xPos][this.yPos] = 0;
@@ -721,7 +722,7 @@
 		}
 
 		newPlayer.moveUp = function () {
-			phaserGame.sound.play('move1', 0, 0.6);
+			phaserGame.sound.play('move1', 0.5);
 			phaserGame.sound.play('walk' + Math.floor(Math.random() * 44));
       if (this.yPos > 0 && isEmpty(Number(this.xPos),Number(this.yPos)-1)) {
 				grid[this.xPos][this.yPos] = 0;
