@@ -29,6 +29,10 @@
       this.load.audio('move1', 'assets/audio/move.mp3');
       this.load.audio('happy1', 'assets/audio/mario_coin.wav');
       this.load.audio('startGame1', 'assets/audio/mwgt_vo_gen_12.webm');
+      this.load.audio('walk1', 'assets/audio/mwgt_vo_gen_16.webm');
+      this.load.audio('walk2', 'assets/audio/mwgt_vo_gen_17.webm');
+      this.load.audio('walk3', 'assets/audio/mwgt_vo_gen_18.webm');
+      this.load.audio('walk4', 'assets/audio/mwgt_vo_gen_19.webm');
 
 /*
       this.load.audio('happy2', 'assets/audio/mwgt_vo_gen_02.webm');
@@ -44,10 +48,6 @@
       this.load.audio('happy13', 'assets/audio/mwgt_vo_gen_13.webm');
       this.load.audio('happy14', 'assets/audio/mwgt_vo_gen_14.webm');
       this.load.audio('happy15', 'assets/audio/mwgt_vo_gen_15.webm');
-      this.load.audio('happy16', 'assets/audio/mwgt_vo_gen_16.webm');
-      this.load.audio('happy17', 'assets/audio/mwgt_vo_gen_17.webm');
-      this.load.audio('happy18', 'assets/audio/mwgt_vo_gen_18.webm');
-      this.load.audio('happy19', 'assets/audio/mwgt_vo_gen_19.webm');
       this.load.audio('cheer1', 'assets/audio/mwgt_vo_groupcheer_01.webm');
       this.load.audio('cheer2', 'assets/audio/mwgt_vo_groupcheer_02.webm');
       this.load.audio('cheer3', 'assets/audio/mwgt_vo_groupcheer_03.webm');
