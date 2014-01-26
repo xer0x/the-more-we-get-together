@@ -358,12 +358,14 @@
 			break;
 
 			case "LEVELS":
-			var levelData = command[1].split(",");
-
-			//console.log("levelData:"+levelData);
-			//this.allPlayers[levelData[0]].frame = levelData[1];
+        for(var i = 1; i < command.length; i++){
+          var levelData = command[i].split(",");
+          var playerID = levelData[0];
+          var playerLevel = levelData[1];
+          console.log("playerLevel" + playerLevel);
+          this.allPlayers[playerID].frame = playerLevel;
+        }
 			break;
-
 
 		}
 
@@ -459,7 +461,6 @@
 			if (timeCounter > this.time.fps) {
 				timeCounter = 0;
 				timeRemaining--;
-
 				//console.log(timeRemaining + " seconds left");
 				if(timeRemaining < 10) {
 				  timerText.innerHTML = ":0" + timeRemaining;
