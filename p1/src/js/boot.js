@@ -14,9 +14,9 @@
     create: function () {
 	  
       
-	  this.game.input.maxPointers = 1;
+	  this.game.input.maxPointers = 2;
       // this.game.stage.disableVisibilityChange = true;
-
+	  
       if (this.game.device.desktop) {
         this.game.stage.scale.pageAlignHorizontally = true;
       } else {
@@ -28,6 +28,7 @@
         this.game.stage.scale.forceLandscape = true;
         this.game.stage.scale.pageAlignHorizontally = true;
         this.game.stage.scale.setScreenSize(true);
+		
       }
       this.game.state.start('preloader');
     }

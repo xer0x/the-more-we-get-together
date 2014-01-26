@@ -38,7 +38,6 @@
 		var inputBox = document.getElementById("enterName");
 		inputBox.style.display = "none";
 		this.game.state.start('game');
-
 	  }
     },
 

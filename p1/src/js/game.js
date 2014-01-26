@@ -536,7 +536,7 @@
 	  }
 	},
     update: function () {
-		//this.onTouch();
+		this.onTouch();
 		
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
@@ -637,7 +637,7 @@
     },
 	onTouch:function() {
 		
-		if (player != null) {
+		if (player != null && player.targetX == null && player.targetY == null && this.input.activePointer.isDown) {
 
 			var dx = this.input.activePointer.worldX - player.x;
 			var dy = this.input.activePointer.worldY - player.y;
