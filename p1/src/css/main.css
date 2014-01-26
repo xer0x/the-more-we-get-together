@@ -23,8 +23,12 @@ html, body {
 }
 
 #myShape {
-	top:5em;
-	left:.3em;
+	left:1em;
+	bottom:1em;
+  padding: 10px;
+  -moz-transform: rotate(3deg);
+  -webkit-transform: rotate(3deg);
+
 }
 
 #timerText {
