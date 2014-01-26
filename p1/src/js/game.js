@@ -14,10 +14,16 @@
   
   var tmygt = window.tmygt || (window.tmygt = {});
   
+  
+  function isEmpty(xPos,yPos) {
+	if (grid[xPos][yPos] == 0) return true;
+	else return false;
+  }
   tmygt.Game = function () {
   
   };
 
+  
   tmygt.Game.prototype = {
     
     create: function () {
@@ -84,38 +90,7 @@
 				newCoords = newCoords.split(",");
 				playerToMove.moveTo(newCoords[0],newCoords[1]);
 			}
-			/*
-			if (id != this.playerOneId && prevCoords != newCoords) {
-				prevCoords = prevCoords.split(",");
-				newCoords = newCoords.split(",");
-				var oldX = prevCoords[0];
-				var oldY = prevCoords[1];
-				
-				var newX = newCoords[0];
-				var newY = newCoords[1];
-				
-				var playerToMove = this.getPlayerAt(oldX,oldY);
-				
-				if(playerToMove != 0) {
-					if (newX != oldX) {
-						// horizontal move
-						if (oldX < newX) {
-							playerToMove.moveRight();
-						} else {
-							playerToMove.moveLeft();
-						}
-					} else {
-						// vertical move
-						if(oldY < newY) {
-							playerToMove.moveUp();
-						} else {
-							playerToMove.moveDown();
-						}
-					}
-				}
-				
-			}
-			*/
+			
 			break;
 			
 		}
@@ -250,9 +225,9 @@
 		
 		newPlayer.moveRight = function () {
 			
-			if (this.xPos < gridWidth-1) {
+			if (this.xPos < gridWidth-1 && isEmpty(this.xPos+1,this.yPos)) {
 				
-				grid[this.xPos][this.yPos] = null;
+				grid[this.xPos][this.yPos] = 0;
 				this.xPos++;
 				grid[this.xPos][this.yPos] = this;
 				this.targetX = this.x + cubeWidth;
@@ -264,8 +239,8 @@
 		}
 		
 		newPlayer.moveLeft = function () {
-			if(this.xPos > 0) {
-				grid[this.xPos][this.yPos] = null;
+			if(this.xPos > 0 && isEmpty(this.xPos-1,this.yPos)) {
+				grid[this.xPos][this.yPos] = 0;
 				this.xPos--;
 				grid[this.xPos][this.yPos] = this;
 				this.targetX = this.x - cubeWidth;
@@ -277,8 +252,8 @@
 		}
 		
 		newPlayer.moveDown = function () {
-			if(this.yPos < gridHeight-1) {
-				grid[this.xPos][this.yPos] = null;
+			if(this.yPos < gridHeight-1  && isEmpty(this.xPos,this.yPos+1)) {
+				grid[this.xPos][this.yPos] = 0;
 				this.yPos++;
 				grid[this.xPos][this.yPos] = this;
 				this.targetY = this.y + cubeHeight;
@@ -290,8 +265,8 @@
 		}
 		
 		newPlayer.moveUp = function () {
-			if (this.yPos > 0) {
-				grid[this.xPos][this.yPos] = null;
+			if (this.yPos > 0 && isEmpty(this.xPos,this.yPos-1)) {
+				grid[this.xPos][this.yPos] = 0;
 				this.yPos--;
 				grid[this.xPos][this.yPos] = this;
 				this.targetY = this.y - cubeHeight;
