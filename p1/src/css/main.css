@@ -71,8 +71,17 @@ html, body {
 #name-ui {
   margin: 0 auto;
   position: relative;
-  top: 490px;
+  top: 470px;
   text-align: center;
+}
+
+#name-ui #greeting {
+  margin-bottom: 5px;
+  font-size: 24px;
+  color:#24691d;
+  font-family: Helvetica,Arial;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 #name-ui input {
@@ -115,6 +124,7 @@ html, body {
   font-family: helvetica,arial;
   -webkit-transform: rotate(-2deg);
   -moz-transform: rotate(-2deg);
+  display: none;
 }
 
 #scoreboard #playerSprite {

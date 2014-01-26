@@ -15,6 +15,10 @@
       var x = this.game.width / 2
         , y = this.game.height / 2;
 
+
+        var nameInput = document.getElementById("nameInput");
+        nameInput.focus();
+
 	  this.stage.backgroundColor="#FFFFFF";
       startBtn = document.getElementById("enterNameButton");
 	    startBtn.addEventListener("click", this.processName);
@@ -32,6 +36,7 @@
 
 	processName: function (e) {
 		var nameInput = document.getElementById("nameInput");
+    nameInput.focus();
 		var nameValue = nameInput.value;
 		if (nameValue == "Enter Your Name..." || nameValue == "") nameValue = "Winner";
 		sockjs.send("SETNAME " + nameValue);
