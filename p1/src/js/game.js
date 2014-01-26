@@ -426,23 +426,24 @@
 			}
 		}
 	},
-    bingPlayer:function(id,score) {
+	bingPlayer:function(id,score) {
 
-	  if(this.allPlayers != null) {
-		var playerToBing = this.allPlayers[id];
-		this.setScore(id,score);
-		//console.log("Bing this: " + playerToBing);
-		var coin = coinGroup[coinIndex];
-		coinIndex++;
-		if(coinIndex >= coinGroup.length) coinIndex = 0;
+		if(this.allPlayers != null) {
+			phaserGame.sound.play('happy1')
+			var playerToBing = this.allPlayers[id];
+			this.setScore(id,score);
+			//console.log("Bing this: " + playerToBing);
+			var coin = coinGroup[coinIndex];
+			coinIndex++;
+			if(coinIndex >= coinGroup.length) coinIndex = 0;
 
-		coin.bringToTop();
-		coin.x = playerToBing.x+60;
-		coin.y = playerToBing.y+20;
-		coin.vy = -2;
-		coin.scaleVX = -0.1;
-		coin.life = 55;
-		coin.revive();
+			coin.bringToTop();
+			coin.x = playerToBing.x+60;
+			coin.y = playerToBing.y+20;
+			coin.vy = -2;
+			coin.scaleVX = -0.1;
+			coin.life = 55;
+			coin.revive();
 
 	  }
 	},
