@@ -384,6 +384,10 @@
         }
 			break;
 
+      case "COUNTDOWN":
+        phaserGame.sound.play('surprise1')
+      break;
+
 		}
 
 	},
