@@ -208,10 +208,26 @@
 	start: function() {
 		topScores = [];
 		timeRemaining = startTime;
-		timeCounter = timeRemaining * this.time.fps;
 		started = true;
 		ended = false;
 		scoreboard.style.display = "none";
+
+		var timeClock = function() {
+			timeRemaining--;
+			console.log(timeRemaining + " seconds left");
+			if (timeRemaining < 10) {
+				timerText.innerHTML = ":0" + timeRemaining;
+			} else {
+				timerText.innerHTML = ":" + timeRemaining;
+			}
+			if (timeRemaining <= 0) {
+				started = false;
+				ended = true;
+			} else {
+				setTimeout(timeClock, 1000);
+			}
+		};
+		timeClock();
 	},
 	end:function () {
 		timeRemaining = 0;
@@ -479,23 +495,6 @@
 
 
 		if(started) {
-
-			timeCounter++ ;
-			if (timeCounter > this.time.fps) {
-				timeCounter = 0;
-				timeRemaining--;
-				//console.log(timeRemaining + " seconds left");
-				if(timeRemaining < 10) {
-				  timerText.innerHTML = ":0" + timeRemaining;
-				} else {
-          timerText.innerHTML = ":" + timeRemaining;
-				}
-
-				if(timeRemaining <= 0) {
-					started = false;
-					ended = true;
-				}
-			}
 
 			if (player != null) {
 				if (player.targetX == null && player.targetY == null) {
