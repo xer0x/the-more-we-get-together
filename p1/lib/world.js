@@ -159,6 +159,7 @@ function tick() {
   if (roundFinished !== lastTickState) {
     if (roundFinished) {
       messages.push('FINISHED %s', def);
+      messages.push('SCORES 1,2,3,4');
     } else {
       messages.push('START %s', secondsLeft);
     }
