@@ -6,6 +6,7 @@ var width = 10;
 var height = 11;
 var defaultRoundLength = 25
 var secondsForIntermission = 7
+var intenseSeconds = 4;
 var secondsLeft;
 var roundFinished = true;
 var lastTickState = null;
@@ -166,19 +167,26 @@ function tick() {
   if (!roundFinished) {
     lastScores = getScores();
     checker.checkShapes(players, grid);
+    if (secondsLeft == intenseSeconds) {
+      messages.push('COUNTDOWN ' + intenseSeconds);
+      messages.push(util.format('NAMES %s', getNameString()));
+      messages.push(util.format('SCORES %s', getScoreString()));
+    }
   }
   secondsLeft -= 1;
   //printScores();
   // if states between intermission && game:
   if (roundFinished !== lastTickState) {
     if (roundFinished) {
-      messages.push(util.format('FINISHED %s', secondsForIntermission));
+      messages.push(util.format('NAMES %s', getNameString()));
       messages.push(util.format('SCORES %s', getScoreString()));
-      messages.push(util.format('NAME %s', getNameString()));
+      messages.push(util.format('LEVELS %s', getLevelString()));
+      messages.push(util.format('FINISHED %s', secondsForIntermission));
     } else {
       messages.push(util.format('START %s', secondsLeft));
       messages.push(util.format('SHAPES %s', getShapeString()));
       messages.push(util.format('LEVELS %s', getLevelString()));
+      messages.push(util.format('NAMES %s',  getNameString()));
       messages.push(util.format('TOTALS %s', getTotalString()));
     }
   }

@@ -22,6 +22,7 @@
   var timerText;
   var scoreText;
   var scoreboard;
+  var topScores;
   var started;
   var ended;
   var myShape;
@@ -175,15 +176,10 @@
 
     create: function () {
 	  this.allPlayers = {};
-
+	  topScores = [];
 	  var nameText = document.getElementById("nameText");
 	  nameText.innerHTML = "Hi, " + phaserGame.playerName + "!";
-      //process initial messages
-	  /*
-	  while(window.messages.length > 0) {
-		this.processMessage(window.messages.shift());
-	  }
-	  */
+      
 
 	  cursors = this.input.keyboard.createCursorKeys();
 
@@ -207,7 +203,7 @@
 	  coinIndex = 0;
     },
 	start: function() {
-
+		topScores = [];
 		timeRemaining = startTime;
 		timeCounter = timeRemaining * this.time.fps;
 		started = true;
@@ -216,11 +212,11 @@
 	},
 	end:function () {
 		timeRemaining = 0;
+		this.getTopScores();
 		for (var i=0;i<coinGroup.length;i++) {
 			var c = coinGroup[i];
 			c.kill();
 		}
-		console.log(scoreboard);
 		scoreboard.style.display = "block";
 	},
   drawShape: function(shapeName){
@@ -326,12 +322,30 @@
 			break;
 
 			case "SCORES":
-			console.log(message);
-			var scoreData = command[1].split(",");
-			var id=scoreData[0];
-			var score = scoreData[1];
-			this.setScore(id,score);
+			var totalScores = command.length-1;
+			for (var i=1;i<=totalScores;i++) {
+				var scoreData = command[i].split(",");
+				var id = scoreData[0];
+				var score = scoreData[1];
+				this.setScore(id,score);
+			}
+			
 			break;
+			
+			
+			case "NAMES":
+			var totalNames = command.length-1;
+			for(var i = 1;i<=totalNames;i++) {
+				var nameData = command[i].split(",");
+				var id=nameData[0];
+				var name = nameData[1];
+				if(id != null && id != '' && name != '' && name != null) {
+				  this.allPlayers[id].name = name;
+				}
+				
+			}
+			break;
+			
 
 			case "SHAPE":
         var shapeName = command[1];
@@ -349,7 +363,7 @@
 
 			}
 			break;
-
+			
 			case "BING":
 			var bings = command.length-1;
       for (var i = 1;i<=bings;i++) {
@@ -369,6 +383,10 @@
           this.allPlayers[playerID].frame = Number(playerLevel);
         }
 			break;
+
+      case "COUNTDOWN":
+        phaserGame.sound.play('surprise1')
+      break;
 
 		}
 
@@ -665,6 +683,37 @@
 	},
 	getPlayerAt:function(xPosition, yPosition) {
 		return grid[xPosition][yPosition];
+	},
+	
+	getTopScores:function () {
+	  topScores = [];
+	  
+	  for(var p in this.allPlayers) {
+		var thisPlayer = this.allPlayers[p];
+		thisPlayer.score = Math.floor(Math.random() * 100);
+		
+		if(topScores.length == 0) {
+			topScores.push(thisPlayer);
+		} else {
+			var targetIndex = 0;
+			for(var i=0;i<topScores.length;i++) {
+				targetIndex = i;
+				var champion = topScores[i];
+				if (thisPlayer.score > champion.score) {
+					break;
+				}
+			}
+			topScores.splice(targetIndex,0,thisPlayer);
+		}
+	  }
+	  
+	  for (var i=0;i<topScores.length;i++) {
+		var playerName = document.getElementById("playerName"+Number(i+1));
+		playerName.innerHTML = " " +topScores[i].name;
+		var playerScore = document.getElementById("playerScore"+Number(i+1));
+	    playerScore.innerHTML = " " +topScores[0].score;
+	  }
+	 
 	}
   };
 }(this));
