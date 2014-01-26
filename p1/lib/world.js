@@ -4,7 +4,7 @@ var shapes = require('./shapes');
 
 var width = 10;
 var height = 11;
-var defaultRoundLength = 33
+var defaultRoundLength = 25
 var secondsForIntermission = 7
 var secondsLeft;
 var roundFinished = true;
@@ -168,7 +168,7 @@ function tick() {
     checker.checkShapes(players, grid);
   }
   secondsLeft -= 1;
-  printScores();
+  //printScores();
   // if states between intermission && game:
   if (roundFinished !== lastTickState) {
     if (roundFinished) {
@@ -196,11 +196,15 @@ function updateLevels() {
   var p;
   for (var id in players) {
     p = players[id];
-    if (p.score > 7) {
+    //console.log('before', id, p.level, p.score);
+    if (p.score > 0) {
       p.level = p.level + 1;
-    } else if (p.score == 0) {
-      p.level = p.level > 0 ? p.level - 1 : 0;
     }
+    // else if (p.score == 0) {
+    //  console.log('unlevel');
+    //  p.level = p.level > 0 ? p.level - 1 : 0;
+    //}
+    //console.log('after', id, p.level, p.score);
   }
 }
 

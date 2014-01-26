@@ -19,6 +19,14 @@
         var nameInput = document.getElementById("nameInput");
         nameInput.focus();
 
+        var self = this;
+
+        nameInput.addEventListener("keydown",function(e){
+          if(e.keyCode == 13){
+            self.processName();
+          }
+        });
+
 	  this.stage.backgroundColor="#FFFFFF";
       startBtn = document.getElementById("enterNameButton");
 	    startBtn.addEventListener("click", this.processName);
