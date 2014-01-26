@@ -126,8 +126,9 @@ html, body {
 
 #scoreboard {
   top: 100px;
-  left: 100px;
+  left: calc(50% - 200px);
   position: absolute;
+
   padding: 20px;
   background: rgba(36,105,29,.9);
   width: 400px;
