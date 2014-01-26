@@ -6,19 +6,24 @@
   var cubeWidth = 64;
   var cubeHeight = 64;
   var cubeOffset = 11;
+  var cubeOffsetY = 0;
+  var cubeOffsetX = 0;
   var cursors;
   var player;
   var allPlayers;
   var moveSpeed = 8;
   var playerOneId = "";
+  var builtGrid = false;
   
   var tmygt = window.tmygt || (window.tmygt = {});
   
   
   function isEmpty(xPos,yPos) {
-	if (grid[xPos][yPos] == 0) return true;
+	console.log("checking " + xPos + " / " + yPos);
+	if (grid != null && grid[xPos][yPos] == 0) return true;
 	else return false;
   }
+  
   tmygt.Game = function () {
   
   };
@@ -29,8 +34,6 @@
     create: function () {
 	  this.allPlayers = {};
 	  	  
-	  //sockjs.onmessage = this.processMessage;
-	  //window.messages = []; // clear out socks message queue
 	  //process initial messages
 	  while(window.messages.length > 0) {
 		this.processMessage(window.messages.shift());
@@ -39,9 +42,6 @@
 	  cursors = this.input.keyboard.createCursorKeys();
 	  
       this.camera.bounds = null;
-	  //this.buildGrid(32,32);
-	  
-	  //player = this.createPlayer("player1_id",0,0);
 	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
 	  //this.input.mouse.mouseUpCallback = this.onMouseUp;
     },
@@ -61,17 +61,22 @@
 			break;
 			
 			case "GRID":
-			var w = command[1];
-			var h = command[2];
-			var serverGrid = eval('('+command[3]+')');
-			
-			this.buildGrid(w,h, serverGrid);
+			if(!builtGrid) {
+				var w = command[1];
+				var h = command[2];
+				var serverGrid = eval('('+command[3]+')');
+				this.buildGrid(w,h, serverGrid);
+			} else {
+				this.checkGrid();
+			}
 			break;
 			
 			case "DROP":
 			var coords = command[1].split(",");
 			var playerToKill = this.getPlayerAt(coords[0], coords[1]);
+			grid[playerToKill.xPos][playerToKill.yPos] = 0;
 			playerToKill.kill();
+			
 			break;
 			
 			case "YOU":
@@ -126,7 +131,7 @@
 				}
 			}	
 		}
-		
+		builtGrid = true;
 	},
 	
     update: function () {
@@ -215,8 +220,8 @@
 		newPlayer.xPos = xPosition;
 		newPlayer.yPos = yPosition;
 		
-		newPlayer.x = xPosition * cubeWidth;
-		newPlayer.y = yPosition * cubeHeight-cubeOffset;
+		newPlayer.x = xPosition * cubeWidth-cubeOffsetX;
+		newPlayer.y = yPosition * cubeHeight-cubeOffset-cubeOffsetY;
 		newPlayer.targetX = null;
 		newPlayer.targetY = null;
 		newPlayer.score;
@@ -225,7 +230,7 @@
 		
 		newPlayer.moveRight = function () {
 			
-			if (this.xPos < gridWidth-1 && isEmpty(this.xPos+1,this.yPos)) {
+			if (this.xPos < gridWidth-1 && isEmpty(Number(this.xPos)+1,Number(this.yPos))) {
 				
 				grid[this.xPos][this.yPos] = 0;
 				this.xPos++;
@@ -239,7 +244,7 @@
 		}
 		
 		newPlayer.moveLeft = function () {
-			if(this.xPos > 0 && isEmpty(this.xPos-1,this.yPos)) {
+			if(this.xPos > 0 && isEmpty(Number(this.xPos)-1,Number(this.yPos))) {
 				grid[this.xPos][this.yPos] = 0;
 				this.xPos--;
 				grid[this.xPos][this.yPos] = this;
@@ -252,7 +257,7 @@
 		}
 		
 		newPlayer.moveDown = function () {
-			if(this.yPos < gridHeight-1  && isEmpty(this.xPos,this.yPos+1)) {
+			if(this.yPos < gridHeight-1  && isEmpty(Number(this.xPos),Number(this.yPos)+1)) {
 				grid[this.xPos][this.yPos] = 0;
 				this.yPos++;
 				grid[this.xPos][this.yPos] = this;
@@ -265,7 +270,7 @@
 		}
 		
 		newPlayer.moveUp = function () {
-			if (this.yPos > 0 && isEmpty(this.xPos,this.yPos-1)) {
+			if (this.yPos > 0 && isEmpty(Number(this.xPos),Number(this.yPos)-1)) {
 				grid[this.xPos][this.yPos] = 0;
 				this.yPos--;
 				grid[this.xPos][this.yPos] = this;
@@ -278,8 +283,8 @@
 		
 		newPlayer.moveTo = function(xPosition, yPosition) {
 			
-			this.targetY = yPosition*cubeHeight-cubeOffset;
-			this.targetX = xPosition*cubeWidth;
+			this.targetY = yPosition*cubeHeight-cubeOffset-cubeOffsetY;
+			this.targetX = xPosition*cubeWidth-cubeOffsetX;
 			
 			grid[this.xPos][this.yPos] = 0;
 			this.xPos = xPosition;
