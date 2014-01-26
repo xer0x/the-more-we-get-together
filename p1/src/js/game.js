@@ -37,7 +37,7 @@
 	  
 	  //player = this.createPlayer("player1_id",0,0);
 	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
-	  this.input.mouse.mouseUpCallback = this.onMouseUp;
+	  //this.input.mouse.mouseUpCallback = this.onMouseUp;
     },
 	processMessage: function (message) {
 		
@@ -64,6 +64,9 @@
 			
 			case "DROP":
 			var coords = command[1].split(",");
+			var playerToKill = this.getPlayerAt(coords[0], coords[1]);
+			playerToKill.kill();
+			break;
 			
 			case "YOU":
 			this.playerOneId = command[1];
@@ -71,11 +74,17 @@
 			break;
 			
 			case "MOVE":
-			
 			var prevCoords = command[1];
 			var newCoords = command[2];
 			var id = command[3];
+			var playerToMove = this.allPlayers[id];
+			console.log("lets move " + playerToMove);
 			
+			if (playerToMove != 0) {
+				newCoords = newCoords.split(",");
+				playerToMove.moveTo(newCoords[0],newCoords[1]);
+			}
+			/*
 			if (id != this.playerOneId && prevCoords != newCoords) {
 				prevCoords = prevCoords.split(",");
 				newCoords = newCoords.split(",");
@@ -87,22 +96,26 @@
 				
 				var playerToMove = this.getPlayerAt(oldX,oldY);
 				
-				if (newX != oldX) {
-					// horizontal move
-					if (oldX < newX) {
-						playerToMove.moveRight();
+				if(playerToMove != 0) {
+					if (newX != oldX) {
+						// horizontal move
+						if (oldX < newX) {
+							playerToMove.moveRight();
+						} else {
+							playerToMove.moveLeft();
+						}
 					} else {
-						playerToMove.moveLeft();
-					}
-				} else {
-					// vertical move
-					if(oldY < newY) {
-						playerToMove.moveDown();
-					} else {
-						playerToMove.moveUp();
+						// vertical move
+						if(oldY < newY) {
+							playerToMove.moveUp();
+						} else {
+							playerToMove.moveDown();
+						}
 					}
 				}
+				
 			}
+			*/
 			break;
 			
 		}
@@ -116,24 +129,28 @@
 		var worldWidth = gridWidth * cubeWidth;
 	    var worldHeight = gridHeight * cubeHeight;
 		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
-		
 		var g  = this.add.graphics(0, 0);
 		g.lineStyle(2,0xd0dee9,1);
 	  
-		  for (var i=0;i<=gridWidth;i++) {
-			grid[i] = [];
+		// draw grid
+		for (var i=0;i<=gridWidth;i++) {
 			g.moveTo(i*cubeWidth,0);
 			g.lineTo(i*cubeWidth,worldHeight);
-			
 			for(var j=0;j<= gridHeight;j++) {
-				grid[i][j] = 0;
-				
 				g.moveTo(0,j*cubeHeight);
 				g.lineTo(worldWidth,j*cubeHeight);
 			}
-			
-		  }
-		  
+		}
+		// populate grid
+		for (var i=0;i<gridWidth;i++) {
+			grid[i] = [];
+			for(var j=0;j< gridHeight;j++) {
+				grid[i][j] = 0;
+				if (serverGrid[i][j] != 0) {
+					this.createPlayer(serverGrid[i][j], i,j);
+				}
+			}	
+		}
 		
 	},
 	
@@ -142,6 +159,7 @@
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
 		}
+		
 		if (player != null) {
 			
 			if (player.targetX == null && player.targetY == null) {
@@ -155,33 +173,39 @@
 					player.moveUp();
 				}
 			}
-			if (player.targetY != null) {
-				if (player.targetY > player.y) {
-					player.y += moveSpeed;
-					if (player.y >= player.targetY) {
-						player.y = player.targetY;
-						player.targetY = null;
+		}
+		
+		for(var p in this.allPlayers) {
+			var thisPlayer = this.allPlayers[p];
+			if (thisPlayer.targetY != null) {
+				if (thisPlayer.targetY > thisPlayer.y) {
+					thisPlayer.y += moveSpeed;
+					if (thisPlayer.y >= thisPlayer.targetY) {
+						thisPlayer.y = thisPlayer.targetY;
+						thisPlayer.targetY = null;
 					} 
-				} else if (player.targetY < player.y) {
-					player.y -= moveSpeed;
-					if (player.y <= player.targetY) {
-						player.y = player.targetY;
-						player.targetY = null;
+				} else if (thisPlayer.targetY < thisPlayer.y) {
+					thisPlayer.y -= moveSpeed;
+					if (thisPlayer.y <= thisPlayer.targetY) {
+						thisPlayer.y = thisPlayer.targetY;
+						thisPlayer.targetY = null;
 					}
 				}
 				
-			} else if (player.targetX != null) {
-				if (player.targetX > player.x) {
-					player.x += moveSpeed;
-					if (player.x >= player.targetX) {
-						player.x = player.targetX;
-						player.targetX = null;
+			}
+
+			if (thisPlayer.targetX != null) {
+				if (thisPlayer.targetX > thisPlayer.x) {
+					thisPlayer.x += moveSpeed;
+					if (thisPlayer.x >= thisPlayer.targetX) {
+						thisPlayer.x = thisPlayer.targetX;
+						thisPlayer.targetX = null;
 					} 
-				} else if (player.targetX < player.x) {
-					player.x -= moveSpeed;
-					if (player.x <= player.targetX) {
-						player.x = player.targetX;
-						player.targetX = null;
+				} else if (thisPlayer.targetX < thisPlayer.x) {
+					thisPlayer.x -= moveSpeed;
+					if (thisPlayer.x <= thisPlayer.targetX) {
+						thisPlayer.x = thisPlayer.targetX;
+						thisPlayer.targetX = null;
 					}
 				}
 			}
@@ -190,6 +214,7 @@
     },
 	
     onMouseUp: function (event) {
+		
 		if (player != null) {
 			
 			var dx = this.input.activePointer.worldX - player.x;
@@ -221,13 +246,15 @@
 		newPlayer.targetY = null;
 		newPlayer.score;
 		newPlayer.inWorld = true;
+		newPlayer.grid = grid;
 		
 		newPlayer.moveRight = function () {
 			
-			if (player.xPos < gridWidth-1) {
-				grid[player.xPos][player.yPos] = null;
+			if (this.xPos < gridWidth-1) {
+				
+				grid[this.xPos][this.yPos] = null;
 				this.xPos++;
-				grid[player.xPos][player.yPos] = player;
+				grid[this.xPos][this.yPos] = this;
 				this.targetX = this.x + cubeWidth;
 				sockjs.send("MOVE RIGHT");
 				return true;
@@ -237,10 +264,10 @@
 		}
 		
 		newPlayer.moveLeft = function () {
-			if(player.xPos > 0) {
-				grid[player.xPos][player.yPos] = null;
+			if(this.xPos > 0) {
+				grid[this.xPos][this.yPos] = null;
 				this.xPos--;
-				grid[player.xPos][player.yPos] = player;
+				grid[this.xPos][this.yPos] = this;
 				this.targetX = this.x - cubeWidth;
 				sockjs.send("MOVE LEFT");
 				return true;
@@ -250,11 +277,11 @@
 		}
 		
 		newPlayer.moveDown = function () {
-			if(player.yPos < gridHeight-1) {
-				grid[player.xPos][player.yPos] = null;
-				player.yPos++;
-				grid[player.xPos][player.yPos] = player;
-				player.targetY = player.y + cubeHeight;
+			if(this.yPos < gridHeight-1) {
+				grid[this.xPos][this.yPos] = null;
+				this.yPos++;
+				grid[this.xPos][this.yPos] = this;
+				this.targetY = this.y + cubeHeight;
 				sockjs.send("MOVE DOWN");
 				return true;
 			}
@@ -263,13 +290,27 @@
 		}
 		
 		newPlayer.moveUp = function () {
-			if (player.yPos > 0) {
-				player.yPos--;
-				player.targetY = player.y - cubeHeight;
+			if (this.yPos > 0) {
+				grid[this.xPos][this.yPos] = null;
+				this.yPos--;
+				grid[this.xPos][this.yPos] = this;
+				this.targetY = this.y - cubeHeight;
 				sockjs.send("MOVE UP");
 				return true;
 			}
 			return false;
+		}
+		
+		newPlayer.moveTo = function(xPosition, yPosition) {
+			
+			this.targetY = yPosition*cubeHeight-cubeOffset;
+			this.targetX = xPosition*cubeWidth;
+			
+			grid[this.xPos][this.yPos] = 0;
+			this.xPos = xPosition;
+			this.yPos = yPosition;
+			grid[this.xPos][this.yPos] = this;
+			
 		}
 		
 		this.allPlayers[newPlayer.id] = newPlayer;
@@ -280,7 +321,6 @@
 	getPlayerAt:function(xPosition, yPosition) {
 		return grid[xPosition][yPosition];
 	}
-	
 	
 
   };
