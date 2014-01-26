@@ -230,6 +230,7 @@
 		timeClock();
 	},
 	end:function () {
+		phaserGame.sound.play('cheer1')
 		timeRemaining = 0;
 		this.getTopScores();
 		for (var i=0;i<coinGroup.length;i++) {
