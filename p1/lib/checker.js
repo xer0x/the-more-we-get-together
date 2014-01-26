@@ -4,7 +4,6 @@ var occupied = "X";
 
 function checkShapes(players, gameBoard) {
 
-
   var simpleBoard = translateBoard(gameBoard);
 
   //drawBoard(gameBoard);   // original
@@ -46,7 +45,7 @@ function checkShape(gameBoard, shape){
     for (var j = 0; j < rowLength; j++) {
       var space = row[j];
       if (space == occupied){
-        var blam = checkTile(shape, i, j, gameBoard);
+        var blam = checkTile(shape.shape, i, j, gameBoard);
         if (blam){
           winners.push(blam);
         }
@@ -80,6 +79,8 @@ function checkTile(shape, y, x, gameBoard) {
   var tileCount = 0;
   var matchCount = 0;
   var winners = [];
+
+
 
   for (var i = 0; i < shapeRowCount; i++) {
     var shapeRow = shape[i];
@@ -150,7 +151,7 @@ function drawBoard(gameBoard){
     }
     output += '\n';
   }
-  console.log(output)
+  // console.log(output)
 }
 
 // flip X & Y access and clone
@@ -193,35 +194,38 @@ function test() {
       shape : "simple",
       score: 0
     },
-    //3 : {
-      //name : "steve",
-      //x : 5,
-      //y : 3,
-      //shape : "square",
-      //score: 0
-    //},
-    //4 : {
-      //name : "ste33ve",
-      //x : 4,
-      //y : 3,
-      //shape : "square",
-      //score: 0
-    //},
-    //5 : {
-      //name : "sadsad",
-      //x : 6,
-      //y : 3,
-      //shape : "square",
-      //score: 0
-    //}
+    3 : {
+      name : "steve",
+      x : 5,
+      y : 3,
+      shape : "square",
+      score: 0
+    },
+    4 : {
+      name : "ste33ve",
+      x : 4,
+      y : 3,
+      shape : "square",
+      score: 0
+    },
+    5 : {
+      name : "sadsad",
+      x : 6,
+      y : 3,
+      shape : "square",
+      score: 0
+    }
   }
 
   var grid = buildBoard(16, players);
   drawBoard(grid);
-  var results = checkShapes(players, grid);
-  console.log(results);
+  assignAllPlayerShapes(players);
+  console.log("players");
+
+  // var results = checkShapes(players, grid);
+  // console.log(results);
 }
 
-//test();
+// test();
 
 module.exports = {checkShapes: checkShapes};

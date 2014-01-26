@@ -178,6 +178,7 @@ function printScores() {
 
 function reset() {
   makeGrid();
+  shapes.assignAllPlayerShapes(players);
   console.log('TODO: put players back on grid positions?');
 }
 
