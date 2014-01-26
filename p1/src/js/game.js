@@ -182,8 +182,15 @@
 			break;
 			
 			case "SHAPES":
-			//console.log(message);
-			var totalShapeUpdates = command.length;
+			var totalShapeUpdates = command.length-1;
+			for (var i = 1;i<=totalShapeUpdates;i++) {
+				var shapeData = command[i].split(",");
+				var id=shapeData[0];
+				var shape = shapeData[1];
+				if(id != null && id != '' && shape != '' && shape != null) 
+					myShape.innerHTML =  "Shape: " + shape;
+					
+			}
 			break;
 			
 			case "BING":
@@ -267,7 +274,6 @@
 		}
 	},
     bingPlayer:function(id,score) {
-	  console.log("bing" + id);
 	  
 	  if(this.allPlayers != null) {
 		var playerToBing = this.allPlayers[id];
