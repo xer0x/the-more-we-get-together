@@ -16,8 +16,14 @@
   var moveSpeed = 8;
   var playerOneId = "";
   var builtGrid = false;
+  var timeRemaining;
+  var startTime;
+  var timeCounter;
+  var timerText;
+  var scoreText;
+  var started;
+  var ended;
   
-
   var tmygt = window.tmygt || (window.tmygt = {});
 
   function isEmpty(xPos,yPos) {
@@ -48,6 +54,7 @@
 
     create: function () {
 	  this.allPlayers = {};
+	  
       
 	  //process initial messages
 	  while(window.messages.length > 0) {
@@ -59,9 +66,19 @@
       this.camera.bounds = null;
 	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
 	  this.input.mouse.mouseUpCallback = this.onMouseUp;
-
-
+	  
+	  timerText = document.getElementById("timerText");
+	  scoreText = document.getElementById("scoreText");
+	  
+	  startTime = 30;
+	  started = false;
+	  this.start();
     },
+	start: function() {
+		timeRemaining = startTime;
+		timeCounter = timeRemaining * this.time.fps;
+		started = true;
+	},
 	processMessage: function (message) {
 
 		var command = message.split(" ");
@@ -74,10 +91,12 @@
 			var newPlayer = this.createPlayer(id, coords[0], coords[1]);
 			if (newPlayer.id == this.playerOneId) {
 				player = newPlayer;
-				
-	  
 			}
-
+			break;
+			
+			case "START":
+			startTime = command[1];
+			this.start();
 			break;
 
 			case "GRID":
@@ -130,15 +149,18 @@
 		var worldWidth = gridWidth * cubeWidth;
 	    var worldHeight = gridHeight * cubeHeight;
 		this.game.world.setBounds(0, 0, worldWidth, worldHeight);
+		var backgroundGraphics = this.add.graphics(0,0);
+		
 		var g  = this.add.graphics(0, 0);
-
-		g.beginFill("0xDDDDDD");
-		g.drawRect(-1000, -1000, worldHeight + 2000, worldHeight + 2000);
+		
+		//g.beginFill("0xDDDDDD");
+		
+		//g.drawRect(0, 0, window.innerWidth, window.innerHeight);
 		g.beginFill("0xCCCCCC");
 		g.drawRect( -15, worldHeight + 30, worldHeight - 30 , 10);
 		g.beginFill("0xFFFFFF");
 		g.drawRect(-30, -30, worldHeight, worldHeight + 60);
-
+		
 		g.lineStyle(2,0xd0dee9,1);
 
 		// draw grid
@@ -182,7 +204,25 @@
 	},
 
     update: function () {
-
+		
+		if(started) {
+		
+			timeCounter++ ;
+			if (timeCounter > this.time.fps) {
+				timeCounter = 0;
+				timeRemaining--;
+				
+				//console.log(timeRemaining + " seconds left");
+				timerText.innerHTML = "Time: " + timeRemaining;
+				if(timeRemaining <= 0) {
+					started = false;
+					ended = true;
+					this.game.state.start('end');
+				}
+			}
+		
+		}
+		
 		if (window.messages.length > 0) {
 			this.processMessage(window.messages.shift());
 		}
