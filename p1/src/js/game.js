@@ -21,6 +21,7 @@
   var timeCounter;
   var timerText;
   var scoreText;
+  var scoreboard;
   var started;
   var ended;
   var myShape;
@@ -191,6 +192,7 @@
 	  timerText = document.getElementById("timerText");
 	  scoreText = document.getElementById("scoreText");
 	  myShape = document.getElementById("myShape");
+	  scoreboard = document.getElementById("scoreboard");
 	  startTime = 5;
 	  started = false;
 	  coinGroup = [];
@@ -210,6 +212,7 @@
 		timeCounter = timeRemaining * this.time.fps;
 		started = true;
 		ended = false;
+		scoreboard.style.display = "none";
 	},
 	end:function () {
 		//this.game.state.start('end');
@@ -218,6 +221,8 @@
 			var c = coinGroup[i];
 			c.kill();
 		}
+		console.log(scoreboard);
+		scoreboard.style.display = "block";
 	},
   drawShape: function(shapeName){
 
