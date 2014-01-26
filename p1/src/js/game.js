@@ -215,8 +215,7 @@
 		scoreboard.style.display = "none";
 	},
 	end:function () {
-		//this.game.state.start('end');
-		//console.log("end game");
+		timeRemaining = 0;
 		for (var i=0;i<coinGroup.length;i++) {
 			var c = coinGroup[i];
 			c.kill();
