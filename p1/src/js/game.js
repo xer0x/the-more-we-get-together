@@ -322,6 +322,7 @@
 			break;
 
 			case "SCORES":
+			
 			var totalScores = command.length-1;
 			for (var i=1;i<=totalScores;i++) {
 				var scoreData = command[i].split(",");
@@ -334,6 +335,7 @@
 			
 			
 			case "NAMES":
+			
 			var totalNames = command.length-1;
 			for(var i = 1;i<=totalNames;i++) {
 				var nameData = command[i].split(",");
@@ -686,29 +688,39 @@
 	  
 	  for(var p in this.allPlayers) {
 		var thisPlayer = this.allPlayers[p];
-		thisPlayer.score = Math.floor(Math.random() * 100);
-		
-		if(topScores.length == 0) {
-			topScores.push(thisPlayer);
-		} else {
-			var targetIndex = 0;
-			for(var i=0;i<topScores.length;i++) {
-				targetIndex = i;
-				var champion = topScores[i];
-				if (thisPlayer.score > champion.score) {
-					break;
-				}
-			}
-			topScores.splice(targetIndex,0,thisPlayer);
-		}
+		//thisPlayer.score = Math.floor(Math.random() * 100);
+		topScores.push(thisPlayer);	
 	  }
 	  
+	  var compare = function(a,b) {
+		  if (Number(a.score) < Number(b.score))
+			 return 1;
+		  if (Number(a.score) > Number(b.score))
+			return -1;
+		  return 0;
+		}
+		
+	  topScores.sort(compare);
+		
 	  for (var i=0;i<topScores.length;i++) {
 		var playerName = document.getElementById("playerName"+Number(i+1));
 		playerName.innerHTML = " " +topScores[i].name;
 		var playerScore = document.getElementById("playerScore"+Number(i+1));
-	    playerScore.innerHTML = " " +topScores[0].score;
+	    playerScore.innerHTML = " " +topScores[i].score;
+		
+		if (topScores[i].id == this.playerOneId) {
+			var p1place = document.getElementById("place");
+			if (i == 0) p1place.innerHTML = "1st";
+			else if (i == 1) p1place.innerHTML = "2nd";
+			else if (i == 2) p1place.innerHTML = "3rd";
+			else p1place.innerHTML = Number(i-1) + "th";
+			var p1points = document.getElementById("points");
+			p1points.innerHTML = topScores[i].score;
+		}
 	  }
+	  
+	 
+	  
 	 
 	}
   };
