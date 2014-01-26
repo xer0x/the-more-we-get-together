@@ -16,9 +16,10 @@
 
       this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
       this.load.setPreloadSprite(this.asset);
-      this.load.image('player', 'assets/sprites/blue_happy_64.png');
+      //this.load.image('player', 'assets/sprites/blue_happy_64.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
-	  
+	  this.load.spritesheet('player', 'assets/sprites/tile_sprites.png', 120, 110, 14);
+
     },
 
     create: function () {

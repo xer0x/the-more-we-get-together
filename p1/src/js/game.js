@@ -5,9 +5,9 @@
   var gridHeight = 32;
   var cubeWidth = 64;
   var cubeHeight = 64;
-  var cubeOffset = 11;
-  var cubeOffsetY = 0;
-  var cubeOffsetX = 0;
+  var cubeOffset = 0;
+  var cubeOffsetY = 45;
+  var cubeOffsetX = 28;
   var cursors;
   var player;
   var allPlayers;
@@ -19,7 +19,6 @@
   
   
   function isEmpty(xPos,yPos) {
-	console.log("checking " + xPos + " / " + yPos);
 	if (grid != null && grid[xPos][yPos] == 0) return true;
 	else return false;
   }
@@ -44,6 +43,13 @@
       this.camera.bounds = null;
 	  this.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
 	  //this.input.mouse.mouseUpCallback = this.onMouseUp;
+	  
+	  //var sprite = this.add.sprite(0, 0, 'playerLevels');
+
+		//sprite.animations.add('walk');
+		//sprite.frame = 3;
+		//sprite.animations.play('walk', 50, true);
+
     },
 	processMessage: function (message) {
 		
@@ -227,7 +233,7 @@
 		newPlayer.score;
 		newPlayer.inWorld = true;
 		newPlayer.grid = grid;
-		
+		newPlayer.frame = Math.floor(Math.random() * 14) + 1;
 		newPlayer.moveRight = function () {
 			
 			if (this.xPos < gridWidth-1 && isEmpty(Number(this.xPos)+1,Number(this.yPos))) {
