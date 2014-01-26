@@ -23,6 +23,7 @@
   var scoreText;
   var scoreboard;
   var topScores;
+  var scoreIcon;
   var started;
   var ended;
   var myShape;
@@ -201,6 +202,8 @@
 			coin.scaleVX = 0;
 		}
 	  coinIndex = 0;
+	  
+	  
     },
 	start: function() {
 		topScores = [];
@@ -723,7 +726,7 @@
 		}
 	  }
 	  
-	 
+	  
 	  
 	 
 	}
