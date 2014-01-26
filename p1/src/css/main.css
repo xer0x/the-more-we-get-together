@@ -38,7 +38,6 @@ html, body {
 #scoreText {
 	bottom:1em;
 	right:1em;
-
   padding: 10px;
   -webkit-transform: rotate(-3deg);
   -moz-transform: rotate(-3deg);
@@ -105,4 +104,89 @@ html, body {
   text-decoration: none;
 }
 
+#scoreboard {
+  top: 100px;
+  left: 100px;
+  position: absolute;
+  padding: 20px;
+  background: rgba(36,105,29,.9);
+  width: 400px;
+  color: white;
+  font-family: helvetica,arial;
+  -webkit-transform: rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+}
 
+#scoreboard #playerSprite {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: #3684b4;
+  -webkit-transform: rotate(5deg);
+  -moz-transform: rotate(5deg);
+}
+
+#scoreboard h1 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+#scoreboard #place {
+  font-size: 80px;
+  position: relative;
+  top: 5px;
+}
+
+#scoreboard #points {
+  font-size: 25px;
+  font-weight: normal;
+  color: rgba(255,255,255,.7);
+}
+
+#scoreboard #standings {
+  font-size: 25px;
+  font-weight: normal;
+  color: rgba(255,255,255,.7);
+  border-top: solid 5px #1d6216;
+  margin-top: 30px;
+  padding-top: 15px;
+
+}
+
+
+#scoreboard #standings #standing {
+  padding: 10px 0;
+  border-bottom: solid 4px #1d6216;
+}
+
+
+#scoreboard #standings #standing:last-child {
+  padding: 10px 0;
+  border: none;
+}
+
+
+#scoreboard #standings #standing div {
+  float: left;
+}
+
+#scoreboard #standings #standing #playerScore {
+  float: right;
+}
+
+#scoreboard #standings #standing #playerName {
+  color: white;
+}
+
+
+#scoreboard #standings #standing #playerPlace {
+  width: 60px;
+}
+
+
+#scoreboard #standings #standing {
+  overflow: auto;
+}

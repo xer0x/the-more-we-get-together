@@ -40,8 +40,10 @@
   <div id="timerText" class="uiText"></div>
   <div id="scoreText" class="uiText"></div>
   <div id="nameText" class="uiText"></div>
-  
+
   <div id="enterName">
+
+
     <div id="name-ui">
       <input id="nameInput" type="text" value="Enter Your Name..." onfocus="clearDefault(this)" onblur="restoreDefault(this)" />
       <a href="#" id="enterNameButton" name="submit">Play!</a>
@@ -52,6 +54,34 @@
         <a href="http://twitter.com/flukeout">@flukeout</a>
       </div>
     </div>
+
+    <div id="scoreboard">
+      <h1>Nice round!</h1>
+      <div id="place">3rd</div>
+      <div id="points">With 22 Points</div>
+      <div id="playerSprite"></div>
+
+      <div id="standings">
+        <div id="standing">
+          <div id="playerPlace">1st</div>
+          <div id="playerName">Bob</div>
+          <div id="playerScore">40 Points</div>
+        </div>
+        <div id="standing">
+          <div id="playerPlace">2nd</div>
+          <div id="playerName">Bob</div>
+          <div id="playerScore">30 Points</div>
+        </div>
+        <div id="standing">
+          <div id="playerPlace">3rd</div>
+          <div id="playerName">Bob</div>
+          <div id="playerScore">20 Points</div>
+        </div>
+      </div>
+
+
+    </div>
+
 
   </div>
   <!-- build:remove
