@@ -178,7 +178,7 @@ function tick() {
       messages.push(util.format('SHAPES %s', getShapeString()));
       messages.push(util.format('LEVELS %s', getLevelString()));
       messages.push(util.format('TOTALS %s', getTotalString()));
-      message.push(util.format('BING %s', getBingString()));
+      messages.push(util.format('BING %s', getBingString()));
     }
   }
   lastTickState = roundFinished;
