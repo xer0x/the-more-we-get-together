@@ -2,7 +2,7 @@
 
 ## Info
 
-This multiplayer game was built for [Global Game Jam 2014](http://globalgamejam.org/2014). You control one square. One very cute square. You get points for making shapes with other people's squares. Your avatar will change if gain points during a round. Other players may not always be cooperative, because to win the round they may need to make a different shape than you do. [You can view our entry on the Game Jam website](http://globalgamejam.org/2014/games/more-we-get-together).
+This multiplayer game was built for [Global Game Jam 2014](http://globalgamejam.org/2014). You control one square. One very cute square. You get points for making shapes with other people's squares. Your avatar will change after a round if can gain points. Other players may not always be cooperative, because to win the round they may need to make a different shape than you do. [You can view our entry on the Game Jam website](http://globalgamejam.org/2014/games/more-we-get-together).
 
 ## Play
 
