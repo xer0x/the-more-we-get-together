@@ -1,29 +1,28 @@
-## Phaser Project-One
+# The More We Get Together
 
-Following this tutorial: http://phaser.io/getting-started-js.php
+## Info
 
-So far, we've only got the scaffolding installed. It has setup the HTML and a emtpy-ish demo game.
+This multiplayer game was built for [Global Game Jam 2014](http://globalgamejam.org/2014). You control one square. One very cute square. You get points for making shapes with other people's squares. Your avatar will change if gain points during a round. Other players may not always be cooperative, because to win the round they may need to make a different shape than you do. [You can view our entry on the Game Jam website](http://globalgamejam.org/2014/games/more-we-get-together).
 
+## Play
 
-### Setting up a new Phaser template on OSX
+[Click here to play](http://lab3.sluglab.com:9999/) on an empty server. We recommending inviting a few friends to try it out at the same time.
 
-sudo npm install -g yo
-# ^^ this will also install Grunt & Bower's CLI tools
+## Install
 
-# Install Phaser scaffolding for Yeoman via npm
-sudo npm install -g generator-phaser
+```
+# If you'd like to play locally or make changes you can!
 
-# Initialize game directory
-mkdir project
-cd project
-yo phaser
+git clone xer0x/beginning
+cd p1
+npm install
+node server
+    
+# Open http://localhost:9999 in the Chrome web browser
+```
 
-# Serve game files via http server (See Gruntfile.coffee)
-grunt
+## Credits
 
-# Check out the smiley face demo "game"
-http://localhost:9000
+This game is the hard work of [@flukeout](http://twitter.com/flukeout) [@arawkins](http://twitter.com/arawkins) and [@xer0x](http://twitter.com/xer0x) with music by [@djdain](http://twitter.com/djdain) and voices by [@capnxez](http://twitter.com/capnxez). 
 
-### Next steps?
-
-This tutorial looks promising. I'm sure there are others. This fascination with "TypeScript" seems dodgy.
+This game uses the [Phaser HTML5](http://phaser.io/) game engine.
